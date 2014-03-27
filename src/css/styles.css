@@ -1,0 +1,31 @@
+body {
+    padding-top:50px;
+}
+
+.affix-top,.affix{
+    position: static;
+}
+
+@media (min-width: 979px) {
+    #sidebar.affix-top {
+        position: static;
+        margin-top:30px;
+        width:228px;
+    }
+
+    #sidebar.affix {
+        position: fixed;
+        top:70px;
+        width:228px;
+    }
+}
+
+#sidebar li {
+    padding-left:4px;
+}
+
+#sidebar li.active {
+    border:0 #eee solid;
+    padding-left: 0px;
+    border-left-width:4px;
+}
