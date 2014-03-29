@@ -4,28 +4,59 @@ body {
 
 .affix-top,.affix{
     position: static;
+    margin-top: 10px;
 }
 
 @media (min-width: 979px) {
-    #sidebar.affix-top {
+    .affix-top {
         position: static;
         margin-top:30px;
         width:228px;
     }
 
-    #sidebar.affix {
+    .affix {
         position: fixed;
         top:70px;
         width:228px;
     }
 }
 
-#sidebar li {
-    padding-left:4px;
+/* 
+ * Transactions Module
+ */
+.transactions {
+    margin: 20px 0 0 0;
+    padding: 0;
 }
 
-#sidebar li.active {
-    border:0 #eee solid;
-    padding-left: 0px;
-    border-left-width:4px;
+.transactions p {
+    margin: 0 0 10px 0;
+}
+
+.transactions .description {
+    font-size: 130%;
+    margin-bottom: 0;
+}
+
+.uncleared {
+    font-style: italic;
+    color: #888;
+}
+
+.trash span {
+    margin-top: 3px;
+}
+
+.amount { font-weight: bold; white-space: nowrap; }
+
+.Debit .amount:before {
+    content: "-$";
+}
+
+.Credit .amount {
+    color: green;
+}
+
+.Credit .amount:before {
+    content: "$";
 }

@@ -3,7 +3,7 @@
  */
 $(document).ready(function () {
 
-	$('#sidebar').affix();
+    $('.sidebar').affix();
 
 
 });
