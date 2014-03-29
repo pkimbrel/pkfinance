@@ -2,6 +2,9 @@ body {
     padding-top:50px;
 }
 
+/*
+ * Left Nav control
+ */
 .affix-top,.affix{
     position: static;
     margin-top: 10px;
@@ -21,6 +24,20 @@ body {
     }
 }
 
+/*
+ * Pay period module
+ */
+.pay-period em {
+    color: #f08;
+}
+
+.pay-period .display-period { margin: 5px; }
+
+/*
+ * Balance Module
+ */
+
+
 /* 
  * Transactions Module
  */
@@ -31,11 +48,17 @@ body {
 
 .transactions p {
     margin: 0 0 10px 0;
+    border-bottom: 0;
 }
 
 .transactions .description {
     font-size: 130%;
     margin-bottom: 0;
+}
+
+.transactions input, .transactions select {
+    font-style: normal;
+    color: black;
 }
 
 .uncleared {
@@ -61,8 +84,3 @@ body {
     content: "$";
 }
 
-.transactions input, .transactions select {
-    font-style: normal;
-    color: black;
-    font-size: 1.1em;
-}

@@ -4,16 +4,23 @@
 $(document).ready(function () {
 
     $('.sidebar').affix();
-    $.fn.editable.defaults.mode = 'inline';
+    $.fn.editable.defaults.mode = "inline";
+    $.fn.editable.defaults.inputclass = "";
     $.fn.editable.defaults.ajaxOptions = {
         type: "GET"
     };
 
-    var categories = ["cat1","cat2"];
+    var categories = ["Life Insurance","cat2"];
     var updateUrl = "controller/transactions/" + $("#account").val() + "-" + $("#month option:selected").text() + "/update";
 
     $(".transactions .date").editable({
-        "type": "date",
+        type: "text",
+        validate: function (value) {
+            if (!moment(value).isValid()) {
+                return "Please format date YYYY-MM-DD";
+            }
+
+        },
         url: updateUrl,
         success: function () {
             readTransactions();
