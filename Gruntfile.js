@@ -1,3 +1,4 @@
+console.log(process.env);
 module.exports = function (grunt) {
 
     // Project configuration.
@@ -9,14 +10,14 @@ module.exports = function (grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'src/**/*.js',
-                dest: 'dist/<%= pkg.name %>.min.js'
+                src: 'test/**/*.js',
+                dest: 'dist/js/<%= pkg.name %>.min.js'
             }
         },
         cssmin: {
             minify: {
                 src: "src/**/*.css",
-                dest: "dist/<%= pkg.name %>.min.css"
+                dest: "dist/css/<%= pkg.name %>.min.css"
             }
         },
         concat: {
@@ -31,13 +32,29 @@ module.exports = function (grunt) {
                         'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
                         'bower_components/x-editable/dist/bootstrap3-editable/css/bootstrap-editable.css'
                     ],
-                    'dist/js/lib.js': [
-                        'bower_components/jQuery/dist/jquery.min.js',
+                    'dist/js/lib.min.js': [
+                        'bower_components/jquery/dist/jquery.min.js',
                         'bower_components/bootstrap/dist/js/bootstrap.min.js',
                         'bower_components/moment/min/moment.min.js',
-                        'bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js'
+                        'bower_components/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.min.js'
                     ]
                 }
+            }
+        },
+        copy: {
+            fonts: {
+                expand: true,
+                cwd: 'bower_components/bootstrap/dist/fonts/',
+                src: '**',
+                dest: 'dist/fonts/',
+                flatten: true,
+                filter: 'isFile'
+            },
+            html: {
+                expand: true,
+                cwd: 'src/html/',
+                src: '*.html',
+                dest: 'dist/'
             }
         },
         s3: {
@@ -48,12 +65,13 @@ module.exports = function (grunt) {
             },
             staging: {
                 options: {
-                    bucket: 'staging.finances.paulkimbrel.com'
+                    bucket: 'staging.finance.paulkimbrel.com'
                 },
                 upload: [
                     {
                         src: 'dist/**/*.*',
-                        dest: '/'
+                        dest: '/',
+                        rel: 'dist'
                     }
                 ]
             },
@@ -76,9 +94,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-s3');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy']);
     grunt.registerTask('stage', ['default', 's3:staging']);
 
 };
