@@ -4,6 +4,7 @@
 $(document).ready(function () {
 
     $('.sidebar').affix();
+
     $.fn.editable.defaults.mode = 'inline';
     $.fn.editable.defaults.ajaxOptions = {
         type: "GET"

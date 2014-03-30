@@ -1,6 +1,12 @@
-body {
-    padding-top:50px;
-}
+ body { padding-top:50px; }
+
+.amount { font-weight: bold; white-space: nowrap; text-align: right; padding-right: 0;}
+.amount:before { content: "$"; }
+
+.bad .amount { color: #b00; }
+.bad .amount:before { content: "-$"; }
+
+.good .amount { color: green; }
 
 /*
  * Left Nav control
@@ -31,7 +37,9 @@ body {
     color: #f08;
 }
 
-.pay-period .display-period { margin: 5px; }
+.pay-period .display-period {
+    margin: 5px;
+}
 
 /*
  * Balance Module
@@ -48,7 +56,6 @@ body {
 
 .transactions p {
     margin: 0 0 10px 0;
-    border-bottom: 0;
 }
 
 .transactions .description {
@@ -70,8 +77,6 @@ body {
     margin-top: 3px;
 }
 
-.amount { font-weight: bold; white-space: nowrap; }
-
 .Debit .amount:before {
     content: "-$";
 }
@@ -80,7 +85,10 @@ body {
     color: green;
 }
 
-.Credit .amount:before {
-    content: "$";
+/*
+ * A Flagrant Disregard for Good Form
+ */
+.editable-click, a.editable-click, a.editable-click:hover {
+    border-bottom: 0;
 }
 
