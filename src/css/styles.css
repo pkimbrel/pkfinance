@@ -1,94 +1,100 @@
- body { padding-top:50px; }
-
-.amount { font-weight: bold; white-space: nowrap; text-align: right; padding-right: 0;}
-.amount:before { content: "$"; }
-
-.bad .amount { color: #b00; }
-.bad .amount:before { content: "-$"; }
-
-.good .amount { color: green; }
-
-/*
+ body {
+     padding-top: 50px;
+ }
+ .amount {
+     font-weight: bold;
+     white-space: nowrap;
+     text-align: right;
+     padding-right: 0;
+ }
+ .amount:before {
+     content: "$";
+ }
+ .bad .amount {
+     color: #b00;
+ }
+ .bad .amount:before {
+     content: "-$";
+ }
+ .good .amount {
+     color: green;
+ }
+ /*
  * Left Nav control
  */
-.affix-top,.affix{
-    position: static;
-    margin-top: 10px;
-}
-
-@media (min-width: 979px) {
-    .affix-top {
-        position: static;
-        margin-top:30px;
-        width:200px;
-    }
-
-    .affix {
-        position: fixed;
-        top:70px;
-        width:200px;
-    }
-}
-
-/*
+ .affix-top,
+ .affix {
+     position: static;
+     margin-top: 10px;
+ }
+ @media (min-width: 979px) {
+     .affix-top {
+         position: static;
+         margin-top: 30px;
+         width: 200px;
+     }
+     .affix {
+         position: fixed;
+         top: 70px;
+         width: 200px;
+     }
+ }
+ /*
  * Pay period module
  */
-.pay-period em {
-    color: #f08;
-}
-
-.pay-period .display-period {
-    margin: 5px;
-}
-
-/*
+ .pay-period em {
+     color: #f08;
+ }
+ .pay-period .display-period {
+     margin: 5px;
+ }
+ /*
  * Balance Module
  */
-
-
-/* 
+ .balance div {
+     padding: 0;
+     margin: 0;
+ }
+ .balance .amount {
+     font-size: 1.2em;
+ }
+ /*
  * Transactions Module
  */
-.transactions {
-    margin: 20px 0 0 0;
-    padding: 0;
-}
-
-.transactions p {
-    margin: 0 0 10px 0;
-}
-
-.transactions .description {
-    font-size: 130%;
-    margin-bottom: 0;
-}
-
-.transactions input, .transactions select {
-    font-style: normal;
-    color: black;
-}
-
-.uncleared {
-    font-style: italic;
-    color: #888;
-}
-
-.trash span {
-    margin-top: 3px;
-}
-
-.Debit .amount:before {
-    content: "-$";
-}
-
-.Credit .amount {
-    color: green;
-}
-
-/*
+ .transactions {
+     margin: 20px 0 0 0;
+     padding: 0;
+ }
+ .transactions p {
+     margin: 0 0 10px 0;
+ }
+ .transactions .description {
+     font-size: 130%;
+     margin-bottom: 0;
+ }
+ .transactions input,
+ .transactions select {
+     font-style: normal;
+     color: black;
+ }
+ .uncleared {
+     font-style: italic;
+     color: #888;
+ }
+ .trash span {
+     margin-top: 3px;
+ }
+ .Debit .amount:before {
+     content: "-$";
+ }
+ .Credit .amount {
+     color: green;
+ }
+ /*
  * A Flagrant Disregard for Good Form
  */
-.editable-click, a.editable-click, a.editable-click:hover {
-    border-bottom: 0;
-}
-
+ .editable-click,
+ a.editable-click,
+ a.editable-click:hover {
+     border-bottom: 0;
+ }
