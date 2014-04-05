@@ -12,3 +12,13 @@ $(document).ready(function () {
 
 
 });
+
+var pkfinance = angular.module('pkfinance', []);
+
+pkfinance.controller('Transactions', function ($scope, $http) {
+    $http.get('../data/Checking-2014-03.json').success(function (data) {
+        $scope.startingBalance = data.startingBalance;
+        $scope.transactions = data.transactions;
+    });
+    $scope.order = ["cleared", "date"];
+});

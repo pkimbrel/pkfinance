@@ -7,14 +7,11 @@
      text-align: right;
      padding-right: 0;
  }
- .amount:before {
-     content: "$";
- }
  .bad .amount {
      color: #b00;
  }
  .bad .amount:before {
-     content: "-$";
+     content: "-";
  }
  .good .amount {
      color: green;
@@ -85,7 +82,7 @@
      margin-top: 3px;
  }
  .Debit .amount:before {
-     content: "-$";
+     content: "-";
  }
  .Credit .amount {
      color: green;
