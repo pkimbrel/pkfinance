@@ -123,9 +123,9 @@
                             <th width="1%"></th>
                         </tr>
                         <tr ng-repeat="transaction in transactions | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
-                            <td class="date" data-pk="{{transaction.tranid}}" data-name="date" data-value="{{transaction.date}}">{{transaction.date}}</td>
+                            <td class="date" editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</td>
                             <td>
-                                <p class="description" editable-text="transaction.description">{{transaction.description}}</p>
+                                <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
                                 <p class="category" data-pk="{{transaction.tranid}}" data-name="category" data-value="{{transaction.category}}">{{transaction.category}}</p>
                             </td>
                             <td class="hidden-phone transactionType" data-pk="{{transaction.tranid}}" data-name="type" data-value="{{transaction.type}}">{{transaction.type}}</td>
