@@ -5,23 +5,25 @@ $(document).ready(function () {
 
     $('.sidebar').affix();
 
-    $.fn.editable.defaults.mode = 'inline';
-    $.fn.editable.defaults.ajaxOptions = {
-        type: "GET"
-    };
-
-
 });
 
-var pkfinance = angular.module('pkfinance', []);
+var pkfinance = angular.module('pkfinance', ['xeditable']);
+
+pkfinance.run(function (editableOptions) {
+    editableOptions.theme = 'bs3';
+});
 
 pkfinance.controller('Transactions', function ($scope, $http) {
     $http.get('../data/Checking-2014-03.json').success(function (data) {
         $scope.startingBalance = data.startingBalance;
         $scope.transactions = data.transactions;
     });
-    $scope.order = ["cleared", "date"];
-    $scope.$watch('transactions', function () {
-        console.log($scope.transactions);
+
+    $scope.order = ["cleared", "-date"];
+
+    $scope.$watch('description', function (newVal, oldVal) {
+        if (newVal !== oldVal) {
+            alert(newVal);
+        }
     });
 });

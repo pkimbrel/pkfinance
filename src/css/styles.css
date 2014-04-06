@@ -88,10 +88,11 @@
      color: green;
  }
  /*
- * A Flagrant Disregard for Good Form
+ * An now, my "Flagrant Disregard for Good Form"
  */
  .editable-click,
  a.editable-click,
  a.editable-click:hover {
      border-bottom: 0;
+     color: inherit;
  }
