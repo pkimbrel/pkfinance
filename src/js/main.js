@@ -21,4 +21,7 @@ pkfinance.controller('Transactions', function ($scope, $http) {
         $scope.transactions = data.transactions;
     });
     $scope.order = ["cleared", "date"];
+    $scope.$watch('transactions', function () {
+        console.log($scope.transactions);
+    });
 });
