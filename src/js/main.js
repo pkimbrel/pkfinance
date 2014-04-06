@@ -23,7 +23,7 @@ pkfinance.factory('validators', function ($q, $http) {
     };
 });
 
-pkfinance.factory('dataManager', function ($q, $http) {
+pkfinance.factory('dataManager', function ($scope, $q, $http) {
     return {
         "updateCheckbook": function (field, data, id) {
             var deferred = $q.defer();
@@ -47,12 +47,17 @@ pkfinance.factory('dataManager', function ($q, $http) {
                 $scope.startingBalance = data.startingBalance;
                 $scope.transactions = data.transactions;
             });
+        },
+        "readCategories": function ($scope) {
+            $http.get('../data/categories.json').success(function (data) {
+                $scope.categories = data.categories;
+            });
         }
     };
 });
 
 
-pkfinance.run(function (editableOptions) {
+pkfinance.run(function (editableOptions, dataManager) {
     $('.sidebar').affix();
     editableOptions.theme = 'bs3';
 });
@@ -64,6 +69,7 @@ pkfinance.controller('Transactions', function ($scope, $q, validators, dataManag
         "description": validators.skipValidation
     };
 
+    //dataManager.readCategories($scope);
     dataManager.readCheckbook($scope);
 
     $scope.order = ["cleared", "-date"];

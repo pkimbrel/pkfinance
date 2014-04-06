@@ -126,7 +126,7 @@
                             <td class="date" editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</td>
                             <td>
                                 <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
-                                <p class="category" data-pk="{{transaction.tranid}}" data-name="category" data-value="{{transaction.category}}">{{transaction.category}}</p>
+                                <p class="category" editable-select="transaction.category" e-ng-options="c.value as c.text for c in categories">{{transaction.category}}</p>
                             </td>
                             <td class="hidden-phone transactionType" data-pk="{{transaction.tranid}}" data-name="type" data-value="{{transaction.type}}">{{transaction.type}}</td>
                             <td class="amount" data-pk="{{transaction.tranid}}" data-name="amount" data-value="{{transaction.displayAmount}}">{{transaction.amount/100 | currency}}</td>

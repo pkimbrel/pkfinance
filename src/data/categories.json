@@ -1,0 +1,370 @@
+{
+    "categories": [
+        {
+            "text": "Income",
+            "children": [
+                {
+                    "value": "1st Paycheck",
+                    "text": "1st Paycheck"
+                },
+                {
+                    "value": "2nd Paycheck",
+                    "text": "2nd Paycheck"
+                },
+                {
+                    "value": "Rental Income",
+                    "text": "Rental Income"
+                },
+                {
+                    "value": "Reimbursement",
+                    "text": "Reimbursement"
+                },
+                {
+                    "value": "Budget Carryover",
+                    "text": "Budget Carryover"
+                },
+                {
+                    "value": "Bonus",
+                    "text": "Bonus"
+                }
+            ]
+        },
+        {
+            "text": "Charity",
+            "icon": "fa fa-gift",
+            "children": [
+                {
+                    "value": "Tithe",
+                    "text": "Tithe"
+                },
+                {
+                    "value": "Charity",
+                    "text": "Charity"
+                }
+
+            ]
+        },
+        {
+            "text": "Savings",
+            "icon": "fa fa-cloud",
+            "children": [
+                {
+                    "value": "Emergency Fund",
+                    "text": "Emergency Fund"
+                },
+                {
+                    "value": "The Cow",
+                    "text": "The Cow"
+                },
+                {
+                    "value": "Education Fund",
+                    "text": "Education Fund"
+                }
+
+            ]
+        },
+        {
+            "text": "Housing",
+            "icon": "fa fa-home",
+            "children": [
+                {
+                    "value": "Mortgage",
+                    "text": "Mortgage"
+                },
+                {
+                    "value": "2nd Mortgage",
+                    "text": "2nd Mortgage"
+                },
+                {
+                    "value": "Home Maintenance",
+                    "text": "Home Maintenance"
+                }
+
+            ]
+        },
+        {
+            "text": "Bills and Utilities",
+            "icon": "fa fa-bolt",
+            "children": [
+                {
+                    "value": "Electrical Service",
+                    "text": "Electrical Service"
+                },
+                {
+                    "value": "Phone Service",
+                    "text": "Phone Service"
+                },
+                {
+                    "value": "Natural Gas",
+                    "text": "Natural Gas"
+                },
+                {
+                    "value": "TV Service",
+                    "text": "TV Service"
+                },
+                {
+                    "value": "Water Service",
+                    "text": "Water Service"
+                }
+
+            ]
+        },
+        {
+            "text": "Education",
+            "icon": "fa fa-bell-o",
+            "children": [
+                {
+                    "value": "Books and Supplies",
+                    "text": "Books and Supplies"
+                },
+                {
+                    "value": "Field Trip",
+                    "text": "Field Trip"
+                },
+                {
+                    "value": "HSLDA",
+                    "text": "HSLDA"
+                }
+
+            ]
+        },
+        {
+            "text": "Financial",
+            "icon": "fa fa-money",
+            "children": [
+                {
+                    "value": "Life Insurance",
+                    "text": "Life Insurance"
+                },
+                {
+                    "value": "CILAC",
+                    "text": "CILAC"
+                },
+                {
+                    "value": "Insurance Interest",
+                    "text": "Insurance Interest"
+                },
+                {
+                    "value": "Phone Insurance",
+                    "text": "Phone Insurance"
+                }
+
+            ]
+        },
+        {
+            "text": "Food",
+            "icon": "fa fa-cutlery",
+            "children": [
+                {
+                    "value": "Co-ops",
+                    "text": "Co-ops"
+                },
+                {
+                    "value": "Farm Order",
+                    "text": "Farm Order"
+  },
+                {
+                    "value": "Groceries",
+                    "text": "Groceries"
+                },
+                {
+                    "value": "Schwan's",
+                    "text": "Schwan's"
+                },
+                {
+                    "value": "Eating Out",
+                    "text": "Eating Out"
+                },
+                {
+                    "value": "Holiday Food",
+                    "text": "Holiday Food"
+                },
+                {
+                    "value": "CSA",
+                    "text": "CSA"
+                }
+
+            ]
+        },
+        {
+            "text": "Auto",
+            "icon": "fa fa-road",
+            "children": [
+                {
+                    "value": "Auto Insurance",
+                    "text": "Auto Insurance"
+                },
+                {
+                    "value": "Gas & Fuel",
+                    "text": "Gas & Fuel"
+                },
+                {
+                    "value": "Tag Registration",
+                    "text": "Tag Registration"
+                },
+                {
+                    "value": "Auto Maintenance",
+                    "text": "Auto Maintenance"
+                }
+            ]
+        },
+        {
+            "text": "Clothing",
+            "icon": "fa fa-group",
+            "children": [
+                {
+                    "value": "Adult Clothes",
+                    "text": "Adult Clothes"
+                },
+                {
+                    "value": "Kid Clothes",
+                    "text": "Kid Clothes"
+                }
+
+            ]
+        },
+        {
+            "text": "Medical",
+            "icon": "fa fa-stethoscope",
+            "children": [
+                {
+                    "value": "Dr. Oliger",
+                    "text": "Dr. Oliger"
+                },
+                {
+                    "value": "Doctor Bills",
+                    "text": "Doctor Bills"
+                },
+                {
+                    "value": "Therapy",
+                    "text": "Therapy"
+                },
+                {
+                    "value": "Medical Travel",
+                    "text": "Medical Travel"
+                },
+                {
+                    "value": "Medical Fuel",
+                    "text": "Medical Fuel"
+                },
+                {
+                    "value": "Medical Food",
+                    "text": "Medical Food"
+                },
+                {
+                    "value": "Suppliments",
+                    "text": "Suppliments"
+                }
+
+            ]
+        },
+        {
+            "text": "Personal",
+            "icon": "fa fa-shopping-cart",
+            "children": [
+                {
+                    "value": "Birthday",
+                    "text": "Birthday"
+                },
+                {
+                    "value": "Christmas",
+                    "text": "Christmas"
+                },
+                {
+                    "value": "Easter",
+                    "text": "Easter"
+                },
+                {
+                    "value": "Mother's Day",
+                    "text": "Mother's Day"
+                },
+                {
+                    "value": "Father's Day",
+                    "text": "Father's Day"
+                },
+                {
+                    "value": "Anniversary",
+                    "text": "Anniversary"
+                },
+                {
+                    "value": "Babysitters",
+                    "text": "Babysitters"
+                },
+                {
+                    "value": "Kid's Earnings",
+                    "text": "Kid's Earnings"
+                },
+                {
+                    "value": "Dog Grooming",
+                    "text": "Dog Grooming"
+                },
+                {
+                    "value": "Vet",
+                    "text": "Vet"
+                },
+                {
+                    "value": "County Fair",
+                    "text": "County Fair"
+                },
+                {
+                    "value": "Subscriptions",
+                    "text": "Subscriptions"
+                }
+
+            ]
+        },
+        {
+            "text": "Entertainment",
+            "icon": "fa fa-film",
+            "children": [
+                {
+                    "value": "Netflix",
+                    "text": "Netflix"
+                },
+                {
+                    "value": "Tonya - Fun Money",
+                    "text": "Tonya - Fun Money"
+                },
+                {
+                    "value": "Paul - Fun Money",
+                    "text": "Paul - Fun Money"
+                },
+                {
+                    "value": "Spotify",
+                    "text": "Spotify"
+                },
+                {
+                    "value": "Dreamhost",
+                    "text": "Dreamhost"
+                }
+            ]
+        },
+        {
+            "text": "Credit Cards",
+            "icon": "fa fa-credit-card",
+            "children": [
+                {
+                    "value": "Amazon Chase",
+                    "text": "Amazon Chase"
+                },
+                {
+                    "value": "Home Depot (HTC)",
+                    "text": "Home Depot (HTC)"
+                },
+                {
+                    "value": "IAA Credit Union",
+                    "text": "IAA Credit Union"
+                },
+                {
+                    "value": "Kohl's Card",
+                    "text": "Kohl's Card"
+                },
+                {
+                    "value": "Extra Payment",
+                    "text": "Extra Payment"
+                }
+
+            ]
+        }
+    ]
+}
