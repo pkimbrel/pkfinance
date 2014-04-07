@@ -54,21 +54,12 @@ pkfinance.factory('dataManager', function ($q, $http) {
             deferred.resolve();
             return deferred.promise;
         },
-        "readCheckbook": function ($scope) {
+        "readCheckbook": function () {
+            var deferred = $q.defer();
             $http.get('../data/Checking-2013-08.json').success(function (data) {
-                $scope.startingBalance = data.startingBalance;
-                $scope.transactions = data.transactions;
-                $scope.endingBalance = function (isBank) {
-                    var balance = $scope.startingBalance;
-                    angular.forEach($scope.transactions, function (transaction) {
-                        if (!isBank || transaction.cleared) {
-                            var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
-                            balance += amount;
-                        }
-                    });
-                    return balance;
-                };
+                deferred.resolve(data);
             });
+            return deferred.promise;
         },
         "readCategories": function ($scope) {
             /* if (cache["categories"] !== null) {
@@ -100,7 +91,21 @@ pkfinance.controller('Transactions', function ($scope, $q, validators, dataManag
     };
 
     dataManager.readCategories($scope);
-    dataManager.readCheckbook($scope);
+    dataManager.readCheckbook().then(function(data) {
+        $scope.startingBalance = data.startingBalance;
+        $scope.transactions = data.transactions;
+        $scope.endingBalance = function (isBank) {
+            var balance = $scope.startingBalance;
+            angular.forEach($scope.transactions, function (transaction) {
+                if (!isBank || transaction.cleared) {
+                    var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
+                    balance += amount;
+                }
+            });
+            return balance;
+        };
+    });
+    
 
     $scope.order = ["cleared", "-date"];
     $scope.type = ["Debit", "Credit"];
