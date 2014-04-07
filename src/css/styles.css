@@ -7,14 +7,12 @@
      text-align: right;
      padding-right: 0;
  }
- .bad .amount {
-     color: #b00;
- }
- .bad .amount:before {
-     content: "-";
- }
- .good .amount {
+ .current {
      color: green;
+ }
+ .bad .bankBalance,
+ .bad .endingBalance {
+     color: #b00;
  }
  /*
  * Left Nav control

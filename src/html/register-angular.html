@@ -63,7 +63,7 @@
                     <div class="form-group pay-period">
                         <label class="control-label">Pay Period:</label>
                         <select id="month" class="form-control">
-                            <option value="1374814800000">2013-08</option>
+                            <option value="1374814800000" selected>2013-08</option>
                             <option value="1377234000000">2013-09</option>
                             <option value="1379653200000">2013-10</option>
                             <option value="1382072400000">2013-11</option>
@@ -71,7 +71,7 @@
                             <option value="1386914400000">2013-13</option>
                             <option value="1389333600000">2014-01</option>
                             <option value="1391752800000">2014-02</option>
-                            <option value="1394172000000" selected="">2014-03</option>
+                            <option value="1394172000000">2014-03</option>
                             <option value="1396587600000">2014-04</option>
                             <option value="1399006800000">2014-05</option>
                             <option value="1401426000000">2014-06</option>
@@ -83,22 +83,22 @@
                             <option value="1415944800000">2014-12</option>
                             <option value="1418364000000">2014-13</option>
                         </select>
-                        <div class="display-period">(3/7 - 4/3)
-                            <em>(current)</em>
+                        <div class="display-period">(7/26 - 8/22)
+                            <!--em>(current)</em-->
                         </div>
                     </div>
                     <div class="form-group balance">
                         <div class="row">
-                            <div class="col-xs-8 description">Starting Balance:</div>
-                            <div class="col-xs-4 amount">{{startingBalance/100|currency}}</div>
+                            <div class="col-xs-7 description">Starting Balance:</div>
+                            <div class="col-xs-5 startingBalance amount">{{startingBalance/100|currency}}</div>
                         </div>
-                        <div class="row">
-                            <div class="col-xs-8 description">Bank Balance:</div>
-                            <div class="col-xs-4 amount">6616.98</div>
+                        <div class="row" ng-class="{bad:endingBalance(true) < 0}">
+                            <div class="col-xs-7 description">Bank Balance:</div>
+                            <div class="col-xs-5 bankBalance amount">{{endingBalance(true)/100|currency}}</div>
                         </div>
-                        <div class="row good">
-                            <div class="col-xs-8 description">Current Balance:</div>
-                            <div class="col-xs-4 current amount">3368.22</div>
+                        <div class="row" ng-class="{bad:endingBalance() < 0}">
+                            <div class="col-xs-7 description">Current Balance:</div>
+                            <div class="col-xs-5 endingBalance amount">{{endingBalance(false)/100|currency}}</div>
                         </div>
                     </div>
                     <div class="form-group">
@@ -117,8 +117,8 @@
                         <tr>
                             <th width="5%">Date</th>
                             <th>Description</th>
-                            <th width="5%" class="hidden-phone">Type</th>
-                            <th width="5%">Amount</th>
+                            <th width="5%" class="hidden-xs">Type</th>
+                            <th width="5%" class="amount">Amount</th>
                             <th width="1%"></th>
                             <th width="1%"></th>
                         </tr>
@@ -126,12 +126,16 @@
                             <td class="date" editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</td>
                             <td>
                                 <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
-                                <p class="category" editable-select="transaction.category" e-ng-options="c.value as c.text for c in categories">{{transaction.category}}</p>
+                                <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
                             </td>
-                            <td class="hidden-phone transactionType" data-pk="{{transaction.tranid}}" data-name="type" data-value="{{transaction.type}}">{{transaction.type}}</td>
-                            <td class="amount" data-pk="{{transaction.tranid}}" data-name="amount" data-value="{{transaction.displayAmount}}">{{transaction.amount/100 | currency}}</td>
+                            <td class="hidden-xs">
+                                <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in type" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
+                            </td>
+                            <td>
+                                <p class="amount" editable-text="transaction.amount/100" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)">{{transaction.amount/100 | currency}}</p>
+                            </td>
                             <td class="transactionCleared">
-                                <input data-pk="{{transaction.tranid}}" type="checkbox" />
+                                <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', $data, transaction.tranid)" />
                             </td>
                             <td class="trash" data-pk="{{transaction.tranid}}">
                                 <i class="glyphicon glyphicon-trash"></i>
