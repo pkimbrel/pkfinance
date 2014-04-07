@@ -16,6 +16,7 @@
         "karma": "~0.10"
     },
     "jshintConfig": {
-        "jquery": true
+        "jquery": true,
+        "angularjs": true
     }
 }

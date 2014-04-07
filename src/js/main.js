@@ -62,7 +62,7 @@ pkfinance.factory('dataManager', function ($q, $http) {
                     var balance = $scope.startingBalance;
                     angular.forEach($scope.transactions, function (transaction) {
                         if (!isBank || transaction.cleared) {
-                            amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
+                            var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
                             balance += amount;
                         }
                     });
