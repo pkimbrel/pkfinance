@@ -2,9 +2,18 @@
  * Created by pkimbrel on 3/26/14.
  */
 
-var pkfinance = angular.module('pkfinance', ['ngRoute', 'xeditable']);
+function logout() {
+    document.cookie = "activate=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.location = "login.html";
+}
 
-pkfinance.run(function (editableOptions) {
+var pkfinance = angular.module('pkfinance', ['ngCookies', 'ngRoute', 'xeditable']);
+
+pkfinance.run(function (editableOptions, $cookies) {
+    if ($cookies.activate === undefined) {
+        document.location = "login.html";
+    }
+
     $('.sidebar').affix();
     editableOptions.theme = 'bs3';
 });
@@ -13,12 +22,8 @@ pkfinance.config(['$routeProvider',
   function ($routeProvider) {
         $routeProvider.
         when('/', {
-            templateUrl: 'partials/phone-list.html',
-            controller: 'PhoneListCtrl'
-        }).
-        when('/phones/:phoneId', {
-            templateUrl: 'partials/phone-detail.html',
-            controller: 'PhoneDetailCtrl'
+            templateUrl: 'templates/transactions.html',
+            controller: 'Transactions'
         }).
         otherwise({
             redirectTo: '/'
@@ -54,7 +59,7 @@ pkfinance.factory('validators', function ($q, $http) {
     };
 });
 
-pkfinance.factory('dataManager', function ($q, $http) {
+pkfinance.factory('dataAccessor', function ($q, $http) {
     return {
         "updateCheckbook": function (field, data, id) {
             var deferred = $q.defer();
@@ -100,27 +105,20 @@ pkfinance.factory('dataManager', function ($q, $http) {
     };
 });
 
-pkfinance.controller('Transactions', function ($scope, $q, validators, dataManager) {
-    var validationBindings = {
-        "date": validators.validateDate,
-        "amount": validators.validateCurrency,
-        "description": validators.skipValidation,
-        "category": validators.skipValidation,
-        "type": validators.skipValidation,
-        "cleared": validators.skipValidation
-    };
+pkfinance.factory('applicationScope', function ($q, $http, dataAccessor) {
+    var applicationScope = {};
 
-    dataManager.readCategories().then(function (data) {
-        $scope.categories = data.categories;
+    dataAccessor.readCategories().then(function (data) {
+        applicationScope.categories = data.categories;
     });
 
-    dataManager.readCheckbook().then(function (data) {
-        $scope.startingBalance = data.startingBalance;
-        $scope.transactions = data.transactions;
+    dataAccessor.readCheckbook().then(function (data) {
+        applicationScope.transactions = data.transactions;
 
-        $scope.endingBalance = function (isBank) {
-            var balance = $scope.startingBalance;
-            angular.forEach($scope.transactions, function (transaction) {
+        applicationScope.startingBalance = data.startingBalance;
+        applicationScope.endingBalance = function (isBank) {
+            var balance = applicationScope.startingBalance;
+            angular.forEach(applicationScope.transactions, function (transaction) {
                 if (!isBank || transaction.cleared) {
                     var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
                     balance += amount;
@@ -130,12 +128,31 @@ pkfinance.controller('Transactions', function ($scope, $q, validators, dataManag
         };
     });
 
+    return applicationScope;
+});
+
+pkfinance.controller('Sidebar', function ($scope, $q, validators, applicationScope) {
+    $scope.app = applicationScope;
+});
+
+pkfinance.controller('Transactions', function ($scope, $q, validators, applicationScope) {
+    var validationBindings = {
+        "date": validators.validateDate,
+        "amount": validators.validateCurrency,
+        "description": validators.skipValidation,
+        "category": validators.skipValidation,
+        "type": validators.skipValidation,
+        "cleared": validators.skipValidation
+    };
+
+    $scope.app = applicationScope;
+
     $scope.order = ["cleared", "-date"];
     $scope.type = ["Debit", "Credit"];
 
     $scope.validateAndUpdate = function (field, data, id) {
         var promise = validationBindings[field](data, $q).then(function () {
-            return dataManager.updateCheckbook(field, data, id, $q);
+            return dataAccessor.updateCheckbook(field, data, id, $q);
         });
         return promise;
     };

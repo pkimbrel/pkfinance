@@ -8,7 +8,7 @@
             <th width="1%"></th>
             <th width="1%"></th>
         </tr>
-        <tr ng-repeat="transaction in transactions | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
+        <tr ng-repeat="transaction in app.transactions | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
             <td class="date" editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</td>
             <td>
                 <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
