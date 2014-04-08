@@ -2,7 +2,28 @@
  * Created by pkimbrel on 3/26/14.
  */
 
-var pkfinance = angular.module('pkfinance', ['xeditable']);
+var pkfinance = angular.module('pkfinance', ['ngRoute', 'xeditable']);
+
+pkfinance.run(function (editableOptions) {
+    $('.sidebar').affix();
+    editableOptions.theme = 'bs3';
+});
+
+pkfinance.config(['$routeProvider',
+  function ($routeProvider) {
+        $routeProvider.
+        when('/', {
+            templateUrl: 'partials/phone-list.html',
+            controller: 'PhoneListCtrl'
+        }).
+        when('/phones/:phoneId', {
+            templateUrl: 'partials/phone-detail.html',
+            controller: 'PhoneDetailCtrl'
+        }).
+        otherwise({
+            redirectTo: '/'
+        });
+  }]);
 
 pkfinance.factory('validators', function ($q, $http) {
     return {
@@ -34,7 +55,6 @@ pkfinance.factory('validators', function ($q, $http) {
 });
 
 pkfinance.factory('dataManager', function ($q, $http) {
-    var cache = {};
     return {
         "updateCheckbook": function (field, data, id) {
             var deferred = $q.defer();
@@ -51,33 +71,33 @@ pkfinance.factory('dataManager', function ($q, $http) {
             }).error(function (ex) {
                 deferred.reject('Server error!');
             });
+
             deferred.resolve();
             return deferred.promise;
         },
         "readCheckbook": function () {
             var deferred = $q.defer();
+
             $http.get('../data/Checking-2013-08.json').success(function (data) {
                 deferred.resolve(data);
+            }).error(function (ex) {
+                deferred.reject('Server error!');
             });
+
             return deferred.promise;
         },
-        "readCategories": function ($scope) {
-            /* if (cache["categories"] !== null) {
-                    $scope.categories = cache["categories"];
-            } else {*/
+        "readCategories": function () {
+            var deferred = $q.defer();
+
             $http.get('../data/categories.json').success(function (data) {
-                //cache["categories"] = data.categories;
-                $scope.categories = data.categories;
+                deferred.resolve(data);
+            }).error(function (ex) {
+                deferred.reject('Server error!');
             });
-            //}
+
+            return deferred.promise;
         }
     };
-});
-
-
-pkfinance.run(function (editableOptions) {
-    $('.sidebar').affix();
-    editableOptions.theme = 'bs3';
 });
 
 pkfinance.controller('Transactions', function ($scope, $q, validators, dataManager) {
@@ -90,10 +110,14 @@ pkfinance.controller('Transactions', function ($scope, $q, validators, dataManag
         "cleared": validators.skipValidation
     };
 
-    dataManager.readCategories($scope);
-    dataManager.readCheckbook().then(function(data) {
+    dataManager.readCategories().then(function (data) {
+        $scope.categories = data.categories;
+    });
+
+    dataManager.readCheckbook().then(function (data) {
         $scope.startingBalance = data.startingBalance;
         $scope.transactions = data.transactions;
+
         $scope.endingBalance = function (isBank) {
             var balance = $scope.startingBalance;
             angular.forEach($scope.transactions, function (transaction) {
@@ -105,7 +129,6 @@ pkfinance.controller('Transactions', function ($scope, $q, validators, dataManag
             return balance;
         };
     });
-    
 
     $scope.order = ["cleared", "-date"];
     $scope.type = ["Debit", "Credit"];
