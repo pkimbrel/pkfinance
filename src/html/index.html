@@ -18,7 +18,7 @@
     <script src="../../bower_components/moment/min/moment.min.js"></script>
     <script src="../../bower_components/angular/angular.js"></script>
     <script src="../../bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="../../bower_components/angular-route/angular-route.js"></script>
+    <script src="../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="../../bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 
     <script src="../../src/js/main.js"></script>
@@ -68,7 +68,7 @@
             <div class="col-md-3">
                 <ng-include src="'templates/sidebar.html'"></ng-include>
             </div>
-            <div ng-view class="col-md-9">
+            <div ui-view class="col-md-9">
             </div>
         </div>
     </div>

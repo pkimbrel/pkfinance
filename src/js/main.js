@@ -7,7 +7,7 @@ function logout() {
     document.location = "login.html";
 }
 
-var pkfinance = angular.module('pkfinance', ['ngCookies', 'ngRoute', 'xeditable']);
+var pkfinance = angular.module('pkfinance', ['ngCookies', 'ui.router', 'xeditable']);
 
 pkfinance.run(function (editableOptions, $cookies) {
     if ($cookies.activate === undefined) {
@@ -18,17 +18,23 @@ pkfinance.run(function (editableOptions, $cookies) {
     editableOptions.theme = 'bs3';
 });
 
-pkfinance.config(['$routeProvider',
-  function ($routeProvider) {
-        $routeProvider.
-        when('/', {
-            templateUrl: 'templates/transactions.html',
-            controller: 'Transactions'
-        }).
-        otherwise({
-            redirectTo: '/'
+pkfinance.config(function ($stateProvider, $urlRouterProvider) {
+    $stateProvider
+        .state("forms", {
+            url: "/",
+            templateUrl: "templates/transactions.html",
+            controller: "Transactions",
+            authenticate: true
+        })
+        .state("login", {
+            url: "/login",
+            templateUrl: "partials/login.html",
+            controller: "LoginCtrl",
+            authenticate: false
         });
-  }]);
+    // Send to login if the URL was not found
+    $urlRouterProvider.otherwise("/login");
+});
 
 pkfinance.factory('validators', function ($q, $http) {
     return {
