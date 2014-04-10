@@ -2,17 +2,24 @@
  * Created by pkimbrel on 3/26/14.
  */
 
-function logout() {
-    document.cookie = "activate=; expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    document.location = "login.html";
-}
+/* global $: false */
+/* global angular: false */
+/* global moment: false */
+/* global localStorage: false */
 
 var pkfinance = angular.module('pkfinance', ['ngCookies', 'ui.router', 'xeditable']);
 
-pkfinance.run(function (editableOptions, $cookies) {
-    if ($cookies.activate === undefined) {
-        document.location = "login.html";
-    }
+pkfinance.run(function ($http, $rootScope, $state, authService, editableOptions) {
+    $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
+        if (toState.authenticate) {
+            authService.isAuthenticated().
+            catch (function (reason) {
+                $state.transitionTo("login");
+            });
+        }
+    });
 
     $('.sidebar').affix();
     editableOptions.theme = 'bs3';
@@ -20,20 +27,42 @@ pkfinance.run(function (editableOptions, $cookies) {
 
 pkfinance.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
-        .state("forms", {
-            url: "/",
-            templateUrl: "templates/transactions.html",
-            controller: "Transactions",
+        .state("register", {
+            url: "/register",
+            templateUrl: "views/register.html",
+            controller: "Register",
             authenticate: true
         })
         .state("login", {
             url: "/login",
-            templateUrl: "partials/login.html",
-            controller: "LoginCtrl",
+            templateUrl: "views/login.html",
+            controller: "Login",
             authenticate: false
         });
     // Send to login if the URL was not found
     $urlRouterProvider.otherwise("/login");
+});
+
+pkfinance.factory('authService', function ($q, $http) {
+    return {
+        "isAuthenticated": function () {
+            var deferred = $q.defer();
+
+            var token = localStorage.getItem("token");
+            if (token === null) {
+                deferred.reject('No token!');
+            } else {
+                $http.post("http://192.168.2.156/auth/validate.php", "token=" + token)
+                    .success(function (response) {
+                        deferred.resolve();
+                    }).error(function (ex) {
+                        deferred.reject('Rejected!');
+                    });
+            }
+
+            return deferred.promise;
+        }
+    };
 });
 
 pkfinance.factory('validators', function ($q, $http) {
@@ -137,11 +166,21 @@ pkfinance.factory('applicationScope', function ($q, $http, dataAccessor) {
     return applicationScope;
 });
 
-pkfinance.controller('Sidebar', function ($scope, $q, validators, applicationScope) {
+/**
+ * Views
+ */
+pkfinance.controller('Login', function ($scope) {});
+
+pkfinance.controller('Register', function ($scope) {});
+
+/** 
+ * Modules
+ */
+pkfinance.controller('Sidebar', function ($scope, applicationScope) {
     $scope.app = applicationScope;
 });
 
-pkfinance.controller('Transactions', function ($scope, $q, validators, applicationScope) {
+pkfinance.controller('Transactions', function ($scope, $q, validators, dataAccessor, applicationScope) {
     var validationBindings = {
         "date": validators.validateDate,
         "amount": validators.validateCurrency,
