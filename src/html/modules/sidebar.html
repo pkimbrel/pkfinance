@@ -1,0 +1,51 @@
+<div class="nav nav-stacked sidebar" ng-controller="Sidebar">
+    <div class="form-group pay-period">
+        <label class="control-label">Pay Period:</label>
+        <select id="month" class="form-control">
+            <option value="1374814800000" selected>2013-08</option>
+            <option value="1377234000000">2013-09</option>
+            <option value="1379653200000">2013-10</option>
+            <option value="1382072400000">2013-11</option>
+            <option value="1384495200000">2013-12</option>
+            <option value="1386914400000">2013-13</option>
+            <option value="1389333600000">2014-01</option>
+            <option value="1391752800000">2014-02</option>
+            <option value="1394172000000">2014-03</option>
+            <option value="1396587600000">2014-04</option>
+            <option value="1399006800000">2014-05</option>
+            <option value="1401426000000">2014-06</option>
+            <option value="1403845200000">2014-07</option>
+            <option value="1406264400000">2014-08</option>
+            <option value="1408683600000">2014-09</option>
+            <option value="1411102800000">2014-10</option>
+            <option value="1413522000000">2014-11</option>
+            <option value="1415944800000">2014-12</option>
+            <option value="1418364000000">2014-13</option>
+        </select>
+        <div class="display-period">(7/26 - 8/22)
+            <!--em>(current)</em-->
+        </div>
+    </div>
+
+    <div class="form-group balance">
+        <div class="row">
+            <div class="col-xs-7 description">Starting Balance:</div>
+            <div class="col-xs-5 startingBalance amount">{{app.startingBalance/100|currency}}</div>
+        </div>
+        <div class="row" ng-class="{bad:app.endingBalance(true) < 0}">
+            <div class="col-xs-7 description">Bank Balance:</div>
+            <div class="col-xs-5 bankBalance amount">{{app.endingBalance(true)/100|currency}}</div>
+        </div>
+        <div class="row" ng-class="{bad:app.endingBalance() < 0}">
+            <div class="col-xs-7 description">Current Balance:</div>
+            <div class="col-xs-5 endingBalance amount">{{app.endingBalance(false)/100|currency}}</div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" type="button" onclick="newTransaction()">
+            <span class="glyphicon-plus-sign glyphicon"></span>
+            <span>Add Transaction</span>
+        </button>
+    </div>
+</div>
