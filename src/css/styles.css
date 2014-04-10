@@ -22,16 +22,23 @@
      position: static;
      margin-top: 10px;
  }
- @media (min-width: 979px) {
+ @media (min-width: 992px) {
      .affix-top {
          position: static;
-         margin-top: 30px;
-         width: 200px;
+         width: 225px;
      }
      .affix {
          position: fixed;
          top: 70px;
-         width: 200px;
+         width: 225px;
+     }
+ }
+ @media (min-width: 1200px) {
+     .affix-top {
+         width: 260px;
+     }
+     .affix {
+         width: 260px;
      }
  }
  /*
