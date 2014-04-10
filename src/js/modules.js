@@ -11,6 +11,10 @@ pkfinance.controller('Header', function ($scope, $state) {
 
 pkfinance.controller('Sidebar', function ($scope, applicationScope) {
     $scope.app = applicationScope;
+    $scope.availablePayPeriods = [
+        "2013-08",
+        "2013-09"
+    ];
 });
 
 pkfinance.controller('Transactions', function ($scope, $q, validators, dataAccessor, applicationScope) {

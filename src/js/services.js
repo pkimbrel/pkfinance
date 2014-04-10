@@ -103,6 +103,8 @@ pkfinance.factory('dataAccessor', function ($q, $http) {
 pkfinance.factory('applicationScope', function ($q, $http, dataAccessor) {
     var applicationScope = {};
 
+    applicationScope.payPeriod = "2013-08";
+
     dataAccessor.readCategories().then(function (data) {
         applicationScope.categories = data.categories;
     });
