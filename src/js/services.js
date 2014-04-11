@@ -3,23 +3,101 @@
  */
 /* global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('authService', ['$q', '$http',
-    function ($q, $http) {
+pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
+    function ($q, $http, dataAccessor) {
+        var applicationScope = {};
+
+        applicationScope.payPeriod = "2013-08";
+        applicationScope.availablePayPeriods = [
+            "2013-08",
+            "2013-09"
+        ];
+
+        dataAccessor.readCategories().then(function (data) {
+            applicationScope.categories = data.categories;
+        });
+
+        applicationScope.updateTransactions = function () {
+            dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
+                applicationScope.transactions = data.transactions;
+
+                applicationScope.startingBalance = data.startingBalance;
+                applicationScope.endingBalance = function (isBank) {
+                    var balance = applicationScope.startingBalance;
+                    angular.forEach(applicationScope.transactions, function (transaction) {
+                        if (!isBank || transaction.cleared) {
+                            var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
+                            balance += amount;
+                        }
+                    });
+                    return balance;
+                };
+            });
+        };
+
+        applicationScope.updateTransactions();
+
+        applicationScope.flattenCategories = function () {
+            var list = [];
+            angular.forEach(applicationScope.categories, function (group) {
+                angular.forEach(group.children, function (category) {
+                    list.push({
+                        "category": category.text,
+                        "group": group.text
+                    });
+                });
+            });
+            return list;
+        };
+
+        applicationScope.transactionTypes = ["Debit", "Credit"];
+
+
+        return applicationScope;
+    }
+]);
+
+pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
+    function ($q, $http, DATA_FOLDER) {
         return {
-            "isAuthenticated": function () {
+            "updateCheckbook": function (field, data, id) {
                 var deferred = $q.defer();
 
-                var token = localStorage.getItem("token");
-                if (token === null) {
-                    deferred.reject('No token!');
-                } else {
-                    $http.post("https://finance.paulkimbrel.com/auth/", "token=" + token)
-                        .success(function (response) {
-                            deferred.resolve();
-                        }).error(function (ex) {
-                            deferred.reject('Rejected!');
-                        });
-                }
+                $http.post('/update', {
+                    value: data
+                }).success(function (response) {
+                    response = response || {};
+                    if (response.status === 'ok') {
+                        deferred.resolve();
+                    } else {
+                        deferred.resolve(response.msg);
+                    }
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                deferred.resolve();
+                return deferred.promise;
+            },
+            "readCheckbook": function (payPeriod) {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + '/Checking-' + payPeriod + '.json').success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "readCategories": function () {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + '/categories.json').success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
 
                 return deferred.promise;
             }
@@ -58,80 +136,26 @@ pkfinance.factory('validators', ['$q', '$http',
     }
 ]);
 
-pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
-    function ($q, $http, DATA_FOLDER) {
+pkfinance.factory('authService', ['$q', '$http',
+    function ($q, $http) {
         return {
-            "updateCheckbook": function (field, data, id) {
+            "isAuthenticated": function () {
                 var deferred = $q.defer();
 
-                $http.post('/update', {
-                    value: data
-                }).success(function (response) {
-                    response = response || {};
-                    if (response.status === 'ok') {
-                        deferred.resolve();
-                    } else {
-                        deferred.resolve(response.msg);
-                    }
-                }).error(function (ex) {
-                    deferred.reject('Server error!');
-                });
-
-                deferred.resolve();
-                return deferred.promise;
-            },
-            "readCheckbook": function () {
-                var deferred = $q.defer();
-
-                $http.get(DATA_FOLDER + '/Checking-2013-08.json').success(function (data) {
-                    deferred.resolve(data);
-                }).error(function (ex) {
-                    deferred.reject('Server error!');
-                });
-
-                return deferred.promise;
-            },
-            "readCategories": function () {
-                var deferred = $q.defer();
-
-                $http.get(DATA_FOLDER + '/categories.json').success(function (data) {
-                    deferred.resolve(data);
-                }).error(function (ex) {
-                    deferred.reject('Server error!');
-                });
+                var token = localStorage.getItem("token");
+                if (token === null) {
+                    deferred.reject('No token!');
+                } else {
+                    $http.post("https://finance.paulkimbrel.com/auth/", "token=" + token)
+                        .success(function (response) {
+                            deferred.resolve();
+                        }).error(function (ex) {
+                            deferred.reject('Rejected!');
+                        });
+                }
 
                 return deferred.promise;
             }
         };
-    }
-]);
-
-pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
-    function ($q, $http, dataAccessor) {
-        var applicationScope = {};
-
-        applicationScope.payPeriod = "2013-08";
-
-        dataAccessor.readCategories().then(function (data) {
-            applicationScope.categories = data.categories;
-        });
-
-        dataAccessor.readCheckbook().then(function (data) {
-            applicationScope.transactions = data.transactions;
-
-            applicationScope.startingBalance = data.startingBalance;
-            applicationScope.endingBalance = function (isBank) {
-                var balance = applicationScope.startingBalance;
-                angular.forEach(applicationScope.transactions, function (transaction) {
-                    if (!isBank || transaction.cleared) {
-                        var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
-                        balance += amount;
-                    }
-                });
-                return balance;
-            };
-        });
-
-        return applicationScope;
     }
 ]);

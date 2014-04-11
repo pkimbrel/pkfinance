@@ -14,10 +14,19 @@ pkfinance.controller('Header', ['$scope', '$state',
 pkfinance.controller('Sidebar', ['$scope', 'applicationScope',
     function ($scope, applicationScope) {
         $scope.app = applicationScope;
-        $scope.availablePayPeriods = [
-            "2013-08",
-            "2013-09"
-        ];
+    }
+]);
+
+pkfinance.controller('TransactionForm', ['$scope', '$q', 'validators', 'dataAccessor', 'applicationScope',
+    function ($scope, $q, validators, dataAccessor, applicationScope) {
+        $scope.app = applicationScope;
+        $scope.newTransaction = {
+            "payPeriod": applicationScope.payPeriod,
+            "date": moment().format('YYYY-MM-DD'),
+            "description": "",
+            "category": "",
+            "type": "Debit"
+        };
     }
 ]);
 
@@ -35,7 +44,6 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
         $scope.app = applicationScope;
 
         $scope.order = ["cleared", "-date"];
-        $scope.type = ["Debit", "Credit"];
 
         $scope.validateAndUpdate = function (field, data, id) {
             var promise = validationBindings[field](data, $q).then(function () {
@@ -44,17 +52,5 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
             return promise;
         };
 
-        $scope.flattenCategories = function () {
-            var list = [];
-            angular.forEach($scope.categories, function (group) {
-                angular.forEach(group.children, function (category) {
-                    list.push({
-                        "category": category.text,
-                        "group": group.text
-                    });
-                });
-            });
-            return list;
-        };
     }
 ]);

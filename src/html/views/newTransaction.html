@@ -2,9 +2,80 @@
 <!-- Begin Body -->
 <div class="container">
     <h1>New Transaction</h1>
+    <br>
     <div class="row">
-        <div class="col-md-12">
-            Boo
+        <div class="col-md-6">
+            <form class="form-horizontal" role="form" ng-controller="TransactionForm">
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="category" class="col-sm-3 control-label">Pay Period</label>
+                    <div class="col-sm-9">
+                        <select class="form-control" ng-model="newTransaction.payPeriod" ng-options="p for p in app.availablePayPeriods">
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label for="date" class="col-sm-3 control-label">Date</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" ng-model="newTransaction.date">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group" data-validation-group="description">
+                    <label for="description" class="col-sm-3 control-label">Description</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control">
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label for="category" class="col-sm-3 control-label">Category</label>
+                    <div class="col-sm-9">
+                        <select ng-model="newTransaction.category" class="form-control" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()">
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group" class="col-sm-3 control-label">
+                    <label for="type" class="col-sm-3 control-label">Type</label>
+                    <div class="col-sm-9">
+                        <select ng-model="newTransaction.type" class="form-control" ng-options="t for t in app.transactionTypes">
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Multiple Checkboxes -->
+                <div class="form-group">
+                    <label for="cleared" class="col-sm-3 control-label">Cleared</label>
+                    <div class="col-sm-9">
+                        <input type="checkbox" class="input-sm">
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label for="amount" class="col-sm-3 control-label">Amount</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <span class="input-group-addon">$</span>
+                            <input type="text" class="form-control">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-3"></div>
+                    <div class="col-sm-9">
+                        <button id="submit" name="submit" class="btn btn-primary" data-loading-text="Processing...">Submit</button>
+                    </div>
+                </div>
+            </form>
         </div>
+        <div class="col-md-6"></div>
     </div>
 </div>

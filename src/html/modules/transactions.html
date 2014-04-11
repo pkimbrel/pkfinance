@@ -12,10 +12,10 @@
             <td class="date" editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</td>
             <td>
                 <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
-                <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
+                <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
             </td>
             <td class="hidden-xs">
-                <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in type" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
+                <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in app.transactionTypes" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
             </td>
             <td>
                 <p class="amount" editable-text="transaction.amount/100" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)">{{transaction.amount/100 | currency}}</p>

@@ -1,7 +1,7 @@
 <div class="nav nav-stacked sidebar" ng-controller="Sidebar">
     <div class="form-group pay-period">
         <label class="control-label">Pay Period:</label>
-        <select class="form-control" ng-model="app.payPeriod" ng-options="p for p in availablePayPeriods">
+        <select class="form-control" ng-model="app.payPeriod" ng-options="p for p in app.availablePayPeriods" ng-change="app.updateTransactions()">
         </select>
         <div class="display-period">(7/26 - 8/22)
             <!--em>(current)</em-->
