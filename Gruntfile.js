@@ -64,6 +64,12 @@ module.exports = function (grunt) {
                 src: '**',
                 dest: 'dist/data'
             },
+            ico: {
+                expand: true,
+                cwd: 'src/ico/',
+                src: '**',
+                dest: 'dist/ico'
+            },
             html: {
                 expand: true,
                 cwd: 'src/html/',
