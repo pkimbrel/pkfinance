@@ -5,11 +5,13 @@
 pkfinance.controller('Head', ['$scope', '$state',
     function ($scope, $state) {
         $scope.currentState = function () {
-            if (($state.current.name == "newTransaction") ||
-                ($state.current.name == "login")){
-                return "new";
-            } else {
+            if (($state.current.name == "summary") ||
+                ($state.current.name == "register") ||
+                ($state.current.name == "budget") ||
+                ($state.current.name == "planner")){
                 return "main";
+            } else {
+                return "new";
             }
         };
     }
