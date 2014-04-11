@@ -1,7 +1,19 @@
 /**
- * Modules
+ * Controllers
  */
 /* global pkfinance, angular, localStorage */
+pkfinance.controller('Head', ['$scope', '$state',
+    function ($scope, $state) {
+        $scope.currentState = function () {
+            if ($state.current.name == "newTransaction") {
+                return "new";
+            } else {
+                return "main";
+            }
+        };
+    }
+]);
+
 pkfinance.controller('Header', ['$scope', '$state',
     function ($scope, $state) {
         $scope.logout = function () {
