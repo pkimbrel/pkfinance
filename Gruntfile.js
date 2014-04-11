@@ -9,7 +9,13 @@ module.exports = function (grunt) {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             build: {
-                src: 'src/**/*.js',
+                src: [
+                    'src/js/app.js',
+                    'src/js/services.js',
+                    'src/js/modules.js',
+                    'src/js/services.js',
+                    'src/js/views.js'
+                ],
                 dest: 'dist/js/<%= pkg.name %>.min.js'
             }
         },
@@ -65,6 +71,18 @@ module.exports = function (grunt) {
                 dest: 'dist/'
             }
         },
+        ngconstant: {
+            options: {
+                name: 'pkfinance',
+                dest: 'dist/js/config.js',
+                wrap: 'var pkfinance = {%= __ngModule %}',
+                constants: {
+                    'DATA_FOLDER': 'data'
+                },
+                deps: ['ngCookies', 'ui.router', 'xeditable']
+            },
+            build: {}
+        },
         s3: {
             options: {
                 key: process.env.AWS_ACCESS_KEY_ID,
@@ -103,9 +121,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-ng-constant');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
     grunt.registerTask('stage', ['default', 's3:staging']);
 
 };

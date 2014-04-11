@@ -4,7 +4,6 @@
 
 /* global $, angular, setTimeout */
 
-var pkfinance = angular.module('pkfinance', ['ngCookies', 'ui.router', 'xeditable']);
 
 pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions',
     function ($http, $rootScope, $state, authService, editableOptions) {

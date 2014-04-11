@@ -58,8 +58,8 @@ pkfinance.factory('validators', ['$q', '$http',
     }
 ]);
 
-pkfinance.factory('dataAccessor', ['$q', '$http',
-    function ($q, $http) {
+pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
+    function ($q, $http, DATA_FOLDER) {
         return {
             "updateCheckbook": function (field, data, id) {
                 var deferred = $q.defer();
@@ -83,7 +83,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http',
             "readCheckbook": function () {
                 var deferred = $q.defer();
 
-                $http.get('data/Checking-2013-08.json').success(function (data) {
+                $http.get(DATA_FOLDER + '/Checking-2013-08.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -94,7 +94,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http',
             "readCategories": function () {
                 var deferred = $q.defer();
 
-                $http.get('data/categories.json').success(function (data) {
+                $http.get(DATA_FOLDER + '/categories.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
