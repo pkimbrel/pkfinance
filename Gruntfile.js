@@ -27,18 +27,18 @@ module.exports = function (grunt) {
             dist: {
                 files: {
                     'dist/css/lib.min.css': [
-						'bower_components/bootstrap/dist/css/bootstrap.min.css',
-						'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-						'bower_components/angular-xeditable/dist/css/xeditable.css'
-                    ],
+                    'bower_components/bootstrap/dist/css/bootstrap.min.css',
+                    'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
+                    'bower_components/angular-xeditable/dist/css/xeditable.css'
+                ],
                     'dist/js/lib.min.js': [
-						'bower_components/jquery/dist/jquery.min.js',
-						'bower_components/bootstrap/dist/js/bootstrap.min.js',
-						'bower_components/moment/min/moment.min.js',
-						'bower_components/angular/angular.min.js',
-						'bower_components/angular-cookies/angular-cookies.min.js',
-						'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-						'bower_components/angular-xeditable/dist/js/xeditable.min.js'
+                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                    'bower_components/moment/min/moment.min.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-cookies/angular-cookies.min.js',
+                    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
+                    'bower_components/angular-xeditable/dist/js/xeditable.min.js'
                     ]
                 }
             }
@@ -52,10 +52,16 @@ module.exports = function (grunt) {
                 flatten: true,
                 filter: 'isFile'
             },
+            data: {
+                expand: true,
+                cwd: 'src/data/',
+                src: '**',
+                dest: 'dist/data'
+            },
             html: {
                 expand: true,
                 cwd: 'src/html/',
-                src: '*.html',
+                src: '**',
                 dest: 'dist/'
             }
         },
