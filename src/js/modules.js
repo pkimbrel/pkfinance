@@ -5,7 +5,8 @@
 pkfinance.controller('Head', ['$scope', '$state',
     function ($scope, $state) {
         $scope.currentState = function () {
-            if ($state.current.name == "newTransaction") {
+            if (($state.current.name == "newTransaction") ||
+                ($state.current.name == "login")){
                 return "new";
             } else {
                 return "main";
