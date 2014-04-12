@@ -8,7 +8,7 @@ pkfinance.controller('Head', ['$scope', '$state',
             if (($state.current.name == "summary") ||
                 ($state.current.name == "register") ||
                 ($state.current.name == "budget") ||
-                ($state.current.name == "planner")){
+                ($state.current.name == "planner")) {
                 return "main";
             } else {
                 return "new";
@@ -39,8 +39,13 @@ pkfinance.controller('TransactionForm', ['$scope', '$q', 'validators', 'dataAcce
             "payPeriod": applicationScope.payPeriod,
             "date": moment().format('YYYY-MM-DD'),
             "description": "",
-            "category": "",
-            "type": "Debit"
+            "category": null,
+            "type": "Debit",
+            "cleared": false,
+            "amount": ""
+        };
+        $scope.submit = function () {
+            console.log("here");
         };
     }
 ]);

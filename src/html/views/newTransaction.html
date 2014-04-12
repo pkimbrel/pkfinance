@@ -5,8 +5,8 @@
     <br>
     <div class="row">
         <div class="col-md-6">
-            <form class="form-horizontal" role="form" ng-controller="TransactionForm">
-                <!-- Select Basic -->
+            <form class="form-horizontal" role="form" ng-submit="submit()" ng-controller="TransactionForm">
+                <!-- Pay Period -->
                 <div class="form-group">
                     <label for="category" class="col-sm-3 control-label">Pay Period</label>
                     <div class="col-sm-9">
@@ -15,55 +15,55 @@
                     </div>
                 </div>
 
-                <!-- Text input-->
+                <!-- Date -->
                 <div class="form-group">
                     <label for="date" class="col-sm-3 control-label">Date</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" ng-model="newTransaction.date">
+                        <input type="text" class="form-control" ng-model="newTransaction.date" required>
                     </div>
                 </div>
 
-                <!-- Text input-->
+                <!-- Description -->
                 <div class="form-group" data-validation-group="description">
                     <label for="description" class="col-sm-3 control-label">Description</label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control">
+                        <input type="text" class="form-control" ng-model="newTransaction.description" required>
                     </div>
                 </div>
 
-                <!-- Select Basic -->
+                <!-- Category -->
                 <div class="form-group">
                     <label for="category" class="col-sm-3 control-label">Category</label>
                     <div class="col-sm-9">
-                        <select ng-model="newTransaction.category" class="form-control" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()">
+                        <select class="form-control" ng-model="newTransaction.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
                         </select>
                     </div>
                 </div>
 
-                <!-- Select Basic -->
+                <!-- Type -->
                 <div class="form-group" class="col-sm-3 control-label">
                     <label for="type" class="col-sm-3 control-label">Type</label>
                     <div class="col-sm-9">
-                        <select ng-model="newTransaction.type" class="form-control" ng-options="t for t in app.transactionTypes">
+                        <select class="form-control" ng-model="newTransaction.type" ng-options="t for t in app.transactionTypes">
                         </select>
                     </div>
                 </div>
 
-                <!-- Multiple Checkboxes -->
+                <!-- Cleared -->
                 <div class="form-group">
                     <label for="cleared" class="col-sm-3 control-label">Cleared</label>
                     <div class="col-sm-9">
-                        <input type="checkbox" class="input-sm">
+                        <input type="checkbox" class="input-sm" ng-model="newTransaction.cleared">
                     </div>
                 </div>
 
-                <!-- Text input-->
+                <!-- Amount -->
                 <div class="form-group">
                     <label for="amount" class="col-sm-3 control-label">Amount</label>
                     <div class="col-sm-9">
                         <div class="input-group">
                             <span class="input-group-addon">$</span>
-                            <input type="text" class="form-control">
+                            <input type="text" class="form-control" ng-model="newTransaction.amount" required>
                         </div>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                 <div class="form-group">
                     <div class="col-sm-3"></div>
                     <div class="col-sm-9">
-                        <button id="submit" name="submit" class="btn btn-primary" data-loading-text="Processing...">Submit</button>
+                        <input type="submit" class="btn btn-primary" value="Submit">
                     </div>
                 </div>
             </form>
