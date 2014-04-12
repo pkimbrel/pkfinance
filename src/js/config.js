@@ -4,5 +4,5 @@
 
 /* global angular */
 var pkfinance = angular.module("pkfinance", ["ngCookies", "ui.router", "xeditable"])
-    .constant("DATA_FOLDER", "../data")
+    .constant("DATA_FOLDER", "data")
     .value("debug", false);

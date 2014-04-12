@@ -1,3 +1,8 @@
+
+*** These modified files were found in JOE when it aborted on Fri Apr 11 08:57:36 2014
+*** JOE was aborted because the terminal closed
+
+*** File 'Gruntfile.js'
 module.exports = function (grunt) {
 
     // Project configuration.
@@ -12,10 +17,7 @@ module.exports = function (grunt) {
                 src: [
                     'src/js/app.js',
                     'src/js/services.js',
-                    'src/modules/header.js',
-                    'src/modules/sidebar.js',
-                    'src/modules/transactionForm.js',
-                    'src/modules/transactions.js',
+                    'src/js/modules.js',
                     'src/js/services.js',
                     'src/js/views.js'
                 ],
@@ -53,13 +55,9 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            fonts: {
-                expand: true,
-                cwd: 'bower_components/bootstrap/dist/fonts/',
-                src: '**',
-                dest: 'dist/fonts/',
-                flatten: true,
-                filter: 'isFile'
+            fonts: { expand: true, cwd:
+                'bower_components/bootstrap/dist/fonts/', src: '**', dest:
+                'dist/fonts/', flatten: true, filter: 'isFile'
             },
             data: {
                 expand: true,
@@ -67,29 +65,11 @@ module.exports = function (grunt) {
                 src: '**',
                 dest: 'dist/data'
             },
-            ico: {
+            html: {
                 expand: true,
-                cwd: 'src/ico/',
+                cwd: 'src/html/',
                 src: '**',
-                dest: 'dist/ico'
-            },
-            html_main: {
-                expand: true,
-                cwd: 'src/',
-                src: '*.html',
-                dest: 'dist'
-            },
-            html_modules: {
-                expand: true,
-                cwd: 'src/modules',
-                src: '*.html',
-                dest: 'dist/modules'
-            },
-            html_views: {
-                expand: true,
-                cwd: 'src/views/',
-                src: '*.html',
-                dest: 'dist/views'
+                dest: 'dist/'
             }
         },
         ngconstant: {
@@ -149,3 +129,31 @@ module.exports = function (grunt) {
     grunt.registerTask('stage', ['default', 's3:staging']);
 
 };
+
+*** File '(Unnamed)'
+/
+
+*** File '(Unnamed)'
+audio
+-sink
+1,0
+SERER
+SERVER
+FPS
+GOP
+EUW
+alsa
+hw
+
+*** File '(Unnamed)'
+interfaces
+interfaces
+/etc/resolv.conf
+interfaces
+interfaces
+interfaces
+interfaces
+/etc/pulse/default.pa
+/etc/pulse/default.pa
+/etc/pulse/default.pa
+Gruntfile.js
