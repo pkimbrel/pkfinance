@@ -101,3 +101,6 @@
      border-bottom: 0;
      color: inherit;
  }
+ .ng-invalid-pk-date {
+     border-color: red;
+ }

@@ -1,4 +1,4 @@
-<form class="form-horizontal" role="form" ng-submit="submit()" ng-controller="TransactionForm">
+<form class="form-horizontal" name="transaction" role="form" ng-submit="submit()" ng-controller="TransactionForm">
     <!-- Pay Period -->
     <div class="form-group">
         <label for="category" class="col-sm-3 control-label">Pay Period</label>
@@ -12,7 +12,8 @@
     <div class="form-group">
         <label for="date" class="col-sm-3 control-label">Date</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" ng-model="newTransaction.date" required>
+            <input type="text" name="date" class="form-control" ng-model="newTransaction.date" required pk-date>
+            <span ng-show="transaction.date.$error.pkDate">Please enter a valid date</span>
         </div>
     </div>
 
@@ -64,7 +65,7 @@
     <div class="form-group">
         <div class="col-sm-3"></div>
         <div class="col-sm-9">
-            <input type="submit" class="btn btn-primary" value="Submit">
+            <button class="btn btn-primary" ng-click="submit()" ng-disabled="transaction.$invalid || isUnchanged(user)">SAVE</button>
         </div>
     </div>
 </form>
