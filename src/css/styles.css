@@ -92,6 +92,13 @@
  .Credit .amount {
      color: green;
  }
+ input.ng-dirty.ng-invalid {
+     border-color: #a94442;
+ }
+ .error-message {
+     color: #a94442;
+     font-style: italic;
+ }
  /*
  * An now, my "Flagrant Disregard for Good Form"
  */
@@ -100,7 +107,4 @@
  a.editable-click:hover {
      border-bottom: 0;
      color: inherit;
- }
- .ng-invalid-pk-date {
-     border-color: red;
  }

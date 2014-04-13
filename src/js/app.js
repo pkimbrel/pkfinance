@@ -24,6 +24,12 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
                     $('.sidebar').affix();
                 }, 200);
             }
+
+            if (fromState.name == "") {
+                $rootScope.previousState = "register";
+            } else {
+                $rootScope.previousState = fromState.name;
+            }
         });
 
         editableOptions.theme = 'bs3';

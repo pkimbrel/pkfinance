@@ -12,16 +12,17 @@
     <div class="form-group">
         <label for="date" class="col-sm-3 control-label">Date</label>
         <div class="col-sm-9">
-            <input type="text" name="date" class="form-control" ng-model="newTransaction.date" required pk-date>
-            <span ng-show="transaction.date.$error.pkDate">Please enter a valid date</span>
+            <input type="text" name="date" class="form-control" ng-model="newTransaction.date" validate-date>
+            <span ng-show="transaction.date.$error.validateDate" class="error-message">Invalid date</span>
         </div>
     </div>
 
     <!-- Description -->
-    <div class="form-group" data-validation-group="description">
+    <div class="form-group">
         <label for="description" class="col-sm-3 control-label">Description</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" ng-model="newTransaction.description" required>
+            <input type="text" class="form-control" name="description" ng-model="newTransaction.description" validate-description>
+            <span ng-show="transaction.description.$error.validateDescription" class="error-message">Please enter description</span>
         </div>
     </div>
 
@@ -57,15 +58,17 @@
         <div class="col-sm-9">
             <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" ng-model="newTransaction.amount" required>
+                <input type="text" class="form-control" name="amount" ng-model="newTransaction.amount" required validate-amount>
             </div>
+            <span ng-show="transaction.amount.$error.validateAmount" class="error-message">Invalid Amount</span>
         </div>
     </div>
 
     <div class="form-group">
         <div class="col-sm-3"></div>
         <div class="col-sm-9">
-            <button class="btn btn-primary" ng-click="submit()" ng-disabled="transaction.$invalid || isUnchanged(user)">SAVE</button>
+            <button class="btn btn-primary" ng-disabled="transaction.$invalid || isUpdating">SAVE</button>
+            <a class="btn btn-default" ng-click="cancel()">Cancel</a>
         </div>
     </div>
 </form>

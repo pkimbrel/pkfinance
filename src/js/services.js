@@ -7,7 +7,12 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
     function ($q, $http, dataAccessor) {
         var applicationScope = {};
 
-        applicationScope.payPeriod = "2013-08";
+        if (localStorage.getItem("payPeriod") === null) {
+            applicationScope.payPeriod = "2013-08";
+        } else {
+            applicationScope.payPeriod = localStorage.getItem("payPeriod");
+        }
+
         applicationScope.availablePayPeriods = [
             "2013-08",
             "2013-09"
@@ -18,6 +23,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
         });
 
         applicationScope.updateTransactions = function () {
+            localStorage.payPeriod = applicationScope.payPeriod;
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
 
