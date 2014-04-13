@@ -34,10 +34,6 @@
             "icon": "fa fa-gift",
             "children": [
                 {
-                    "value": "Tithe",
-                    "text": "Tithe"
-                },
-                {
                     "value": "Charity",
                     "text": "Charity"
                 }

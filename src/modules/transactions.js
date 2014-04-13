@@ -20,5 +20,19 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
             return promise;
         };
 
+        $scope.flattenCategories = function () {
+            var list = [];
+            angular.forEach(applicationScope.categories, function (group) {
+                angular.forEach(group.children, function (category) {
+                    list.push({
+                        "category": category.text,
+                        "group": group.text
+                    });
+                });
+            });
+            return list;
+        };
+
+
     }
 ]);

@@ -22,7 +22,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
             applicationScope.categories = data.categories;
         });
 
-        applicationScope.updateTransactions = function () {
+        applicationScope.updateApplicationScope = function () {
             localStorage.payPeriod = applicationScope.payPeriod;
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
@@ -41,20 +41,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
             });
         };
 
-        applicationScope.updateTransactions();
-
-        applicationScope.flattenCategories = function () {
-            var list = [];
-            angular.forEach(applicationScope.categories, function (group) {
-                angular.forEach(group.children, function (category) {
-                    list.push({
-                        "category": category.text,
-                        "group": group.text
-                    });
-                });
-            });
-            return list;
-        };
+        applicationScope.updateApplicationScope();
 
         applicationScope.transactionTypes = ["Debit", "Credit"];
 
@@ -88,7 +75,18 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readCheckbook": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/Checking-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + '/transactions/Checking-' + payPeriod + '.json').success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "readBudget": function (payPeriod) {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + '/budget/Budget-' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
