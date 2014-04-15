@@ -1,8 +1,31 @@
-<table class="table table-hover table-bordered" ng-controller="Budget">
-    <tbody>
-        <tr>
-            <td>1st Paycheck</td>
-            <td width="10%">3026.91</td>
-        </tr>
-    </tbody>
-</table>
+<div class="budget" ng-controller="Budget">
+    <h2>Income</h2>
+    <table class="table table-hover table-bordered">
+        <tbody>
+            <tr ng-repeat="budgetItem in income">
+                <td>{{budgetItem.name}}</td>
+                <td class="amount" width="10%">
+                    <p class="amount" editable-text="budgetItem.amount" onbeforesave="validateAndUpdate('amount', $data)">{{budgetItem.amount | currency}}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Spending</h2>
+    <table class="table table-hover table-bordered">
+        <tbody>
+            <tr ng-repeat-start="budgetCategory in spending">
+                <th>
+                    <span class="glyphicon glyphicon-{{budgetCategory.icon}}"></span>
+                    {{budgetCategory.name}} ({{budgetCategory.percentage*100 | number:0}}%)
+                </th>
+                <th class="amount" width="10%">{{budgetCategory.amount/100|currency}}</th>
+                <th class="amount" width="10%">{{0|currency}}</th>
+            </tr>
+            <tr ng-repeat-end ng-repeat="budgetItem in budgetCategory.children">
+                <td>{{budgetItem.name}}</td>
+                <td class="amount" width="10%">{{budgetItem.amount/100|currency}}</td>
+                <td class="amount" width="10%">{{0|currency}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -7,6 +7,33 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
     function ($q, $http, dataAccessor) {
         var applicationScope = {};
 
+        function calculateEndingBalance(isBank) {
+            var balance = applicationScope.startingBalance;
+            angular.forEach(applicationScope.transactions, function (transaction) {
+                if (!isBank || transaction.cleared) {
+                    var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
+                    balance += amount;
+                }
+            });
+            return balance;
+        }
+
+        function calculateTotalIncome() {
+            var totalIncome = 0;
+            angular.forEach(applicationScope.budget.income, function (value, key) {
+                totalIncome += Number(value);
+            });
+            return totalIncome;
+        }
+
+        function calculateTotalSpending() {
+            var totalSpending = 0;
+            angular.forEach(applicationScope.budget.spending, function (value, key) {
+                totalSpending += Number(value);
+            });
+            return totalSpending;
+        }
+
         if (localStorage.getItem("payPeriod") === null) {
             applicationScope.payPeriod = "2013-08";
         } else {
@@ -18,30 +45,31 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
             "2013-09"
         ];
 
-        dataAccessor.readCategories().then(function (data) {
-            applicationScope.categories = data.categories;
-        });
-
         applicationScope.updateApplicationScope = function () {
             localStorage.payPeriod = applicationScope.payPeriod;
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
 
+                angular.forEach(applicationScope.transactions, function (transaction) {
+                    transaction.displayAmount = (transaction.amount / 100).toFixed(2);
+                });
+
                 applicationScope.startingBalance = data.startingBalance;
-                applicationScope.endingBalance = function (isBank) {
-                    var balance = applicationScope.startingBalance;
-                    angular.forEach(applicationScope.transactions, function (transaction) {
-                        if (!isBank || transaction.cleared) {
-                            var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
-                            balance += amount;
-                        }
-                    });
-                    return balance;
-                };
+                applicationScope.endingBalance = calculateEndingBalance;
+
+                dataAccessor.readBudget(applicationScope.payPeriod).then(function (data) {
+                    applicationScope.budget = data;
+                    applicationScope.totalIncome = calculateTotalIncome();
+                    applicationScope.totalSpending = calculateTotalSpending();
+                    applicationScope.difference = applicationScope.totalIncome - applicationScope.totalSpending;
+                });
             });
         };
 
-        applicationScope.updateApplicationScope();
+        dataAccessor.readCategories().then(function (data) {
+            applicationScope.categories = data.categories;
+            applicationScope.updateApplicationScope();
+        });
 
         applicationScope.transactionTypes = ["Debit", "Credit"];
 
@@ -54,6 +82,25 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
     function ($q, $http, DATA_FOLDER) {
         return {
             "updateCheckbook": function (field, data, id) {
+                var deferred = $q.defer();
+
+                $http.post('/update', {
+                    value: data
+                }).success(function (response) {
+                    response = response || {};
+                    if (response.status === 'ok') {
+                        deferred.resolve();
+                    } else {
+                        deferred.resolve(response.msg);
+                    }
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                deferred.resolve();
+                return deferred.promise;
+            },
+            "updateBudget": function (field, data) {
                 var deferred = $q.defer();
 
                 $http.post('/update', {
@@ -86,7 +133,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readBudget": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/budget/Budget-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + '/budget/budget-' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');

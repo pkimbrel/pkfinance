@@ -20,8 +20,8 @@
                     "text": "Reimbursement"
                 },
                 {
-                    "value": "Budget Carryover",
-                    "text": "Budget Carryover"
+                    "value": "Budget Surplus",
+                    "text": "Budget Surplus"
                 },
                 {
                     "value": "Bonus",
@@ -31,7 +31,7 @@
         },
         {
             "text": "Charity",
-            "icon": "fa fa-gift",
+            "icon": "gift",
             "children": [
                 {
                     "value": "Charity",
@@ -42,15 +42,11 @@
         },
         {
             "text": "Savings",
-            "icon": "fa fa-cloud",
+            "icon": "star",
             "children": [
                 {
                     "value": "Emergency Fund",
                     "text": "Emergency Fund"
-                },
-                {
-                    "value": "The Cow",
-                    "text": "The Cow"
                 },
                 {
                     "value": "Education Fund",
@@ -61,7 +57,7 @@
         },
         {
             "text": "Housing",
-            "icon": "fa fa-home",
+            "icon": "home",
             "children": [
                 {
                     "value": "Mortgage",
@@ -72,15 +68,15 @@
                     "text": "2nd Mortgage"
                 },
                 {
-                    "value": "Home Maintenance",
-                    "text": "Home Maintenance"
+                    "value": "Home Maintanence",
+                    "text": "Home Maintanence"
                 }
 
             ]
         },
         {
             "text": "Bills and Utilities",
-            "icon": "fa fa-bolt",
+            "icon": "phone-alt",
             "children": [
                 {
                     "value": "Electrical Service",
@@ -107,7 +103,7 @@
         },
         {
             "text": "Education",
-            "icon": "fa fa-bell-o",
+            "icon": "bell",
             "children": [
                 {
                     "value": "Books and Supplies",
@@ -116,29 +112,17 @@
                 {
                     "value": "Field Trip",
                     "text": "Field Trip"
-                },
-                {
-                    "value": "HSLDA",
-                    "text": "HSLDA"
                 }
 
             ]
         },
         {
             "text": "Financial",
-            "icon": "fa fa-money",
+            "icon": "usd",
             "children": [
                 {
                     "value": "Life Insurance",
                     "text": "Life Insurance"
-                },
-                {
-                    "value": "CILAC",
-                    "text": "CILAC"
-                },
-                {
-                    "value": "Insurance Interest",
-                    "text": "Insurance Interest"
                 },
                 {
                     "value": "Phone Insurance",
@@ -149,42 +133,21 @@
         },
         {
             "text": "Food",
-            "icon": "fa fa-cutlery",
+            "icon": "cutlery",
             "children": [
-                {
-                    "value": "Co-ops",
-                    "text": "Co-ops"
-                },
-                {
-                    "value": "Farm Order",
-                    "text": "Farm Order"
-  },
                 {
                     "value": "Groceries",
                     "text": "Groceries"
                 },
                 {
-                    "value": "Schwan's",
-                    "text": "Schwan's"
-                },
-                {
                     "value": "Eating Out",
                     "text": "Eating Out"
-                },
-                {
-                    "value": "Holiday Food",
-                    "text": "Holiday Food"
-                },
-                {
-                    "value": "CSA",
-                    "text": "CSA"
                 }
-
             ]
         },
         {
             "text": "Auto",
-            "icon": "fa fa-road",
+            "icon": "road",
             "children": [
                 {
                     "value": "Auto Insurance",
@@ -199,14 +162,15 @@
                     "text": "Tag Registration"
                 },
                 {
-                    "value": "Auto Maintenance",
-                    "text": "Auto Maintenance"
+                    "value": "Auto Maintanence",
+                    "text": "Auto Maintanence"
                 }
+
             ]
         },
         {
             "text": "Clothing",
-            "icon": "fa fa-group",
+            "icon": "user",
             "children": [
                 {
                     "value": "Adult Clothes",
@@ -221,31 +185,11 @@
         },
         {
             "text": "Medical",
-            "icon": "fa fa-stethoscope",
+            "icon": "heart-empty",
             "children": [
-                {
-                    "value": "Dr. Oliger",
-                    "text": "Dr. Oliger"
-                },
                 {
                     "value": "Doctor Bills",
                     "text": "Doctor Bills"
-                },
-                {
-                    "value": "Therapy",
-                    "text": "Therapy"
-                },
-                {
-                    "value": "Medical Travel",
-                    "text": "Medical Travel"
-                },
-                {
-                    "value": "Medical Fuel",
-                    "text": "Medical Fuel"
-                },
-                {
-                    "value": "Medical Food",
-                    "text": "Medical Food"
                 },
                 {
                     "value": "Suppliments",
@@ -256,7 +200,7 @@
         },
         {
             "text": "Personal",
-            "icon": "fa fa-shopping-cart",
+            "icon": "shopping-cart",
             "children": [
                 {
                     "value": "Birthday",
@@ -299,10 +243,6 @@
                     "text": "Vet"
                 },
                 {
-                    "value": "County Fair",
-                    "text": "County Fair"
-                },
-                {
                     "value": "Subscriptions",
                     "text": "Subscriptions"
                 }
@@ -311,53 +251,38 @@
         },
         {
             "text": "Entertainment",
-            "icon": "fa fa-film",
+            "icon": "film",
             "children": [
                 {
                     "value": "Netflix",
                     "text": "Netflix"
                 },
                 {
-                    "value": "Tonya - Fun Money",
-                    "text": "Tonya - Fun Money"
+                    "value": "Her Fun Money",
+                    "text": "Her Fun Money"
                 },
                 {
-                    "value": "Paul - Fun Money",
-                    "text": "Paul - Fun Money"
-                },
-                {
-                    "value": "Spotify",
-                    "text": "Spotify"
-                },
-                {
-                    "value": "Dreamhost",
-                    "text": "Dreamhost"
+                    "value": "His Fun Money",
+                    "text": "His Fun Money"
                 }
+
             ]
         },
         {
             "text": "Credit Cards",
-            "icon": "fa fa-credit-card",
+            "icon": "thumbs-down",
             "children": [
                 {
-                    "value": "Amazon Chase",
-                    "text": "Amazon Chase"
+                    "value": "Credit Card #1",
+                    "text": "Credit Card #1"
                 },
                 {
-                    "value": "Home Depot (HTC)",
-                    "text": "Home Depot (HTC)"
+                    "value": "Credit Card #2",
+                    "text": "Credit Card #2"
                 },
                 {
-                    "value": "IAA Credit Union",
-                    "text": "IAA Credit Union"
-                },
-                {
-                    "value": "Kohl's Card",
-                    "text": "Kohl's Card"
-                },
-                {
-                    "value": "Extra Payment",
-                    "text": "Extra Payment"
+                    "value": "Credit Card #3",
+                    "text": "Credit Card #3"
                 }
 
             ]

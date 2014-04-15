@@ -86,12 +86,15 @@
  .trash span {
      margin-top: 3px;
  }
- .Debit .amount:before {
+ .Debit .amount p:before {
      content: "-";
  }
  .Credit .amount {
      color: green;
  }
+ /**
+ * New Transaction
+ */
  input.ng-dirty.ng-invalid {
      border-color: #a94442;
  }
@@ -99,7 +102,19 @@
      color: #a94442;
      font-style: italic;
  }
- /*
+ /**
+ * Budget
+ */
+ .budget table {
+     -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+     border-radius: 4px;
+ }
+ .budget th {
+     background: #eee;
+     font-size: 1.15em;
+ }
+ /**
  * An now, my "Flagrant Disregard for Good Form"
  */
  .editable-click,
@@ -107,4 +122,10 @@
  a.editable-click:hover {
      border-bottom: 0;
      color: inherit;
+ }
+ .date .editable-input.editable-has-buttons {
+     width: 110px;
+ }
+ .amount .editable-input.editable-has-buttons {
+     width: 90px;
  }

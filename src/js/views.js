@@ -3,15 +3,15 @@
  */
 /* global pkfinance */
 
-pkfinance.controller('Login', ['$scope',
+pkfinance.controller('DisplayLogin', ['$scope',
     function ($scope) {}]);
-pkfinance.controller('Register', ['$scope',
+pkfinance.controller('DisplayRegister', ['$scope',
     function ($scope) {}]);
-pkfinance.controller('Summary', ['$scope',
+pkfinance.controller('DisplaySummary', ['$scope',
     function ($scope) {}]);
-pkfinance.controller('Budget', ['$scope',
+pkfinance.controller('DisplayBudget', ['$scope',
     function ($scope) {}]);
-pkfinance.controller('Planner', ['$scope',
+pkfinance.controller('DisplayPlanner', ['$scope',
     function ($scope) {}]);
-pkfinance.controller('NewTransaction', ['$scope',
+pkfinance.controller('DisplayNewTransaction', ['$scope',
     function ($scope) {}]);

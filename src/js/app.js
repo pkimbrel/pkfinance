@@ -25,7 +25,7 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
                 }, 200);
             }
 
-            if (fromState.name == "") {
+            if (fromState.name === "") {
                 $rootScope.previousState = "register";
             } else {
                 $rootScope.previousState = fromState.name;
@@ -41,38 +41,38 @@ pkfinance.config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state("summary", {
                 url: "/",
-                templateUrl: "views/summary.html",
-                controller: "Summary",
+                templateUrl: "views/displaySummary.html",
+                controller: "DisplaySummary",
                 authenticate: true
             })
             .state("register", {
                 url: "/register",
-                templateUrl: "views/register.html",
-                controller: "Register",
+                templateUrl: "views/displayRegister.html",
+                controller: "DisplayRegister",
                 authenticate: true
             })
             .state("budget", {
                 url: "/budget",
-                templateUrl: "views/budget.html",
-                controller: "Budget",
+                templateUrl: "views/displayBudget.html",
+                controller: "DisplayBudget",
                 authenticate: true
             })
             .state("planner", {
                 url: "/planner",
-                templateUrl: "views/planner.html",
-                controller: "Planner",
+                templateUrl: "views/displayPlanner.html",
+                controller: "DisplayPlanner",
                 authenticate: true
             })
             .state("newTransaction", {
                 url: "/newTransaction",
-                templateUrl: "views/newTransaction.html",
-                controller: "NewTransaction",
+                templateUrl: "views/displayNewTransaction.html",
+                controller: "DisplayNewTransaction",
                 authenticate: true
             })
             .state("login", {
                 url: "/login",
-                templateUrl: "views/login.html",
-                controller: "Login",
+                templateUrl: "views/displayLogin.html",
+                controller: "DisplayLogin",
                 authenticate: false
             });
         // Send to login if the URL was not found

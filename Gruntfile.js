@@ -16,6 +16,7 @@ module.exports = function (grunt) {
                     'src/modules/sidebar.js',
                     'src/modules/transactionForm.js',
                     'src/modules/transactions.js',
+                    'src/modules/budget.js',
                     'src/js/services.js',
                     'src/js/views.js'
                 ],

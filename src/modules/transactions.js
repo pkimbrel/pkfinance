@@ -14,8 +14,13 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
         $scope.order = ["cleared", "-date"];
 
         $scope.validateAndUpdate = function (field, data, id) {
-            var promise = validationBindings[field](data, $q).then(function () {
-                return dataAccessor.updateCheckbook(field, data, id, $q);
+            var value = data;
+
+            var promise = validationBindings[field](value, $q).then(function () {
+                if (field == "amount") {
+                    value = data * 100;
+                }
+                return dataAccessor.updateCheckbook(field, value, id, $q);
             });
             return promise;
         };
