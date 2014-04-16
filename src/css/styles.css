@@ -114,6 +114,9 @@
      background: #eee;
      font-size: 1.15em;
  }
+ .budget p {
+     margin: 0;
+ }
  /**
  * An now, my "Flagrant Disregard for Good Form"
  */

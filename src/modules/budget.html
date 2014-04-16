@@ -18,13 +18,15 @@
                     <span class="glyphicon glyphicon-{{budgetCategory.icon}}"></span>
                     {{budgetCategory.name}} ({{budgetCategory.percentage*100 | number:0}}%)
                 </th>
-                <th class="amount" width="10%">{{budgetCategory.amount/100|currency}}</th>
-                <th class="amount" width="10%">{{0|currency}}</th>
+                <th class="amount" width="10%">{{budgetCategory.amount|currency}}</th>
+                <th class="amount" width="10%"></th>
             </tr>
             <tr ng-repeat-end ng-repeat="budgetItem in budgetCategory.children">
                 <td>{{budgetItem.name}}</td>
-                <td class="amount" width="10%">{{budgetItem.amount/100|currency}}</td>
-                <td class="amount" width="10%">{{0|currency}}</td>
+                <td class="amount">
+                    <p class="amount" editable-text="budgetItem.amount" onbeforesave="validateAndUpdate('amount', $data)">{{budgetItem.amount | currency}}</p>
+                </td>
+                <td class="amount" width="10%">{{budgetItem.used|currency}}</td>
             </tr>
         </tbody>
     </table>

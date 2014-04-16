@@ -70,10 +70,18 @@ pkfinance.controller('Budget', ['$scope', '$q', 'validators', 'dataAccessor', 'a
                         if (applicationScope.budget.spending[child.text] !== undefined) {
                             amount = Number(applicationScope.budget.spending[child.text]);
                         }
+
+                        var used = amount;
+                        angular.forEach(applicationScope.transactions, function (transaction) {
+                            if (transaction.category == child.text) {
+                                used -= transaction.amount;
+                            }
+                        });
                         total += amount;
                         children.push({
                             "name": child.text,
-                            "amount": amount
+                            "amount": (amount / 100).toFixed(2),
+                            "used": (used / 100).toFixed(2)
                         });
                     });
 
@@ -82,7 +90,7 @@ pkfinance.controller('Budget', ['$scope', '$q', 'validators', 'dataAccessor', 'a
                         "percentage": total / applicationScope.totalIncome,
                         "icon": category.icon,
                         "children": children,
-                        "amount": total
+                        "amount": (total / 100).toFixed(2)
                     });
                 }
             });
