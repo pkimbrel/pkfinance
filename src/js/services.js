@@ -3,8 +3,8 @@
  */
 /* global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
-    function ($q, $http, dataAccessor) {
+pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DATE',
+    function ($q, $http, dataAccessor, START_DATE) {
         var applicationScope = {};
 
         function calculateEndingBalance(isBank) {
@@ -34,19 +34,53 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
             return totalSpending;
         }
 
+        function calculateDateRange() {
+            var startDate = moment(START_DATE);
+            var startYear = startDate.year();
+
+            var parsedPeriod = /([0-9]{4})-([0-9]{2})/.exec(applicationScope.payPeriod);
+
+            var periodYear = parsedPeriod[1];
+            var periodDifference = Number(parsedPeriod[2]) + (periodYear - startYear) * 13;
+
+            var periodStartDate = moment(startDate).add('days', (periodDifference - 1) * 28);
+            var periodEndDate = moment(periodStartDate).add('days', 27);
+
+            applicationScope.startDate = periodStartDate.toDate();
+            applicationScope.endDate = periodEndDate.toDate();
+
+            applicationScope.isCurrent = (
+                (periodStartDate.valueOf() < moment().valueOf()) &&
+                (periodEndDate.valueOf() > moment().valueOf())
+            );
+        }
+
         if (localStorage.getItem("payPeriod") === null) {
-            applicationScope.payPeriod = "2013-08";
+            applicationScope.payPeriod = "2014-08";
         } else {
             applicationScope.payPeriod = localStorage.getItem("payPeriod");
         }
 
         applicationScope.availablePayPeriods = [
             "2013-08",
-            "2013-09"
+            "2013-09",
+            "2013-10",
+            "2013-11",
+            "2013-12",
+            "2013-13",
+            "2014-01",
+            "2014-02",
+            "2014-03",
+            "2014-04",
+            "2014-05",
+            "2014-06",
+            "2014-07",
+            "2014-08"
         ];
 
         applicationScope.updateApplicationScope = function () {
             localStorage.payPeriod = applicationScope.payPeriod;
+            calculateDateRange();
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
 
@@ -63,6 +97,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor',
                     applicationScope.totalSpending = calculateTotalSpending();
                     applicationScope.difference = applicationScope.totalIncome - applicationScope.totalSpending;
                 });
+
             });
         };
 

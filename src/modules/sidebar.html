@@ -3,45 +3,45 @@
         <label class="control-label">Pay Period:</label>
         <select class="form-control" ng-model="app.payPeriod" ng-options="p for p in app.availablePayPeriods" ng-change="app.updateApplicationScope()">
         </select>
-        <div class="display-period">(7/26 - 8/22)
-            <!--em>(current)</em-->
+        <div class="display-period">({{app.startDate|date:'M/d'}} - {{app.endDate|date:'M/d'}})
+            <em ng-show="app.isCurrent">(current)</em>
         </div>
     </div>
 
-    <div class="form-group balance">
-        <div class="row">
-            <div class="col-xs-7 description">Starting Balance:</div>
-            <div class="col-xs-5 startingBalance amount">{{app.startingBalance/100|currency}}</div>
+    <div class=" form-group balance ">
+        <div class="row ">
+            <div class="col-xs-7 description ">Starting Balance:</div>
+            <div class="col-xs-5 startingBalance amount ">{{app.startingBalance/100|currency}}</div>
         </div>
-        <div class="row" ng-class="{bad:app.endingBalance(true) < 0}">
-            <div class="col-xs-7 description">Bank Balance:</div>
-            <div class="col-xs-5 bankBalance amount">{{app.endingBalance(true)/100|currency}}</div>
+        <div class="row " ng-class="{bad:app.endingBalance(true) < 0} ">
+            <div class="col-xs-7 description ">Bank Balance:</div>
+            <div class="col-xs-5 bankBalance amount ">{{app.endingBalance(true)/100|currency}}</div>
         </div>
-        <div class="row" ng-class="{bad:app.endingBalance() < 0}">
-            <div class="col-xs-7 description">Current Balance:</div>
-            <div class="col-xs-5 endingBalance amount">{{app.endingBalance(false)/100|currency}}</div>
+        <div class="row " ng-class="{bad:app.endingBalance() < 0} ">
+            <div class="col-xs-7 description ">Current Balance:</div>
+            <div class="col-xs-5 endingBalance amount ">{{app.endingBalance(false)/100|currency}}</div>
         </div>
     </div>
 
-    <div class="form-group">
-        <a class="btn btn-primary" href="#/newTransaction">
-            <span class="glyphicon-plus-sign glyphicon"></span>
+    <div class="form-group ">
+        <a class="btn btn-primary " href="#/newTransaction ">
+            <span class="glyphicon-plus-sign glyphicon "></span>
             <span>Add Transaction</span>
         </a>
     </div>
 
-    <div class="form-group balance">
-        <div class="row">
-            <div class="col-xs-7 description">Expected Income:</div>
-            <div class="col-xs-5 startingBalance amount">{{app.totalIncome/100|currency}}</div>
+    <div class="form-group balance ">
+        <div class="row ">
+            <div class="col-xs-7 description ">Expected Income:</div>
+            <div class="col-xs-5 startingBalance amount ">{{app.totalIncome/100|currency}}</div>
         </div>
-        <div class="row" ng-class="{bad:app.endingBalance(true) < 0}">
-            <div class="col-xs-7 description">Expected Spending:</div>
-            <div class="col-xs-5 bankBalance amount">{{app.totalSpending/100|currency}}</div>
+        <div class="row " ng-class="{bad:app.endingBalance(true) < 0} ">
+            <div class="col-xs-7 description ">Expected Spending:</div>
+            <div class="col-xs-5 bankBalance amount ">{{app.totalSpending/100|currency}}</div>
         </div>
-        <div class="row" ng-class="{bad:app.difference < 0}">
-            <div class="col-xs-7 description">Difference:</div>
-            <div class="col-xs-5 endingBalance amount">{{app.difference/100|currency}}</div>
+        <div class="row " ng-class="{bad:app.difference < 0} ">
+            <div class="col-xs-7 description ">Difference:</div>
+            <div class="col-xs-5 endingBalance amount ">{{app.difference/100|currency}}</div>
         </div>
     </div>
 </div>

@@ -74,7 +74,7 @@ pkfinance.controller('Budget', ['$scope', '$q', 'validators', 'dataAccessor', 'a
                         var used = amount;
                         angular.forEach(applicationScope.transactions, function (transaction) {
                             if (transaction.category == child.text) {
-                                used -= transaction.amount;
+                                used -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
                             }
                         });
                         total += amount;
