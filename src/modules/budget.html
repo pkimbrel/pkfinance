@@ -1,5 +1,6 @@
 <div class="budget" ng-controller="Budget">
-    <h2>Income</h2>
+    <h2 ng-hide="app.budget">No Budget Found</h2>
+    <h2 ng-show="app.budget">Income</h2>
     <table class="table table-hover table-bordered">
         <tbody>
             <tr ng-repeat="budgetItem in income">
@@ -10,7 +11,7 @@
             </tr>
         </tbody>
     </table>
-    <h2>Spending</h2>
+    <h2 ng-show="app.budget">Spending</h2>
     <table class="table table-hover table-bordered">
         <tbody>
             <tr ng-repeat-start="budgetCategory in spending">

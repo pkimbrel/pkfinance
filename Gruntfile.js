@@ -17,6 +17,7 @@ module.exports = function (grunt) {
                     'src/modules/transactionForm.js',
                     'src/modules/transactions.js',
                     'src/modules/budget.js',
+                    'src/modules/planner.js',
                     'src/js/services.js',
                     'src/js/views.js'
                 ],
@@ -99,7 +100,8 @@ module.exports = function (grunt) {
                 dest: 'dist/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
-                    'DATA_FOLDER': 'data'
+                    'DATA_FOLDER': 'data',
+                    'START_DATE': '2014-01-11'
                 },
                 deps: ['ngCookies', 'ui.router', 'xeditable']
             },

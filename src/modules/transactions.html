@@ -1,33 +1,36 @@
-<table class="table table-striped table-hover transactions" ng-controller="Transactions">
-    <tbody>
-        <tr>
-            <th width="5%">Date</th>
-            <th>Description</th>
-            <th width="5%" class="hidden-xs">Type</th>
-            <th width="5%" class="amount">Amount</th>
-            <th width="1%"></th>
-            <th width="1%"></th>
-        </tr>
-        <tr ng-repeat="transaction in app.transactions | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
-            <td class="date">
-                <p editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</p>
-            </td>
-            <td>
-                <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
-                <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
-            </td>
-            <td class="hidden-xs">
-                <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in app.transactionTypes" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
-            </td>
-            <td class="amount">
-                <p editable-text="transaction.displayAmount" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)">{{transaction.displayAmount | currency}}</p>
-            </td>
-            <td class="transactionCleared">
-                <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', $data, transaction.tranid)" />
-            </td>
-            <td class="trash" data-pk="{{transaction.tranid}}">
-                <i class="glyphicon glyphicon-trash"></i>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div ng-controller="Transactions" class="transactions">
+    <h2 ng-hide="app.transactions">No Transactions</h2>
+    <table ng-show="app.transactions" class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th width="5%">Date</th>
+                <th>Description</th>
+                <th width="5%" class="hidden-xs">Type</th>
+                <th width="5%" class="amount">Amount</th>
+                <th width="1%"></th>
+                <th width="1%"></th>
+            </tr>
+            <tr ng-repeat="transaction in app.transactions | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
+                <td class="date">
+                    <p editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</p>
+                </td>
+                <td>
+                    <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
+                    <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
+                </td>
+                <td class="hidden-xs">
+                    <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in app.transactionTypes" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
+                </td>
+                <td class="amount">
+                    <p editable-text="transaction.displayAmount" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)">{{transaction.displayAmount | currency}}</p>
+                </td>
+                <td class="transactionCleared">
+                    <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', $data, transaction.tranid)" />
+                </td>
+                <td class="trash" data-pk="{{transaction.tranid}}">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

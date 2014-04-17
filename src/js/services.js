@@ -79,6 +79,9 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
         ];
 
         applicationScope.updateApplicationScope = function () {
+            applicationScope.transactions = undefined;
+            applicationScope.budget = undefined;
+
             localStorage.payPeriod = applicationScope.payPeriod;
             calculateDateRange();
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
