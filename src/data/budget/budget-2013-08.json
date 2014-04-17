@@ -1,7 +1,7 @@
 {
     "income": {
-        "1st Paycheck": 120000,
-        "2nd Paycheck": 120000,
+        "1st Paycheck": 150000,
+        "2nd Paycheck": 150000,
         "Rental Income": 40000,
         "Reimbursement": 12000,
         "Bonus": 10000
@@ -17,13 +17,13 @@
         "Electrical Service": 8500,
         "Phone Service": 4500,
         "Natural Gas": 8800,
-        "TV Service": 0,
+        "TV Service": 7500,
         "Water Service": 4500,
         "Books and Supplies": 5000,
         "Field Trip": "0",
         "Life Insurance": 0,
         "Phone Insurance": 1500,
-        "Groceries": "110000",
+        "Groceries": "80000",
         "Eating Out": 10000,
         "Auto Insurance": 9500,
         "Gas & Fuel": "20000",

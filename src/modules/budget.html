@@ -26,7 +26,9 @@
                 <td class="amount">
                     <p class="amount" editable-text="budgetItem.amount" onbeforesave="validateAndUpdate('amount', $data)">{{budgetItem.amount | currency}}</p>
                 </td>
-                <td class="amount" width="10%">{{budgetItem.used|currency}}</td>
+                <td class="amount used" width="10%" ng-class="{good: budgetItem.used > 0, bad: budgetItem.used < 0, zero: budgetItem.used == 0}">
+                    {{budgetItem.used|currency}}
+                </td>
             </tr>
         </tbody>
     </table>

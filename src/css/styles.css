@@ -117,6 +117,18 @@
  .budget p {
      margin: 0;
  }
+ .used.good {
+     color: #080;
+     background: #dfd;
+ }
+ .used.zero {
+     color: #880;
+     background: #ffd;
+ }
+ .used.bad {
+     color: #800;
+     background: #fdd;
+ }
  /**
  * An now, my "Flagrant Disregard for Good Form"
  */
