@@ -10,6 +10,13 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
         };
 
         $scope.app = applicationScope;
+        
+        $scope.$watch("searchFilter", function(newValue) {
+            console.log("HERE");
+            $scope.transactionFilter = $scope.searchFilter;
+        });
+
+
 
         $scope.order = ["cleared", "-date"];
 
