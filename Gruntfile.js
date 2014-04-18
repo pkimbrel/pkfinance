@@ -99,7 +99,8 @@ module.exports = function (grunt) {
                 dest: 'dist/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
-                    'DATA_FOLDER': 'data',
+                    'DATA_FOLDER': 'data/',
+                    'DIST_FOLDER': '',
                     'START_DATE': '2014-01-11'
                 },
                 deps: ['ngCookies', 'ui.router', 'xeditable']

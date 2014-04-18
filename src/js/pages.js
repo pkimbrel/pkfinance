@@ -3,32 +3,32 @@
  */
 /* global pkfinance */
 
-pkfinance.controller('DisplayLogin', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplayLogin', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
 
-pkfinance.controller('DisplayRegister', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplayRegister', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
 
-pkfinance.controller('DisplaySummary', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplaySummary', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
 
-pkfinance.controller('DisplayBudget', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplayBudget', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
 
-pkfinance.controller('DisplayPlanner', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplayPlanner', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
 
-pkfinance.controller('DisplayNewTransaction', ['$scope', 'SRC_FOLDER',
-    function ($scope, SRC_FOLDER) {
-        $scope.SRC_FOLDER = SRC_FOLDER;
+pkfinance.controller('DisplayNewTransaction', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
 }]);

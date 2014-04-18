@@ -36,42 +36,42 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
     }
 ]);
 
-pkfinance.config(['$stateProvider', '$urlRouterProvider', 'SRC_FOLDER',
-    function ($stateProvider, $urlRouterProvider, SRC_FOLDER) {
+pkfinance.config(['$stateProvider', '$urlRouterProvider', 'DIST_FOLDER',
+    function ($stateProvider, $urlRouterProvider, DIST_FOLDER) {
         $stateProvider
             .state("summary", {
                 url: "/",
-                templateUrl: SRC_FOLDER + "pages/displaySummary.html",
+                templateUrl: DIST_FOLDER + "pages/displaySummary.html",
                 controller: "DisplaySummary",
                 authenticate: true
             })
             .state("register", {
                 url: "/register",
-                templateUrl: SRC_FOLDER + "pages/displayRegister.html",
+                templateUrl: DIST_FOLDER + "pages/displayRegister.html",
                 controller: "DisplayRegister",
                 authenticate: true
             })
             .state("budget", {
                 url: "/budget",
-                templateUrl: SRC_FOLDER + "pages/displayBudget.html",
+                templateUrl: DIST_FOLDER + "pages/displayBudget.html",
                 controller: "DisplayBudget",
                 authenticate: true
             })
             .state("planner", {
                 url: "/planner",
-                templateUrl: SRC_FOLDER + "pages/displayPlanner.html",
+                templateUrl: DIST_FOLDER + "pages/displayPlanner.html",
                 controller: "DisplayPlanner",
                 authenticate: true
             })
             .state("newTransaction", {
                 url: "/newTransaction",
-                templateUrl: SRC_FOLDER + "pages/displayNewTransaction.html",
+                templateUrl: DIST_FOLDER + "pages/displayNewTransaction.html",
                 controller: "DisplayNewTransaction",
                 authenticate: true
             })
             .state("login", {
                 url: "/login",
-                templateUrl: SRC_FOLDER + "pages/displayLogin.html",
+                templateUrl: DIST_FOLDER + "pages/displayLogin.html",
                 controller: "DisplayLogin",
                 authenticate: false
             });

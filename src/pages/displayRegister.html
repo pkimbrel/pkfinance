@@ -1,26 +1,26 @@
-<ng-include src="SRC_FOLDER + 'modules/header.html'"></ng-include>
+<ng-include src="DIST_FOLDER + 'modules/header.html'"></ng-include>
 <!-- Begin Body -->
 <div class="container">
     <h1>Checkbook Register</h1>
     <div class="row">
         <div class="col-md-3">
             <div class="nav nav-stacked sidebar" ng-controller="Sidebar">
-                <ng-include src="SRC_FOLDER + 'modules/sidebar-payPeriod.html'"></ng-include>
-                <ng-include src="SRC_FOLDER + 'modules/sidebar-search.html'"></ng-include>
+                <ng-include src="DIST_FOLDER + 'modules/sidebar-payPeriod.html'"></ng-include>
+                <ng-include src="DIST_FOLDER + 'modules/sidebar-search.html'"></ng-include>
                 <div class="visible-xs">
-                    <ng-include src="SRC_FOLDER + 'modules/sidebar-addTransaction.html'"></ng-include>
+                    <ng-include src="DIST_FOLDER + 'modules/sidebar-addTransaction.html'"></ng-include>
                 </div>
-                <ng-include src="SRC_FOLDER + 'modules/sidebar-registerBalance.html'"></ng-include>
+                <ng-include src="DIST_FOLDER + 'modules/sidebar-registerBalance.html'"></ng-include>
                 <div class="hidden-xs">
-                    <ng-include src="SRC_FOLDER + 'modules/sidebar-budgetBalance.html'"></ng-include>
+                    <ng-include src="DIST_FOLDER + 'modules/sidebar-budgetBalance.html'"></ng-include>
                 </div>
                 <div class="hidden-xs">
-                    <ng-include src="SRC_FOLDER + 'modules/sidebar-addTransaction.html'"></ng-include>
+                    <ng-include src="DIST_FOLDER + 'modules/sidebar-addTransaction.html'"></ng-include>
                 </div>
             </div>
         </div>
         <div class="col-md-9">
-            <ng-include src="SRC_FOLDER + 'views/transactions.html'"></ng-include>
+            <ng-include src="DIST_FOLDER + 'views/transactions.html'"></ng-include>
         </div>
     </div>
 </div>
