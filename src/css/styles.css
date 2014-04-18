@@ -92,6 +92,20 @@
  .Credit .amount {
      color: green;
  }
+ .transactionSearch {
+     height: 64;
+ }
+ .transactionSearch label {
+    margin-top: 5px; 
+ }
+ .transactionSearch .input-group-addon {
+     cursor: pointer;
+ }
+ @media (min-width: 767px) {
+    .transactionSearch {
+        height: 34px;
+    }
+ }
  /**
  * New Transaction
  */

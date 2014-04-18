@@ -1,9 +1,12 @@
 <div ng-controller="Transactions" class="transactions">
     <h2 ng-hide="app.transactions">No Transactions</h2>
-    <div class="form-group transactionSearch">
-        <label for="category" class="col-sm-3 control-label">Search</label>
-        <div class="col-sm-9">
-            <input type="text" ng-model="searchFilter" class="form-control" >
+    <div ng-show="app.transactions" class="form-group transactionSearch">
+        <label for="category" class="col-sm-1 control-label">Search</label>
+        <div class="col-sm-4">
+            <div class="input-group">
+                <input type="text" ng-model="app.searchFilter" class="form-control" >
+                <span class="input-group-addon" ng-click="clear()">X</span>
+            </div>
         </div>
     </div>
 

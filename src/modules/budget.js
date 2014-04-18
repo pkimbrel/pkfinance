@@ -1,5 +1,5 @@
-pkfinance.controller('Budget', ['$scope', '$q', 'validators', 'dataAccessor', 'applicationScope',
-    function ($scope, $q, validators, dataAccessor, applicationScope) {
+pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope',
+    function ($scope, $state, $q, validators, dataAccessor, applicationScope) {
         var validationBindings = {
             "amount": validators.validateCurrency
         };
@@ -28,6 +28,11 @@ pkfinance.controller('Budget', ['$scope', '$q', 'validators', 'dataAccessor', 'a
                 return dataAccessor.updateBudget(field, value, $q);
             });
             return promise;
+        };
+        
+        $scope.filterItems = function(filterData) {
+            applicationScope.searchFilter = "category:" + filterData;
+            $state.transitionTo("register");
         };
 
         function updateIncome() {

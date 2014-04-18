@@ -11,12 +11,26 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
 
         $scope.app = applicationScope;
         
-        $scope.$watch("searchFilter", function(newValue) {
-            console.log("HERE");
-            $scope.transactionFilter = $scope.searchFilter;
+        $scope.$watch("app.searchFilter", function(newValue) {
+            if (applicationScope.searchFilter !== undefined) {
+                var searchFilter = applicationScope.searchFilter;
+                var index = searchFilter.indexOf(":");
+                if (index != -1) {
+                    var key = searchFilter.substring(0, index);
+                    var value = searchFilter.substring(index+1);
+                    searchFilter = {};
+                    searchFilter[key] = value;
+                    /*if (key.toLowerCase() == "category") {
+                        searchFilter["categories"] = value;
+                    }*/
+                }
+                $scope.transactionFilter = searchFilter;
+            }
         });
 
-
+        $scope.clear = function() {
+            applicationScope.searchFilter = "";
+        }
 
         $scope.order = ["cleared", "-date"];
 
