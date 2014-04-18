@@ -41,6 +41,23 @@
          width: 260px;
      }
  }
+ .transactionSearch label {
+     margin-top: 5px;
+ }
+ .transactionSearch .input-group-addon {
+     cursor: pointer;
+ }
+ @media (min-width: 767px) {
+     .transactionSearch {
+         height: 34px;
+     }
+     .transactionSearch label {
+         padding: 0;
+     }
+     .transactionSearch div {
+         padding: 0 0 0 8px;
+     }
+ }
  /*
  * Pay period module
  */
@@ -94,17 +111,6 @@
  }
  .transactionSearch {
      height: 64;
- }
- .transactionSearch label {
-    margin-top: 5px; 
- }
- .transactionSearch .input-group-addon {
-     cursor: pointer;
- }
- @media (min-width: 767px) {
-    .transactionSearch {
-        height: 34px;
-    }
  }
  /**
  * New Transaction

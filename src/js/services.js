@@ -177,7 +177,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readFixedEvents": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/fixedEvents.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'fixedEvents.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -188,7 +188,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readCheckbook": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/transactions/Checking-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'transactions/Checking-' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -199,7 +199,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readBudget": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/budget/budget-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'budget/budget-' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -210,7 +210,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
             "readCategories": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + '/categories.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'categories.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');

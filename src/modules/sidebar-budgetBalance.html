@@ -1,0 +1,14 @@
+<div class="form-group balance ">
+    <div class="row ">
+        <div class="col-xs-7 description ">Expected Income:</div>
+        <div class="col-xs-5 startingBalance amount ">{{app.totalIncome/100|currency}}</div>
+    </div>
+    <div class="row " ng-class="{bad:app.endingBalance(true) < 0} ">
+        <div class="col-xs-7 description ">Expected Spending:</div>
+        <div class="col-xs-5 bankBalance amount ">{{app.totalSpending/100|currency}}</div>
+    </div>
+    <div class="row " ng-class="{bad:app.difference < 0} ">
+        <div class="col-xs-7 description ">Difference:</div>
+        <div class="col-xs-5 endingBalance amount ">{{app.difference/100|currency}}</div>
+    </div>
+</div>

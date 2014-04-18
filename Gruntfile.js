@@ -62,12 +62,6 @@ module.exports = function (grunt) {
                 flatten: true,
                 filter: 'isFile'
             },
-            data: {
-                expand: true,
-                cwd: 'src/data/',
-                src: '**',
-                dest: 'dist/data'
-            },
             ico: {
                 expand: true,
                 cwd: 'src/ico/',
@@ -86,7 +80,7 @@ module.exports = function (grunt) {
                 src: '*.html',
                 dest: 'dist/modules'
             },
-            html_modules: {
+            html_pages: {
                 expand: true,
                 cwd: 'src/pages',
                 src: '*.html',
@@ -127,6 +121,11 @@ module.exports = function (grunt) {
                         src: 'dist/**/*.*',
                         dest: '/',
                         rel: 'dist'
+                    },
+                    {
+                        src: 'test/data/**/*.*',
+                        dest: '/',
+                        rel: 'test'
                     }
                 ]
             },
