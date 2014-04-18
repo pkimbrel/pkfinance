@@ -1,0 +1,157 @@
+{
+    "income": [
+        {
+            "type": "week",
+            "day": "0",
+            "category": "1st Paycheck",
+            "amount": "150000"
+        },
+        {
+            "type": "week",
+            "day": "14",
+            "category": "1st Paycheck",
+            "amount": "150000"
+        },
+        {
+            "type": "week",
+            "day": "7",
+            "category": "Rental Income",
+            "amount": "20000"
+        },
+        {
+            "type": "week",
+            "day": "21",
+            "category": "Rental Income",
+            "amount": "20000"
+        }
+    ],
+    "bills": [
+        {
+            "type": "week",
+            "day": "16",
+            "category": "Charity",
+            "amount": "12000"
+        },
+        {
+            "type": "month",
+            "day": "1",
+            "category": "Mortgage",
+            "amount": "80000"
+        },
+        {
+            "type": "month",
+            "day": "13",
+            "category": "2nd Mortgage",
+            "amount": "15000"
+        },
+        {
+            "type": "month",
+            "day": "18",
+            "category": "Electrical Service",
+            "amount": "8500"
+        },
+        {
+            "type": "month",
+            "day": "18",
+            "category": "Phone Service",
+            "amount": "4500"
+        },
+        {
+            "type": "month",
+            "day": "18",
+            "category": "Natural Gas",
+            "amount": "8800"
+        },
+        {
+            "type": "month",
+            "day": "5",
+            "category": "Water Service",
+            "amount": "4500"
+        },
+        {
+            "type": "month",
+            "day": "28",
+            "category": "Life Insurance",
+            "amount": "6000"
+        },
+        {
+            "type": "month",
+            "day": "10",
+            "category": "Phone Insurance",
+            "amount": "1500"
+        },
+        {
+            "type": "week",
+            "day": "0",
+            "category": "Groceries",
+            "amount": "25000"
+        },
+        {
+            "type": "week",
+            "day": "14",
+            "category": "Groceries",
+            "amount": "25000"
+        },
+        {
+            "type": "month",
+            "day": "27",
+            "category": "Auto Insurance",
+            "amount": "9500"
+        },
+        {
+            "type": "week",
+            "day": "0",
+            "category": "Gas & Fuel",
+            "amount": "10000"
+        },
+        {
+            "type": "week",
+            "day": "14",
+            "category": "Gas & Fuel",
+            "amount": "10000"
+        },
+        {
+            "type": "week",
+            "day": "0",
+            "category": "Babysitters",
+            "amount": "2000"
+        },
+        {
+            "type": "week",
+            "day": "14",
+            "category": "Babysitters",
+            "amount": "2000"
+        },
+        {
+            "type": "month",
+            "day": "8",
+            "category": "Netflix",
+            "amount": "800"
+        },
+        {
+            "type": "month",
+            "day": "19",
+            "category": "Netflix",
+            "amount": "800"
+        },
+        {
+            "type": "month",
+            "day": "14",
+            "category": "Credit Card #1",
+            "amount": "2000"
+        },
+        {
+            "type": "month",
+            "day": "14",
+            "category": "Credit Card #2",
+            "amount": "3000"
+        },
+        {
+            "type": "month",
+            "day": "15",
+            "category": "Credit Card #3",
+            "amount": "1500"
+        }
+
+    ]
+}

@@ -100,8 +100,14 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
                     applicationScope.totalSpending = calculateTotalSpending();
                     applicationScope.difference = applicationScope.totalIncome - applicationScope.totalSpending;
                 });
-
             });
+
+            dataAccessor.readFixedEvents(applicationScope.payPeriod).then(function (data) {
+                applicationScope.planner = {
+                    events: data
+                };
+            });
+
         };
 
         dataAccessor.readCategories().then(function (data) {
@@ -155,6 +161,17 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
                 });
 
                 deferred.resolve();
+                return deferred.promise;
+            },
+            "readFixedEvents": function () {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + '/fixedEvents.json').success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
                 return deferred.promise;
             },
             "readCheckbook": function (payPeriod) {

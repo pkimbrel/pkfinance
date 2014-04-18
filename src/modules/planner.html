@@ -1,1 +1,24 @@
-Planners are fun.
+<div ng-controller="Planner" class="planner">
+    <h2 ng-hide="app.planner">No Planner</h2>
+    <h2 ng-show="week1">Week 1</h2>
+    <table ng-show="week1" class="table table-striped table-hover">
+        <tbody>
+            <tr>
+                <th width="10%">Day</th>
+                <th>Event</th>
+                <th width="10%" class="amount">Amount</th>
+            </tr>
+            <tr ng-repeat="event in app.planner.week1">
+                <td class="date">
+                    <p>{{event.date}}</p>
+                </td>
+                <td>
+                    <p class="event">{{event.description}}</p>
+                </td>
+                <td class="amount">
+                    <p>{{event.displayAmount | currency}}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
