@@ -10,7 +10,7 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
         };
 
         $scope.app = applicationScope;
-        
+
         $scope.$watch("app.searchFilter", function(newValue) {
             if (applicationScope.searchFilter !== undefined) {
                 var searchFilter = applicationScope.searchFilter;

@@ -12,14 +12,13 @@ module.exports = function (grunt) {
                 src: [
                     'src/js/app.js',
                     'src/js/services.js',
+                    'src/js/pages.js',
                     'src/modules/header.js',
                     'src/modules/sidebar.js',
-                    'src/modules/transactionForm.js',
-                    'src/modules/transactions.js',
-                    'src/modules/budget.js',
-                    'src/modules/planner.js',
-                    'src/js/services.js',
-                    'src/js/views.js'
+                    'src/views/transactionForm.js',
+                    'src/views/transactions.js',
+                    'src/views/budget.js',
+                    'src/views/planner.js'
                 ],
                 dest: 'dist/js/<%= pkg.name %>.min.js'
             }
@@ -86,6 +85,12 @@ module.exports = function (grunt) {
                 cwd: 'src/modules',
                 src: '*.html',
                 dest: 'dist/modules'
+            },
+            html_modules: {
+                expand: true,
+                cwd: 'src/pages',
+                src: '*.html',
+                dest: 'dist/pages'
             },
             html_views: {
                 expand: true,

@@ -1,5 +1,5 @@
 /**
- * Views
+ * Pages
  */
 /* global pkfinance */
 

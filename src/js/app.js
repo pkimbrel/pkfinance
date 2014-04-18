@@ -41,37 +41,37 @@ pkfinance.config(['$stateProvider', '$urlRouterProvider',
         $stateProvider
             .state("summary", {
                 url: "/",
-                templateUrl: "views/displaySummary.html",
+                templateUrl: "pages/displaySummary.html",
                 controller: "DisplaySummary",
                 authenticate: true
             })
             .state("register", {
                 url: "/register",
-                templateUrl: "views/displayRegister.html",
+                templateUrl: "pages/displayRegister.html",
                 controller: "DisplayRegister",
                 authenticate: true
             })
             .state("budget", {
                 url: "/budget",
-                templateUrl: "views/displayBudget.html",
+                templateUrl: "pages/displayBudget.html",
                 controller: "DisplayBudget",
                 authenticate: true
             })
             .state("planner", {
                 url: "/planner",
-                templateUrl: "views/displayPlanner.html",
+                templateUrl: "pages/displayPlanner.html",
                 controller: "DisplayPlanner",
                 authenticate: true
             })
             .state("newTransaction", {
                 url: "/newTransaction",
-                templateUrl: "views/displayNewTransaction.html",
+                templateUrl: "pages/displayNewTransaction.html",
                 controller: "DisplayNewTransaction",
                 authenticate: true
             })
             .state("login", {
                 url: "/login",
-                templateUrl: "views/displayLogin.html",
+                templateUrl: "pages/displayLogin.html",
                 controller: "DisplayLogin",
                 authenticate: false
             });

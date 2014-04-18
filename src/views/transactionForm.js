@@ -7,7 +7,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                 return v.toString(16);
             });
         }
-        
+
         $scope.app = applicationScope;
         $scope.newTransaction = {
             "tranId": guid(),

@@ -29,7 +29,7 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             });
             return promise;
         };
-        
+
         $scope.filterItems = function(filterData) {
             applicationScope.searchFilter = "category:" + filterData;
             $state.transitionTo("register");
