@@ -5,8 +5,26 @@ pkfinance.controller('Planner', ['$scope', '$q', 'validators', 'dataAccessor', '
         $scope.week1 = {};
         $scope.week2 = {};
 
-        angularjs.forEach(applicationScope.planner.events.income, function (event) {
+        $scope.$watch("app.planner", function (planner) {
+            angular.forEach(applicationScope.planner.income, function (event) {
+                switch (event.type) {
+                case "week":
+                    var day = Number(event.day);
+                    var displayEvent = {
+                        date: eventDate.toDate(),
+                        name: event.category,
+                        displayAmount: (event.amoun / 100).fixed(2)
+                    };
 
-            }
+                    var eventDate = moment(applicationScope.startDate).add(day);
+                    if (event.day < 14) {
+                        week1.push(displayEvent);
+                    } else {
+                        week2.push(displayEvent);
+                    }
+                    break;
+                }
+            });
         });
+    }
 ]);

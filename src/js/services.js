@@ -103,9 +103,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
             });
 
             dataAccessor.readFixedEvents(applicationScope.payPeriod).then(function (data) {
-                applicationScope.planner = {
-                    events: data
-                };
+                applicationScope.planner = data;
             });
 
         };
