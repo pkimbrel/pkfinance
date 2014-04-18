@@ -82,8 +82,21 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
             applicationScope.transactions = undefined;
             applicationScope.budget = undefined;
 
+            applicationScope.totalIncome = 0;
+            applicationScope.totalSpending = 0;
+            applicationScope.difference = 0;
+            applicationScope.startingBalance = 0;
+            applicationScope.bankBalance = 0;
+
+
             localStorage.payPeriod = applicationScope.payPeriod;
+
             calculateDateRange();
+
+            dataAccessor.readFixedEvents(applicationScope.payPeriod).then(function (data) {
+                applicationScope.planner = data;
+            });
+
             dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
 
@@ -101,11 +114,6 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
                     applicationScope.difference = applicationScope.totalIncome - applicationScope.totalSpending;
                 });
             });
-
-            dataAccessor.readFixedEvents(applicationScope.payPeriod).then(function (data) {
-                applicationScope.planner = data;
-            });
-
         };
 
         dataAccessor.readCategories().then(function (data) {

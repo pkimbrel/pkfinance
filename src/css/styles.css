@@ -130,6 +130,21 @@
      background: #fdd;
  }
  /**
+ * Planner
+ */
+ .planner .Credit .amount p {
+     color: green;
+ }
+ .planner .Debit.week p {
+     font-style: italic;
+ }
+ .planner td p {
+     margin: 0;
+ }
+ .planner .past td {
+     background: #eee;
+ }
+ /**
  * An now, my "Flagrant Disregard for Good Form"
  */
  .editable-click,

@@ -1,42 +1,59 @@
 <div ng-controller="Planner" class="planner">
-    <h2>Week 1</h2>
-    <table class="table table-bordered table-stripped">
+    <h2>Unused Events</h2>
+    <table class="table table-bordered table-stripped ">
         <tbody>
             <tr>
-                <th width="20%">Day</th>
                 <th>Event</th>
-                <th width="20%" class="amount">Amount</th>
+                <th width="10%" class="amount">Amount</th>
             </tr>
-            <tr ng-repeat="event in week1">
+            <tr ng-repeat="event in unused.bills">
+                <td>
+                    <p class="event">{{event.category}}</p>
+                </td>
+                <td class="amount">
+                    <p>{{event.amount/100 | currency}}</p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Week 1</h2>
+    <table class="table table-bordered table-stripped table-hover">
+        <tbody>
+            <tr>
+                <th width="10%">Day</th>
+                <th>Event</th>
+                <th width="10%" class="amount">Amount</th>
+            </tr>
+            <tr ng-repeat="event in week1|orderBy:order" class="{{event.type}} {{event.direction}}" ng-class="{past:event.past}">
                 <td class="date">
-                    <p>{{event.date}}</p>
+                    <p>{{event.date|date:'M/d'}}</p>
                 </td>
                 <td>
                     <p class="event">{{event.category}}</p>
                 </td>
                 <td class="amount">
-                    <p>{{event.displayAmount | currency}}</p>
+                    <p>{{event.amount /100 | currency}}</p>
                 </td>
             </tr>
         </tbody>
     </table>
     <h2>Week 2</h2>
-    <table class="table table-bordered table-stripped">
+    <table class="table table-bordered table-stripped table-hover">
         <tbody>
             <tr>
-                <th width="20%">Day</th>
+                <th width="10%">Day</th>
                 <th>Event</th>
-                <th width="20%" class="amount">Amount</th>
+                <th width="10%" class="amount">Amount</th>
             </tr>
-            <tr ng-repeat="event in week2">
+            <tr ng-repeat="event in week2|orderBy:order" class="{{event.type}} {{event.direction}}" ng-class="{past:event.past}">
                 <td class="date">
-                    <p>{{event.date}}</p>
+                    <p>{{event.date|date:'M/d'}}</p>
                 </td>
                 <td>
                     <p class="event">{{event.category}}</p>
                 </td>
                 <td class="amount">
-                    <p>{{event.displayAmount | currency}}</p>
+                    <p>{{event.amount/100 | currency}}</p>
                 </td>
             </tr>
         </tbody>
