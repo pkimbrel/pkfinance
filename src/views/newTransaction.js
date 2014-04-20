@@ -17,17 +17,17 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             "category": "Split",
             "type": "Debit",
             "cleared": false,
-            "amount": null
+            "amount": Number(0).toFixed(2)
         };
         $scope.splits = [{
             "category": null,
-            "amount": null
+            "amount": $scope.newTransaction.amount
             }, {
             "category": null,
-            "amount": null
+            "amount": Number(0).toFixed(2)
             }, {
             "category": null,
-            "amount": null
+            "amount": Number(0).toFixed(2)
             }];
 
         $scope.submit = function () {
