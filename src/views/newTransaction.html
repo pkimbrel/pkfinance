@@ -17,6 +17,18 @@
         </div>
     </div>
 
+    <!-- Amount -->
+    <div class="form-group">
+        <label for="amount" class="col-sm-3 control-label">Amount</label>
+        <div class="col-sm-9">
+            <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" name="amount" ng-model="newTransaction.amount" required validate-amount>
+            </div>
+            <span ng-show="transaction.amount.$error.validateAmount" class="error-message">Invalid Amount</span>
+        </div>
+    </div>
+
     <!-- Description -->
     <div class="form-group">
         <label for="description" class="col-sm-3 control-label">Description</label>
@@ -38,8 +50,23 @@
     <!-- Split -->
     <div class="form-group" ng-show="newTransaction.category == 'Split'">
         <label for="split" class="col-sm-3 control-label">Split</label>
-        <div class="col-sm-9">
-            Splits
+        <div class="col-sm-9 splits">
+            <div class="row" ng-repeat="split in splits">
+                <div class="col-xs-6">
+                    <select class="form-control" ng-model="splitCategory1" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
+                    </select>
+                </div>
+                <div class="col-xs-5">
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="text" class="form-control" name="amount" ng-model="split.amount" required validate-amount>
+                    </div>
+                    <span ng-show="transaction.amount.$error.validateAmount" class="error-message">Invalid Amount</span>
+                </div>
+                <div class="col-xs-1 add">
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -57,18 +84,6 @@
         <label for="cleared" class="col-sm-3 control-label">Cleared</label>
         <div class="col-sm-9">
             <input type="checkbox" class="input-sm" ng-model="newTransaction.cleared">
-        </div>
-    </div>
-
-    <!-- Amount -->
-    <div class="form-group">
-        <label for="amount" class="col-sm-3 control-label">Amount</label>
-        <div class="col-sm-9">
-            <div class="input-group">
-                <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" name="amount" ng-model="newTransaction.amount" required validate-amount>
-            </div>
-            <span ng-show="transaction.amount.$error.validateAmount" class="error-message">Invalid Amount</span>
         </div>
     </div>
 

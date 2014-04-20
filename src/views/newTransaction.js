@@ -14,11 +14,21 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             "payPeriod": applicationScope.payPeriod,
             "date": moment().format('YYYY-MM-DD'),
             "description": null,
-            "category": null,
+            "category": "Split",
             "type": "Debit",
             "cleared": false,
             "amount": null
         };
+        $scope.splits = [{
+            "category": null,
+            "amount": null
+            }, {
+            "category": null,
+            "amount": null
+            }, {
+            "category": null,
+            "amount": null
+            }];
 
         $scope.submit = function () {
             $scope.isUpdating = true;
@@ -27,8 +37,8 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
         };
-    }
-]);
+            }
+                ]);
 
 pkfinance.directive('validateDate', function (validators) {
     return {

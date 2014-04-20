@@ -122,6 +122,20 @@
      color: #a94442;
      font-style: italic;
  }
+ .splits .row {
+     margin-bottom: 5px;
+ }
+ .splits .row .add {
+     color: green;
+ }
+ .splits .row .remove {
+     color: #800;
+ }
+ .splits .row .add,
+ .splits .row .remove {
+     margin: 0;
+     padding: 7px 0;
+ }
  /**
  * Budget
  */
