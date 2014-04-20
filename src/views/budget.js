@@ -30,7 +30,7 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             return promise;
         };
 
-        $scope.filterItems = function(filterData) {
+        $scope.filterItems = function (filterData) {
             applicationScope.searchFilter = "category:" + filterData;
             $state.transitionTo("register");
         };
@@ -78,8 +78,16 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
 
                         var used = amount;
                         angular.forEach(applicationScope.transactions, function (transaction) {
-                            if (transaction.category == child.text) {
-                                used -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
+                            if (transaction.category == "Split") {
+                                angular.forEach(transaction.categories, function (splitItem) {
+                                    if (splitItem.category == child.text) {
+                                        used -= splitItem.amount * ((transaction.type == "Credit") ? -1 : 1);
+                                    }
+                                });
+                            } else {
+                                if (transaction.category == child.text) {
+                                    used -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
+                                }
                             }
                         });
                         total += amount;
@@ -100,5 +108,5 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 }
             });
         }
-    }
-]);
+            }
+                ]);

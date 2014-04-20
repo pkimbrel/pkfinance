@@ -106,6 +106,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
                 applicationScope.transactions = data.transactions;
 
                 angular.forEach(applicationScope.transactions, function (transaction) {
+                    transaction.isSplit = (transaction.category == "Split");
                     transaction.displayAmount = (transaction.amount / 100).toFixed(2);
                 });
 
@@ -128,6 +129,21 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
 
         applicationScope.transactionTypes = ["Debit", "Credit"];
 
+        applicationScope.flattenCategories = function () {
+            var list = [{
+                "category": "Split",
+                "group": "Split"
+            }];
+            angular.forEach(applicationScope.categories, function (group) {
+                angular.forEach(group.children, function (category) {
+                    list.push({
+                        "category": category.text,
+                        "group": group.text
+                    });
+                });
+            });
+            return list;
+        };
 
         return applicationScope;
     }

@@ -78,7 +78,7 @@
         "amount": "11000",
         "type": "Debit",
         "cleared": false,
-        "category": "Credit Card"
+        "category": "Credit Card #1"
     }, {
         "tranid": "5f296fe5-2c11-484a-84c6-a27d80d7156f",
         "description": "Mindbenders Corp",

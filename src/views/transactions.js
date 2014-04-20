@@ -11,21 +11,44 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
 
         $scope.app = applicationScope;
 
-        $scope.$watch("app.searchFilter", function (newValue) {
-            if (applicationScope.searchFilter !== undefined) {
-                var searchFilter = applicationScope.searchFilter;
-                var index = searchFilter.indexOf(":");
-                if (index != -1) {
-                    var key = searchFilter.substring(0, index);
-                    var value = searchFilter.substring(index + 1);
+        function buildSearchFilter() {
+            var searchFilter = applicationScope.searchFilter;
+            var index = searchFilter.indexOf(":");
+            if (index != -1) {
+                var key = searchFilter.substring(0, index);
+                var value = searchFilter.substring(index + 1).toLowerCase();
+                if (key.toLowerCase() == "category") {
+                    searchFilter = function (item) {
+                        var passed = false;
+                        var category = item.category.toLowerCase();
+                        if (category.indexOf(value) != -1) {
+                            passed = true;
+                        }
+                        angular.forEach(item.categories, function (child) {
+                            var category = child.category.toLowerCase();
+                            if (category.indexOf(value) != -1) {
+                                passed = true;
+                            }
+                        });
+
+                        return passed;
+                    };
+                } else {
                     searchFilter = {};
                     searchFilter[key] = value;
-                    /*if (key.toLowerCase() == "category") {
-                        searchFilter["categories"] = value;
-                    }*/
                 }
-                $scope.transactionFilter = searchFilter;
             }
+            return searchFilter;
+        }
+
+        $scope.$watch("app.searchFilter", function (newValue) {
+            var searchFilter;
+
+            if (applicationScope.searchFilter !== undefined) {
+                searchFilter = buildSearchFilter();
+            }
+            $scope.transactionFilter = searchFilter;
+
         });
 
         $scope.order = ["cleared", "-date"];
@@ -42,19 +65,6 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
             return promise;
         };
 
-        $scope.flattenCategories = function () {
-            var list = [];
-            angular.forEach(applicationScope.categories, function (group) {
-                angular.forEach(group.children, function (category) {
-                    list.push({
-                        "category": category.text,
-                        "group": group.text
-                    });
-                });
-            });
-            return list;
-        };
-
-
+        $scope.flattenCategories = applicationScope.flattenCategories;
     }
 ]);

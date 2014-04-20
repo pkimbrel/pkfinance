@@ -1,9 +1,9 @@
 <form class="form-horizontal" name="transaction" role="form" ng-submit="submit()" ng-controller="TransactionForm">
     <!-- Pay Period -->
     <div class="form-group">
-        <label for="category" class="col-sm-3 control-label">Pay Period</label>
+        <label for="payPeriod" class="col-sm-3 control-label">Pay Period</label>
         <div class="col-sm-9">
-            <select class="form-control" ng-model="newTransaction.payPeriod" ng-options="p for p in app.availablePayPeriods">
+            <select name="payPeriod" class="form-control" ng-model="newTransaction.payPeriod" ng-options="p for p in app.availablePayPeriods">
             </select>
         </div>
     </div>
@@ -32,6 +32,14 @@
         <div class="col-sm-9">
             <select class="form-control" ng-model="newTransaction.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
             </select>
+        </div>
+    </div>
+
+    <!-- Split -->
+    <div class="form-group" ng-show="newTransaction.category == 'Split'">
+        <label for="split" class="col-sm-3 control-label">Split</label>
+        <div class="col-sm-9">
+            Splits
         </div>
     </div>
 

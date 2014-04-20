@@ -17,7 +17,8 @@
                 </td>
                 <td>
                     <p class="description" editable-text="transaction.description" onbeforesave="validateAndUpdate('description', $data, transaction.tranid)">{{transaction.description}}</p>
-                    <p class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
+                    <p ng-if="!transaction.isSplit" class="category" editable-select="transaction.category" e-ng-options="c.category as c.category group by c.group for c in flattenCategories()" onbeforesave="validateAndUpdate('category', $data, transaction.tranid)">{{transaction.category}}</p>
+                    <p ng-if="transaction.isSplit" class="category">Split</p>
                 </td>
                 <td class="hidden-xs">
                     <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in app.transactionTypes" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>

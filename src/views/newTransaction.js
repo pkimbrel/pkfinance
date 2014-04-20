@@ -26,7 +26,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
-        }
+        };
     }
 ]);
 
@@ -52,7 +52,7 @@ pkfinance.directive('validateDescription', function (validators) {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
-                if (viewValue != "") {
+                if (viewValue !== "") {
                     ctrl.$setValidity('validateDescription', true);
                     return viewValue;
                 } else {
