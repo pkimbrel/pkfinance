@@ -19,12 +19,6 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
         });
 
         $rootScope.$on("$stateChangeSuccess", function (event, toState, toParams, fromState, fromParams) {
-            if (toState.authenticate) {
-                setTimeout(function () {
-                    $('.sidebar').affix();
-                }, 200);
-            }
-
             if (fromState.name === "") {
                 $rootScope.previousState = "register";
             } else {

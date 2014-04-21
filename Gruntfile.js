@@ -140,6 +140,17 @@ module.exports = function (grunt) {
                         dest: '/'
                     }
                 ]
+            },
+            location: {
+                options: {
+                    bucket: 'staging.finance.paulkimbrel.com'
+                },
+                upload: [
+                    {
+                        src: 'test/location.*',
+                        dest: '/'
+                    }
+                ]
             }
         }
     });

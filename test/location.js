@@ -26,16 +26,20 @@ pkfinance.controller('geo', function ($scope, $interval) {
         $scope.longitude = position.coords.longitude;
 
         if ($scope.startLatitude !== "-") {
-            var R = 6371000; // km
-            var dLat = ($scope.startLatitude - $scope.latitude).toRad();
-            var dLon = ($scope.startLongitude - $scope.longitude).toRad();
-            var lat1 = $scope.latitude.toRad();
-            var lat2 = $scope.startLongitude.toRad();
+            var lat1 = ($scope.startLatitude).toRad();
+            var lon1 = ($scope.startLongitude).toRad();
+
+            var lat2 = ($scope.latitude).toRad();
+            var lon2 = ($scope.longitude).toRad();
+
+            var R = 6371; // km
+            var dLat = (lat2 - lat1);
+            var dLon = (lon2 - lon1);
 
             var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
                 Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
             var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-            $scope.distance = R * c;
+            $scope.distance = (R * c).toFixed(3);
 
             var y = Math.sin(dLon) * Math.cos(lat2);
             var x = Math.cos(lat1) * Math.sin(lat2) -
