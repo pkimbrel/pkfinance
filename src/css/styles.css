@@ -136,6 +136,9 @@
      margin: 0;
      padding: 7px 0;
  }
+ .splits .fixed-amount {
+     padding: 2px 0 0 55px;
+ }
  /**
  * Budget
  */

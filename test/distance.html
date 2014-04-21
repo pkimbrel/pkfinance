@@ -3,21 +3,21 @@
 
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <title>Geolocator</title>
+    <title>Distance Calculator</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
     <script src="angular.js"></script>
-    <script src="location.js"></script>
+    <script src="distance.js"></script>
 </head>
 
 <body ng-controller="geo">
     Starting Latitude: {{startLatitude}}
     <br>Starting Longitude: {{startLongitude}}
     <br>
-    <br>Latitude: {{latitude}}
-    <br>Longitude: {{longitude}}
+    <br>Final Latitude: {{finalLatitude}}
+    <br>Final Longitude: {{finalLongitude}}
     <br>
-    <br>Distance: {{distance}}
-    <br>Bearing: {{bearing}}
+    <br>Distance: {{distance}}km &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (should be 1.935km)
+    <br>Bearing: {{bearing}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (should be roughly 332)
 </body>

@@ -2,7 +2,7 @@
     <!-- Pay Period -->
     <div class="form-group">
         <label for="payPeriod" class="col-sm-3 control-label">Pay Period</label>
-        <div class="col-sm-9">
+        <div class="col-sm-3">
             <select name="payPeriod" class="form-control" ng-model="newTransaction.payPeriod" ng-options="p for p in app.availablePayPeriods">
             </select>
         </div>
@@ -11,7 +11,7 @@
     <!-- Date -->
     <div class="form-group">
         <label for="date" class="col-sm-3 control-label">Date</label>
-        <div class="col-sm-9">
+        <div class="col-sm-3">
             <input type="text" name="date" class="form-control" ng-model="newTransaction.date" validate-date>
             <span ng-show="transaction.date.$error.validateDate" class="error-message">Invalid date</span>
         </div>
@@ -20,7 +20,7 @@
     <!-- Amount -->
     <div class="form-group">
         <label for="amount" class="col-sm-3 control-label">Amount</label>
-        <div class="col-sm-9">
+        <div class="col-sm-3">
             <div class="input-group">
                 <span class="input-group-addon">$</span>
                 <input type="text" class="form-control" name="amount" ng-model="newTransaction.amount" required validate-amount>
@@ -33,7 +33,7 @@
     <div class="form-group">
         <label for="description" class="col-sm-3 control-label">Description</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" name="description" ng-model="newTransaction.description" validate-description>
+            <input type="text" class="form-control" name="description" ng-model="newTransaction.description" validate-description required>
             <span ng-show="transaction.description.$error.validateDescription" class="error-message">Please enter description</span>
         </div>
     </div>
@@ -41,36 +41,35 @@
     <!-- Category -->
     <div class="form-group">
         <label for="category" class="col-sm-3 control-label">Category</label>
-        <div class="col-sm-9">
+        <div class="col-sm-5">
             <select class="form-control" ng-model="newTransaction.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
             </select>
         </div>
     </div>
 
     <!-- Split -->
-    <div class="form-group" ng-show="newTransaction.category == 'Split'">
+    <div class="form-group" ng-if="newTransaction.category == 'Split'">
         <label for="split" class="col-sm-3 control-label">Split</label>
-        <div class="col-sm-9 splits">
+        <div class="col-sm-5 splits">
             <div class="row" ng-repeat="split in splits">
                 <div class="col-xs-6">
                     <select class="form-control" ng-model="split.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
                     </select>
                 </div>
-                <div class="col-xs-5" ng-hide="!$index">
+                <div class="col-xs-5" ng-if="$index">
                     <div class="input-group">
                         <span class="input-group-addon">$</span>
-                        <input type="text" class="form-control" ng-model="split.amount" required validate-amount>
+                        <input type="text" class="form-control" ng-change="change()" ng-model="split.amount" required validate-amount>
                     </div>
-                    <span ng-show="transaction.amount.$error.validateAmount" class="error-message">Invalid Amount</span>
                 </div>
-                <div class="col-xs-5 fixed-amount" ng-hide="$index">
+                <div class="col-xs-5 fixed-amount" ng-if="!$index">
                     {{split.amount|currency}}
                 </div>
-                <div class="col-xs-1 add" ng-hide="$index">
-                    <span class="glyphicon glyphicon-plus-sign"></span>
+                <div class="col-xs-1 add" ng-if="!$index">
+                    <span class="glyphicon glyphicon-plus-sign" ng-click="add()"></span>
                 </div>
-                <div class="col-xs-1 remove" ng-hide="!$index">
-                    <span class="glyphicon glyphicon-minus-sign"></span>
+                <div class="col-xs-1 remove" ng-if="$index">
+                    <span class="glyphicon glyphicon-minus-sign" ng-click="remove($index)"></span>
                 </div>
             </div>
         </div>
@@ -79,7 +78,7 @@
     <!-- Type -->
     <div class="form-group" class="col-sm-3 control-label">
         <label for="type" class="col-sm-3 control-label">Type</label>
-        <div class="col-sm-9">
+        <div class="col-sm-3">
             <select class="form-control" ng-model="newTransaction.type" ng-options="t for t in app.transactionTypes">
             </select>
         </div>

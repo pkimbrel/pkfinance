@@ -14,31 +14,65 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             "payPeriod": applicationScope.payPeriod,
             "date": moment().format('YYYY-MM-DD'),
             "description": null,
-            "category": "Split",
+            "category": null,
             "type": "Debit",
             "cleared": false,
-            "amount": Number(0).toFixed(2)
+            "amount": null
         };
+
         $scope.splits = [{
             "category": null,
             "amount": $scope.newTransaction.amount
-            }, {
-            "category": null,
-            "amount": Number(0).toFixed(2)
-            }, {
-            "category": null,
-            "amount": Number(0).toFixed(2)
-            }];
+        }];
 
         $scope.submit = function () {
             $scope.isUpdating = true;
+            var finalTransaction = angular.copy($scope.newTransaction);
+            if (finalTransaction.category == "Split") {
+                finalTransaction.categories = $scope.splits;
+            }
+
+            console.log(finalTransaction);
+        };
+
+        $scope.change = function () {
+            $scope.updateSplits();
+        };
+
+        $scope.$watch("newTransaction.amount", function () {
+            $scope.updateSplits();
+        });
+
+        $scope.updateSplits = function () {
+            if (($scope.newTransaction !== undefined) && ($scope.newTransaction.category == "Split")) {
+                var remainder = $scope.newTransaction.amount;
+                for (var i = 1; i < $scope.splits.length; i++) {
+                    remainder -= Number($scope.splits[i].amount);
+                }
+                $scope.splits[0].amount = remainder;
+            }
+        };
+
+        $scope.updateSplits();
+
+        $scope.add = function () {
+            $scope.splits.push({
+                "category": null,
+                "amount": null
+            });
+            $scope.updateSplits();
+        };
+
+        $scope.remove = function (index) {
+            $scope.splits.splice(index, 1);
+            $scope.updateSplits();
         };
 
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
         };
-            }
-                ]);
+    }
+]);
 
 pkfinance.directive('validateDate', function (validators) {
     return {
@@ -79,7 +113,7 @@ pkfinance.directive('validateAmount', function (validators) {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
-                if (/^\d+(?:\.\d{0,2}){0,1}$/.test(viewValue)) {
+                if (/^\d+(?:\.\d{0,2}){0,1}$/.test(viewValue) && (Number(viewValue))) {
                     ctrl.$setValidity('validateAmount', true);
                     return viewValue;
                 } else {
