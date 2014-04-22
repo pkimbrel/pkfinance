@@ -8,6 +8,10 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             });
         }
 
+        function loadTypeahead() {
+            console.log("BLUEBERRY: " + $(".description").length);
+        }
+
         $scope.app = applicationScope;
         $scope.newTransaction = {
             "tranId": guid(),
@@ -24,6 +28,8 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             "category": null,
             "amount": $scope.newTransaction.amount
         }];
+
+        $scope.$watch('$viewContentLoaded', loadTypeahead);
 
         $scope.submit = function () {
             $scope.isUpdating = true;
@@ -71,8 +77,8 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
         };
-    }
-]);
+            }
+                ]);
 
 pkfinance.directive('validateDate', function (validators) {
     return {

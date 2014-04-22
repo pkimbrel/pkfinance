@@ -33,7 +33,7 @@
     <div class="form-group">
         <label for="description" class="col-sm-3 control-label">Description</label>
         <div class="col-sm-9">
-            <input type="text" class="form-control" name="description" ng-model="newTransaction.description" validate-description required>
+            <input type="text" class="form-control description" name="description" ng-model="newTransaction.description" validate-description required>
             <span ng-show="transaction.description.$error.validateDescription" class="error-message">Please enter description</span>
         </div>
     </div>
@@ -42,7 +42,7 @@
     <div class="form-group">
         <label for="category" class="col-sm-3 control-label">Category</label>
         <div class="col-sm-5">
-            <select class="form-control" ng-model="newTransaction.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
+            <select class="form-control category" ng-model="newTransaction.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
             </select>
         </div>
     </div>
@@ -53,7 +53,7 @@
         <div class="col-sm-5 splits">
             <div class="row" ng-repeat="split in splits">
                 <div class="col-xs-6">
-                    <select class="form-control" ng-model="split.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
+                    <select class="form-control category" ng-model="split.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
                     </select>
                 </div>
                 <div class="col-xs-5" ng-if="$index">
