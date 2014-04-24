@@ -56,7 +56,7 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
         }
 
         if (localStorage.getItem("payPeriod") === null) {
-            applicationScope.payPeriod = "2014-08";
+            applicationScope.payPeriod = "2013-08";
         } else {
             applicationScope.payPeriod = localStorage.getItem("payPeriod");
         }
