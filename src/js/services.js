@@ -129,11 +129,15 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
 
         applicationScope.transactionTypes = ["Debit", "Credit"];
 
-        applicationScope.flattenCategories = function () {
-            var list = [{
-                "category": "Split",
-                "group": "Split"
-            }];
+        applicationScope.flattenCategories = function (skipSplit) {
+            var list = [];
+
+            if (!skipSplit) {
+                list.push({
+                    "category": "Split",
+                    "group": "Split"
+                });
+            }
             angular.forEach(applicationScope.categories, function (group) {
                 angular.forEach(group.children, function (category) {
                     list.push({
@@ -146,11 +150,10 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
         };
 
         return applicationScope;
-    }
-]);
+}]);
 
-pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
-    function ($q, $http, DATA_FOLDER) {
+pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER', 'HOME', 'CURRENT_POSITION',
+    function ($q, $http, DATA_FOLDER, HOME, CURRENT_POSITION) {
         return {
             "updateCheckbook": function (field, data, id) {
                 var deferred = $q.defer();
@@ -231,6 +234,39 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER',
                 }).error(function (ex) {
                     deferred.reject('Server error!');
                 });
+
+                return deferred.promise;
+            },
+            "readTypeAhead": function () {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + 'typeahead.json').success(function (data) {
+                    deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "getPosition": function () {
+                var deferred = $q.defer();
+
+                if (CURRENT_POSITION !== null) {
+                    deferred.resolve(CURRENT_POSITION);
+                } else {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            deferred.resolve({
+                                "latitude": position.coords.latitude,
+                                "longitude": position.coords.longitude
+                            });
+                        }, function (positionError) {
+                            deferred.reject('Unable to get current position');
+                        });
+                    } else {
+                        deferred.reject('Geolocation Services unavailable');
+                    }
+                }
 
                 return deferred.promise;
             }

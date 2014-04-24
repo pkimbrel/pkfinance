@@ -8,8 +8,47 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             });
         }
 
+        function typeaheadMatcher(dataset) {
+            return function findMatches(query, callback) {
+                var matches = [];
+                var compare = new RegExp(query, 'i');
+                $.each(dataset, function (key, str) {
+                    if (compare.test(key)) {
+                        matches.push({
+                            value: key
+                        });
+                    }
+                });
+
+                callback(matches);
+            };
+        }
+
         function loadTypeahead() {
-            console.log("BLUEBERRY: " + $(".description").length);
+            dataAccessor.readTypeAhead().then(function (typeaheadData) {
+                $('.description').typeahead({
+                    hint: false,
+                    highlight: true,
+                    minLength: 1
+                }, {
+                    name: 'categories',
+                    displayKey: 'value',
+                    source: typeaheadMatcher(typeaheadData)
+                });
+
+                $('.description').bind('typeahead:selected', function (obj, keyObject) {
+                    var key = keyObject.value;
+                    if (typeaheadData[key].category !== undefined) {
+                        $scope.newTransaction.category = typeaheadData[key].category;
+                    }
+
+                    if (typeaheadData[key].type !== undefined) {
+                        $scope.newTransaction.type = typeaheadData[key].type;
+                    }
+
+                    $scope.$apply();
+                });
+            });
         }
 
         $scope.app = applicationScope;
@@ -77,8 +116,8 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
         };
-            }
-                ]);
+    }
+]);
 
 pkfinance.directive('validateDate', function (validators) {
     return {

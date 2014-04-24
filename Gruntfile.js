@@ -45,6 +45,7 @@ module.exports = function (grunt) {
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/moment/min/moment.min.js',
+                    'bower_components/typeahead.js/dist/typeahead.jquery.js',
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-cookies/angular-cookies.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
@@ -101,7 +102,12 @@ module.exports = function (grunt) {
                 constants: {
                     'DATA_FOLDER': 'data/',
                     'DIST_FOLDER': '',
-                    'START_DATE': '2014-01-11'
+                    'START_DATE': '2014-01-11',
+                    'HOME': {
+                        "latitude": 40.313215,
+                        longitude: -105.648299
+                    },
+                    'CURRENT_POSITION': null
                 },
                 deps: ['ngCookies', 'ui.router', 'xeditable']
             },

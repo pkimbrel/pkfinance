@@ -48,7 +48,7 @@
         "type": "Debit"
     },
     "Gas Company": {
-        "category": "Natural Gas Service",
-        "type": "Credit"
+        "category": "Natural Gas",
+        "type": "Debit"
     }
 }
