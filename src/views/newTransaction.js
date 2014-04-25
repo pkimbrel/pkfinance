@@ -1,5 +1,5 @@
-pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope',
-    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope) {
+pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'settings',
+    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, settings) {
         function guid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
@@ -26,6 +26,12 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         function loadTypeahead() {
             dataAccessor.readTypeAhead().then(function (typeaheadData) {
+                var homePosition = settings.readSetting("homePosition", null);
+                if (homePosition != null) {
+                    dataAccessor.getPosition().then(function (currentPosition) {
+                        console.log(currentPosition);
+                    });
+                }
                 $('.description').typeahead({
                     hint: false,
                     highlight: true,

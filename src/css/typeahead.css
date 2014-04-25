@@ -23,7 +23,7 @@
     transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
 }
 .tt-dropdown-menu {
-    min-width: 160px;
+    min-width: 100%;
     margin-top: 2px;
     padding: 5px 0;
     background-color: #ffffff;
@@ -39,8 +39,10 @@
     display: block;
     padding: 3px 20px;
 }
-.tt-suggestion:hover {
-    background-color: #eee;
+.tt-suggestion:hover,
+.tt-cursor {
+    background-color: #08f;
+    color: white;
 }
 .tt-suggestion.tt-is-under-cursor {
     color: #fff;

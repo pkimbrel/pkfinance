@@ -102,12 +102,7 @@ module.exports = function (grunt) {
                 constants: {
                     'DATA_FOLDER': 'data/',
                     'DIST_FOLDER': '',
-                    'START_DATE': '2014-01-11',
-                    'HOME': {
-                        "latitude": 40.313215,
-                        longitude: -105.648299
-                    },
-                    'CURRENT_POSITION': null
+                    'START_DATE': '2014-01-11'
                 },
                 deps: ['ngCookies', 'ui.router', 'xeditable']
             },

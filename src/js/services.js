@@ -3,8 +3,8 @@
  */
 /* global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DATE',
-    function ($q, $http, dataAccessor, START_DATE) {
+pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'settings', 'START_DATE',
+    function ($q, $http, dataAccessor, settings, START_DATE) {
         var applicationScope = {};
 
         function calculateEndingBalance(isBank) {
@@ -122,9 +122,11 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
             });
         };
 
-        dataAccessor.readCategories().then(function (data) {
-            applicationScope.categories = data.categories;
-            applicationScope.updateApplicationScope();
+        settings.loadSettings().then(function () {
+            dataAccessor.readCategories().then(function (data) {
+                applicationScope.categories = data.categories;
+                applicationScope.updateApplicationScope();
+            });
         });
 
         applicationScope.transactionTypes = ["Debit", "Credit"];
@@ -152,8 +154,36 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'START_DAT
         return applicationScope;
 }]);
 
-pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER', 'HOME', 'CURRENT_POSITION',
-    function ($q, $http, DATA_FOLDER, HOME, CURRENT_POSITION) {
+pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
+    function ($q, $http, DATA_FOLDER) {
+        var settings = {};
+        return {
+            "loadSettings": function () {
+                var deferred = $q.defer();
+
+                $http.get(DATA_FOLDER + 'settings.json').success(function (data) {
+                    settings = data;
+                    deferred.resolve();
+                }).error(function (ex) {
+                    settings = {};
+                    deferred.resolve();
+                });
+
+                return deferred.promise;
+            },
+            "readSetting": function (key, defaultValue) {
+                if (settings[key] !== undefined) {
+                    return settings[key];
+                }
+
+                return defaultValue;
+            }
+        }
+    }
+]);
+
+pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
+    function ($q, $http, settings, DATA_FOLDER) {
         return {
             "updateCheckbook": function (field, data, id) {
                 var deferred = $q.defer();
@@ -250,9 +280,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'DATA_FOLDER', 'HOME', 'CURREN
             },
             "getPosition": function () {
                 var deferred = $q.defer();
+                var currentPosition = settings.readSetting("currentPosition", null);
 
-                if (CURRENT_POSITION !== null) {
-                    deferred.resolve(CURRENT_POSITION);
+                if (currentPosition !== null) {
+                    deferred.resolve(currentPosition);
                 } else {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function (position) {
