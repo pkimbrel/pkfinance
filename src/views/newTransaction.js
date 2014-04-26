@@ -27,7 +27,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         function loadTypeahead() {
             dataAccessor.readTypeAhead().then(function (typeaheadData) {
                 var homePosition = settings.readSetting("homePosition", null);
-                if (homePosition != null) {
+                if (homePosition !== null) {
                     dataAccessor.getPosition().then(function (currentPosition) {
                         console.log(currentPosition);
                     });
