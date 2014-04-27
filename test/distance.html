@@ -12,12 +12,12 @@
 </head>
 
 <body ng-controller="geo">
-    Starting Latitude: {{startLatitude}}
-    <br>Starting Longitude: {{startLongitude}}
+    Starting Position:
+    <input type="text" ng-model="startPosition" ng-change="updateDistance()" />
+    <br>Final Position:
+    <input type="text" ng-model="finalPosition" ng-change="updateDistance()" />
     <br>
-    <br>Final Latitude: {{finalLatitude}}
-    <br>Final Longitude: {{finalLongitude}}
-    <br>
-    <br>Distance: {{distance}}km &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (should be 1.935km)
-    <br>Bearing: {{bearing}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (should be roughly 332)
+    <br>Raw: {{rawDistance}}
+    <br>Distance: {{distance}}km
+    <br>Bearing: {{bearing}}
 </body>

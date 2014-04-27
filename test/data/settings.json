@@ -1,0 +1,13 @@
+{
+    "blackoutPositions": [{
+        "latitude": 40.300349,
+        "longitude": -90.055895
+    }, {
+        "latitude": 40.297512,
+        "longitude": -90.041907
+    }],
+    "currentPosition": {
+        "latitude": 40.300327,
+        "longitude": -90.055951
+    }
+}

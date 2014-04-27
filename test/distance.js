@@ -15,30 +15,36 @@ var pkfinance = angular.module("location", []);
 pkfinance.run(function () {});
 
 pkfinance.controller('geo', function ($scope, $interval) {
-    var lat1 = (40.4963827).toRad();
-    var lon1 = (-88.9359495).toRad();
 
-    var lat2 = (40.511760).toRad();
-    var lon2 = (-88.946668).toRad();
+    $scope.startPosition = "40.4963827,-88.9359495";
+    $scope.finalPosition = "40.511760,-88.946668";
 
-    $scope.startLatitude = lat1;
-    $scope.startLongitude = lon1;
+    $scope.updateDistance = function () {
+        var splitStart = $scope.startPosition.split(",");
+        var finalStart = $scope.finalPosition.split(",");
+        var lat1 = Number(splitStart[0]).toRad();
+        var lon1 = Number(splitStart[1]).toRad();
 
-    $scope.finalLatitude = lat2;
-    $scope.finalLongitude = lon2;
+        var lat2 = Number(finalStart[0]).toRad();
+        var lon2 = Number(finalStart[1]).toRad();
 
-    var R = 6371; // km
-    var dLat = (lat2 - lat1);
-    var dLon = (lon2 - lon1);
+        var R = 6371; // km
+        var dLat = (lat2 - lat1);
+        var dLon = (lon2 - lon1);
 
-    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    $scope.distance = (R * c).toFixed(3);
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-    var y = Math.sin(dLon) * Math.cos(lat2);
-    var x = Math.cos(lat1) * Math.sin(lat2) -
-        Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
-    $scope.bearing = Math.atan2(y, x).toDeg();
+        $scope.rawDistance = (dLat * dLat + dLon * dLon) * 500000;
+        $scope.distance = (R * c).toFixed(3);
+
+        var y = Math.sin(dLon) * Math.cos(lat2);
+        var x = Math.cos(lat1) * Math.sin(lat2) -
+            Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLon);
+        $scope.bearing = Math.atan2(y, x).toDeg();
+    };
+
+    $scope.updateDistance();
 
 });
