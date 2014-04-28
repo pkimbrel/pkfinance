@@ -154,6 +154,80 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'settings'
         return applicationScope;
 }]);
 
+pkfinance.factory('geoServices', ['settings', 'dataAccessor',
+    function (settings, dataAccessor) {
+        function calculateDistance(startPosition, endPosition) {
+            var latitude1 = Number(startPosition.latitude).toRad();
+            var longitude1 = Number(startPosition.longitude).toRad();
+
+            var latitude2 = Number(endPosition.latitude).toRad();
+            var longitude2 = Number(endPosition.longitude).toRad();
+
+            var worldRadius = 6371000; // m
+            var deltaLatitude = (latitude2 - latitude1);
+            var deltaLongitude = (longitude2 - longitude1);
+
+            var alpha = Math.sin(deltaLatitude / 2) * Math.sin(deltaLatitude / 2) +
+                Math.sin(deltaLongitude / 2) * Math.sin(deltaLongitude / 2) *
+                Math.cos(latitude1) * Math.cos(latitude2);
+            var ratio = 2 * Math.atan2(Math.sqrt(alpha), Math.sqrt(1 - alpha));
+
+            var distance = (worldRadius * ratio).toFixed(3);
+            //console.log(distance);
+            return distance;
+        }
+
+        function isBlackedOut(currentPosition) {
+            var blackoutPositions = settings.readSetting("blackoutPositions", null);
+            var blackoutRadius = Number(settings.readSetting("blackoutRadius", 25));
+
+            if ((blackoutPositions !== null) && (currentPosition !== null)) {
+                for (var index in blackoutPositions) {
+                    if (calculateDistance(currentPosition, blackoutPositions[index]) < blackoutRadius) {
+                        return true;
+                    }
+                }
+                return false;
+            } else {
+                return true;
+            }
+
+        }
+
+        return {
+            "isBlackedOut": function (currentPosition) {
+                return isBlackedOut(currentPosition);
+            },
+            "getSuggestions": function (currentPosition, typeahead) {
+                var suggestions = [];
+                if (!isBlackedOut(currentPosition)) {
+                    var suggestionRadius = Number(settings.readSetting("suggestionRadius", 25));
+
+                    for (var key in typeahead) {
+                        var entry = typeahead[key];
+                        if (entry.position !== undefined) {
+                            var distance = calculateDistance(currentPosition, entry.position);
+                            if (distance < suggestionRadius) {
+                                suggestions.push({
+                                    "description": key,
+                                    "category": entry.category,
+                                    "type": entry.type,
+                                    "distance": distance
+                                });
+                            }
+                        }
+                    }
+
+                    suggestions.sort(function (a, b) {
+                        return a.distance - b.distance;
+                    });
+                }
+                return suggestions;
+            }
+        };
+}]);
+
+
 pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
     function ($q, $http, DATA_FOLDER) {
         var settings = {};
@@ -178,7 +252,7 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
 
                 return defaultValue;
             }
-        }
+        };
     }
 ]);
 
@@ -359,3 +433,15 @@ pkfinance.factory('authService', ['$q', '$http',
         };
     }
 ]);
+
+if (typeof Number.prototype.toRad == 'undefined') {
+    Number.prototype.toRad = function () {
+        return this * Math.PI / 180;
+    };
+}
+
+if (typeof Number.prototype.toDeg == 'undefined') {
+    Number.prototype.toDeg = function () {
+        return this * 180 / Math.PI;
+    };
+}

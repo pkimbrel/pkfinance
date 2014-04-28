@@ -8,16 +8,24 @@
         "type": "Debit"
     },
     "Amazon": {
-        "category": "Water Service",
-        "type": "Suppliments"
+        "category": "Suppliments",
+        "type": "Debit"
     },
     "Pharmacy": {
         "category": "Doctor Bills",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.294466,
+            "longitude": -90.057697
+        }
     },
     "Doctor Awesome": {
         "category": "Doctor Bills",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.305253,
+            "longitude": -90.055172
+        }
     },
     "Envelopes": {
         "category": "Split",
@@ -25,15 +33,28 @@
     },
     "Awesome Restaurant": {
         "category": "Eating Out",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.29708,
+            "longitude": -90.05303
+        }
     },
     "Awesome Store": {
         "category": "Books and Supplies",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.295697,
+            "longitude": -90.042961
+        }
     },
     "Fart 'n Float": {
         "category": "Gas & Fuel",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.294339,
+            "longitude": -90.065433
+        }
+
     },
     "Evil Corp": {
         "category": "Credit Card #1",
@@ -45,7 +66,11 @@
     },
     "Awesome Grocer": {
         "category": "Groceries",
-        "type": "Debit"
+        "type": "Debit",
+        "position": {
+            "latitude": 40.295712,
+            "longitude": -90.044745
+        }
     },
     "Gas Company": {
         "category": "Natural Gas",

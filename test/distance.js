@@ -28,7 +28,7 @@ pkfinance.controller('geo', function ($scope, $interval) {
         var lat2 = Number(finalStart[0]).toRad();
         var lon2 = Number(finalStart[1]).toRad();
 
-        var R = 6371; // km
+        var R = 6371000; // km
         var dLat = (lat2 - lat1);
         var dLon = (lon2 - lon1);
 

@@ -1,5 +1,5 @@
-pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'settings',
-    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, settings) {
+pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'geoServices',
+    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, geoServices) {
         function guid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
@@ -26,12 +26,12 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         function loadTypeahead() {
             dataAccessor.readTypeAhead().then(function (typeaheadData) {
-                var homePosition = settings.readSetting("homePosition", null);
-                if (homePosition !== null) {
-                    dataAccessor.getPosition().then(function (currentPosition) {
-                        console.log(currentPosition);
-                    });
-                }
+
+                dataAccessor.getPosition().then(function (currentPosition) {
+                    $scope.currentPosition = currentPosition;
+                    $scope.suggestions = geoServices.getSuggestions($scope.currentPosition, typeaheadData);
+                });
+
                 $('.description').typeahead({
                     hint: false,
                     highlight: true,
@@ -122,8 +122,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         $scope.cancel = function () {
             $state.transitionTo($rootScope.previousState);
         };
-    }
-]);
+}]);
 
 pkfinance.directive('validateDate', function (validators) {
     return {

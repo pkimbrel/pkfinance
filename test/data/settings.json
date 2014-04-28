@@ -7,7 +7,8 @@
         "longitude": -90.041907
     }],
     "currentPosition": {
-        "latitude": 40.300327,
-        "longitude": -90.055951
-    }
+        "latitude": 40.294282,
+        "longitude": -90.065409
+    },
+    "suggestionRadius": 100
 }
