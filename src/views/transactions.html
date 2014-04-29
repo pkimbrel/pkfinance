@@ -30,7 +30,9 @@
                     <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', $data, transaction.tranid)" />
                 </td>
                 <td class="trash" data-pk="{{transaction.tranid}}">
-                    <i class="glyphicon glyphicon-trash"></i>
+                    <a href ng-click="removeTransaction(transaction.tranid)">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
                 </td>
             </tr>
         </tbody>

@@ -109,6 +109,9 @@
  .trash span {
      margin-top: 3px;
  }
+ .trash a {
+     color: inherit;
+ }
  .Debit .amount p:before {
      content: "-";
  }

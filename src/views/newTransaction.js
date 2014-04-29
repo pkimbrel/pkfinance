@@ -121,7 +121,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             $scope.newTransaction.category = suggestion.category;
             $scope.newTransaction.type = suggestion.type;
             $scope.suggestions = null;
-        }
+        };
 
         $scope.submit = function () {
             $scope.isUpdating = true;

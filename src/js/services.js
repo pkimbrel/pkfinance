@@ -237,6 +237,25 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
 pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
     function ($q, $http, settings, DATA_FOLDER) {
         return {
+            "removeTransaction": function (id) {
+                var deferred = $q.defer();
+
+                $http.post('/remove', {
+                    value: id
+                }).success(function (response) {
+                    response = response || {};
+                    if (response.status === 'ok') {
+                        deferred.resolve();
+                    } else {
+                        deferred.resolve(response.msg);
+                    }
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                deferred.resolve();
+                return deferred.promise;
+            },
             "updateCheckbook": function (field, data, id) {
                 var deferred = $q.defer();
 

@@ -53,6 +53,9 @@
         "positions": [{
             "latitude": 40.294339,
             "longitude": -90.065433
+        }, {
+            "latitude": 40.294417,
+            "longitude": -90.056861
         }]
     },
     "Evil Corp": {
