@@ -10,5 +10,5 @@
         "latitude": 40.294282,
         "longitude": -90.065409
     },
-    "suggestionRadius": 100
+    "suggestionRadius": 20000
 }

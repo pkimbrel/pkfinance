@@ -198,34 +198,12 @@ pkfinance.factory('geoServices', ['settings', 'dataAccessor',
             "isBlackedOut": function (currentPosition) {
                 return isBlackedOut(currentPosition);
             },
-            "getSuggestions": function (currentPosition, typeahead) {
-                var suggestions = [];
-                if (!isBlackedOut(currentPosition)) {
-                    var suggestionRadius = Number(settings.readSetting("suggestionRadius", 25));
-
-                    for (var key in typeahead) {
-                        var entry = typeahead[key];
-                        if (entry.position !== undefined) {
-                            var distance = calculateDistance(currentPosition, entry.position);
-                            if (distance < suggestionRadius) {
-                                suggestions.push({
-                                    "description": key,
-                                    "category": entry.category,
-                                    "type": entry.type,
-                                    "distance": distance
-                                });
-                            }
-                        }
-                    }
-
-                    suggestions.sort(function (a, b) {
-                        return a.distance - b.distance;
-                    });
-                }
-                return suggestions;
+            "calculateDistance": function (startPosition, endPosition) {
+                return calculateDistance(startPosition, endPosition);
             }
         };
-}]);
+    }
+]);
 
 
 pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',

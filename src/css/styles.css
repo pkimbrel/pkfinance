@@ -14,6 +14,12 @@
  .bad .endingBalance {
      color: #b00;
  }
+ .loading {
+     width: 35px;
+     height: 35px;
+     background: url(img/loading.gif);
+     float: right;
+ }
  /*
  * Left Nav control
  */
@@ -138,6 +144,13 @@
  }
  .splits .fixed-amount {
      padding: 2px 0 0 55px;
+ }
+ .suggestions ul {
+     margin: 7px 0;
+     padding: 0;
+ }
+ .suggestions li {
+     list-style: none;
  }
  /**
  * Budget

@@ -1,5 +1,5 @@
-pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'geoServices',
-    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, geoServices) {
+pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'settings', 'geoServices',
+    function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, settings, geoServices) {
         function guid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
@@ -26,10 +26,50 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         function loadTypeahead() {
             dataAccessor.readTypeAhead().then(function (typeaheadData) {
+                function searchEntry(description, entry, suggestions, suggestionRadius) {
+                    for (var index in entry.positions) {
+                        var distance = geoServices.calculateDistance($scope.currentPosition, entry.positions[index]);
+                        if (distance < suggestionRadius) {
+                            suggestions.push({
+                                "description": description,
+                                "category": entry.category,
+                                "type": entry.type,
+                                "distance": distance
+                            });
+                        }
+                    }
+
+                }
+
+                function searchTypeaheadData() {
+                    var suggestions = [];
+                    var suggestionRadius = Number(settings.readSetting("suggestionRadius", 25));
+
+                    for (var description in typeaheadData) {
+                        var entry = typeaheadData[description];
+                        if (entry.positions !== undefined) {
+                            searchEntry(description, entry, suggestions, suggestionRadius);
+                        }
+                    }
+
+                    return suggestions;
+                }
+
+                function buildSuggestions() {
+                    var suggestions = [];
+                    if (!geoServices.isBlackedOut($scope.currentPosition)) {
+                        suggestions = searchTypeaheadData();
+
+                        suggestions.sort(function (a, b) {
+                            return a.distance - b.distance;
+                        });
+                    }
+                    return suggestions;
+                }
 
                 dataAccessor.getPosition().then(function (currentPosition) {
                     $scope.currentPosition = currentPosition;
-                    $scope.suggestions = geoServices.getSuggestions($scope.currentPosition, typeaheadData);
+                    $scope.suggestions = buildSuggestions();
                 });
 
                 $('.description').typeahead({
@@ -75,6 +115,13 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         }];
 
         $scope.$watch('$viewContentLoaded', loadTypeahead);
+
+        $scope.suggest = function (suggestion) {
+            $scope.newTransaction.description = suggestion.description;
+            $scope.newTransaction.category = suggestion.category;
+            $scope.newTransaction.type = suggestion.type;
+            $scope.suggestions = null;
+        }
 
         $scope.submit = function () {
             $scope.isUpdating = true;
