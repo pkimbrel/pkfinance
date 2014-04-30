@@ -57,7 +57,7 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
             if (confirm("Are you sure?")) {
                 dataAccessor.removeTransaction(transactionId);
             }
-        }
+        };
 
         $scope.validateAndUpdate = function (field, data, id) {
             var value = data;
