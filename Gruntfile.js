@@ -4,6 +4,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         clean: ['dist'],
+        // Build Application JavaScript
         uglify: {
             options: {
                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -20,15 +21,17 @@ module.exports = function (grunt) {
                     'src/views/budget.js',
                     'src/views/planner.js'
                 ],
-                dest: 'dist/js/<%= pkg.name %>.min.js'
+                dest: 'dist/app/js/<%= pkg.name %>.min.js'
             }
         },
+        // Build Application CSS
         cssmin: {
             minify: {
                 src: "src/**/*.css",
-                dest: "dist/css/<%= pkg.name %>.min.css"
+                dest: "dist/app/css/<%= pkg.name %>.min.css"
             }
         },
+        // Process Application Dependencies (CSS and JavaScript)
         concat: {
             options: {
                 banner: '/*! <%= pkg.name %> - v<%= pkg.version %> - ' +
@@ -36,12 +39,12 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/css/lib.min.css': [
+                    'dist/app/css/lib.min.css': [
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                     'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
                     'bower_components/angular-xeditable/dist/css/xeditable.css'
                 ],
-                    'dist/js/lib.min.js': [
+                    'dist/app/js/lib.min.js': [
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/moment/min/moment.min.js',
@@ -54,12 +57,13 @@ module.exports = function (grunt) {
                 }
             }
         },
+        // Copy Static Content
         copy: {
             fonts: {
                 expand: true,
                 cwd: 'bower_components/bootstrap/dist/fonts/',
                 src: '**',
-                dest: 'dist/fonts/',
+                dest: 'dist/app/fonts/',
                 flatten: true,
                 filter: 'isFile'
             },
@@ -67,37 +71,38 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: 'src/ico/',
                 src: '**',
-                dest: 'dist/ico'
+                dest: 'dist/app/ico'
             },
             html_main: {
                 expand: true,
                 cwd: 'src/',
                 src: '*.html',
-                dest: 'dist'
+                dest: 'dist/app'
             },
             html_modules: {
                 expand: true,
                 cwd: 'src/modules',
                 src: '*.html',
-                dest: 'dist/modules'
+                dest: 'dist/app/modules'
             },
             html_pages: {
                 expand: true,
                 cwd: 'src/pages',
                 src: '*.html',
-                dest: 'dist/pages'
+                dest: 'dist/app/pages'
             },
             html_views: {
                 expand: true,
                 cwd: 'src/views/',
                 src: '*.html',
-                dest: 'dist/views'
+                dest: 'dist/app/views'
             }
         },
+        // Build Application Configuration
         ngconstant: {
             options: {
                 name: 'pkfinance',
-                dest: 'dist/js/config.js',
+                dest: 'dist/app/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
                     'DATA_FOLDER': 'data/',
@@ -108,6 +113,7 @@ module.exports = function (grunt) {
             },
             build: {}
         },
+        // Copy Static Content to S3
         s3: {
             options: {
                 key: process.env.AWS_ACCESS_KEY_ID,
@@ -120,9 +126,9 @@ module.exports = function (grunt) {
                 },
                 upload: [
                     {
-                        src: 'dist/**/*.*',
+                        src: 'dist/app/**/*.*',
                         dest: '/',
-                        rel: 'dist'
+                        rel: 'dist/app'
                     },
                     {
                         src: 'test/data/**/*.*',
@@ -137,7 +143,7 @@ module.exports = function (grunt) {
                 },
                 upload: [
                     {
-                        src: 'dist/**/*.*',
+                        src: 'dist/app/**/*.*',
                         dest: '/'
                     }
                 ]
@@ -153,6 +159,13 @@ module.exports = function (grunt) {
                     }
                 ]
             }
+        },
+        zip: {
+            application: {
+                cwd: 'src/php',
+                src: ['src/php/**/*'],
+                dest: 'dist/application.zip'
+            }
         }
     });
 
@@ -163,9 +176,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-ng-constant');
+    grunt.loadNpmTasks('grunt-zip');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build', 'zip']);
     grunt.registerTask('stage', ['default', 's3:staging']);
 
 };
