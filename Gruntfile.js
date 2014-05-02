@@ -159,13 +159,6 @@ module.exports = function (grunt) {
                     }
                 ]
             }
-        },
-        zip: {
-            application: {
-                cwd: 'src/php',
-                src: ['src/php/**/*'],
-                dest: 'dist/application.zip'
-            }
         }
     });
 
@@ -176,10 +169,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-ng-constant');
-    grunt.loadNpmTasks('grunt-zip');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build', 'zip']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
     grunt.registerTask('stage', ['default', 's3:staging']);
 
 };
