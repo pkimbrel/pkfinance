@@ -308,7 +308,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readCheckbook": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'transactions/Checking-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'checking/' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -319,7 +319,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readBudget": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'budget/budget-' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'budget/' + payPeriod + '.json').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
