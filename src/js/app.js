@@ -9,10 +9,14 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
     function ($http, $rootScope, $state, authService, editableOptions) {
         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
+        $rootScope.isAuthenticated = false;
+        
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.authenticate) {
-                authService.isAuthenticated().
-                catch (function (reason) {
+                authService.isAuthenticated().then(function () {
+                    $rootScope.isAuthenticated = true;
+                    console.log("READY");
+                }).catch (function (reason) {
                     $state.transitionTo("login");
                 });
             }

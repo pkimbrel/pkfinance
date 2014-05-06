@@ -3,8 +3,8 @@
  */
 /* global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'settings', 'START_DATE',
-    function ($q, $http, dataAccessor, settings, START_DATE) {
+pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings', 'START_DATE',
+    function ($q, $rootScope, $http, dataAccessor, settings, START_DATE) {
         var applicationScope = {};
 
         function calculateEndingBalance(isBank) {
@@ -122,13 +122,6 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'settings'
             });
         };
 
-        settings.loadSettings().then(function () {
-            dataAccessor.readCategories().then(function (data) {
-                applicationScope.categories = data.categories;
-                applicationScope.updateApplicationScope();
-            });
-        });
-
         applicationScope.transactionTypes = ["Debit", "Credit"];
 
         applicationScope.flattenCategories = function (skipSplit) {
@@ -150,6 +143,17 @@ pkfinance.factory('applicationScope', ['$q', '$http', 'dataAccessor', 'settings'
             });
             return list;
         };
+
+        $rootScope.$watch("isAuthenticated", function (isAuthenticated) {
+            if (isAuthenticated) {
+                settings.loadSettings().then(function () {
+                    dataAccessor.readCategories().then(function (data) {
+                        applicationScope.categories = data.categories;
+                        applicationScope.updateApplicationScope();
+                    });
+                });
+            }
+        });
 
         return applicationScope;
 }]);
@@ -213,7 +217,7 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
             "loadSettings": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'settings.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'settings').success(function (data) {
                     settings = data;
                     deferred.resolve();
                 }).error(function (ex) {
@@ -297,7 +301,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readFixedEvents": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'fixedEvents.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'fixedEvents').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -308,7 +312,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readCheckbook": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'checking/' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'checking/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -319,7 +323,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readBudget": function (payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'budget/' + payPeriod + '.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'budget/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -330,7 +334,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readCategories": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'categories.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'categories').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -341,7 +345,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readTypeAhead": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'typeahead.json').success(function (data) {
+                $http.get(DATA_FOLDER + 'typeahead').success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -419,6 +423,9 @@ pkfinance.factory('authService', ['$q', '$http',
                 } else {
                     $http.post("https://finance.paulkimbrel.com/auth/", "token=" + token)
                         .success(function (response) {
+                            $http.defaults.headers.get = {
+                                'token': token
+                            };
                             deferred.resolve();
                         }).error(function (ex) {
                             deferred.reject('Rejected!');
