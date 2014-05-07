@@ -217,7 +217,7 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
             "loadSettings": function () {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'settings').success(function (data) {
+                $http.post(DATA_FOLDER + 'settings', "method=get").success(function (data) {
                     settings = data;
                     deferred.resolve();
                 }).error(function (ex) {
@@ -423,9 +423,7 @@ pkfinance.factory('authService', ['$q', '$http',
                 } else {
                     $http.post("https://finance.paulkimbrel.com/auth/", "token=" + token)
                         .success(function (response) {
-                            $http.defaults.headers.get = {
-                                'token': token
-                            };
+                            $http.defaults.headers.post.token = token;
                             deferred.resolve();
                         }).error(function (ex) {
                             deferred.reject('Rejected!');
