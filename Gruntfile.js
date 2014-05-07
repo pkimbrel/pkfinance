@@ -105,7 +105,7 @@ module.exports = function (grunt) {
                 dest: 'dist/app/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
-                    'DATA_FOLDER': 'http://pkf-staging-em2cmvmpms.elasticbeanstalk.com/service/',
+                    'DATA_FOLDER': 'http://staging.paulkimbrel.com/pkf-srv/service/',
                     'DIST_FOLDER': '',
                     'START_DATE': '2014-01-11'
                 },
