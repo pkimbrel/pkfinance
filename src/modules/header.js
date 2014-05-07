@@ -14,10 +14,12 @@ pkfinance.controller('Head', ['$scope', '$state',
     }
 ]);
 
-pkfinance.controller('Header', ['$scope', '$state',
-    function ($scope, $state) {
+pkfinance.controller('Header', ['$rootScope', '$scope', '$state', '$cookieStore',
+    function ($rootScope, $scope, $state, $cookieStore) {
         $scope.logout = function () {
             localStorage.removeItem("token");
+            document.cookie = "XSRF-TOKEN=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            $rootScope.isAuthenticated = false;
             $state.go("login");
         };
     }

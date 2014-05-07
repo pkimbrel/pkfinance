@@ -13,12 +13,13 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
         
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.authenticate) {
-                authService.isAuthenticated().then(function () {
-                    $rootScope.isAuthenticated = true;
-                    console.log("READY");
-                }).catch (function (reason) {
-                    $state.transitionTo("login");
-                });
+                if (!$rootScope.isAuthenticated) {
+                    authService.isAuthenticated().then(function () {
+                        $rootScope.isAuthenticated = true;
+                    }).catch (function (reason) {
+                        $state.transitionTo("login");
+                    });
+                }
             }
         });
 

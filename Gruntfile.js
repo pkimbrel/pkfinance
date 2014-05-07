@@ -21,14 +21,14 @@ module.exports = function (grunt) {
                     'src/views/budget.js',
                     'src/views/planner.js'
                 ],
-                dest: 'dist/app/js/<%= pkg.name %>.min.js'
+                dest: 'dist/js/<%= pkg.name %>.min.js'
             }
         },
         // Build Application CSS
         cssmin: {
             minify: {
                 src: "src/**/*.css",
-                dest: "dist/app/css/<%= pkg.name %>.min.css"
+                dest: "dist/css/<%= pkg.name %>.min.css"
             }
         },
         // Process Application Dependencies (CSS and JavaScript)
@@ -39,12 +39,12 @@ module.exports = function (grunt) {
             },
             dist: {
                 files: {
-                    'dist/app/css/lib.min.css': [
+                    'dist/css/lib.min.css': [
                     'bower_components/bootstrap/dist/css/bootstrap.min.css',
                     'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
                     'bower_components/angular-xeditable/dist/css/xeditable.css'
                 ],
-                    'dist/app/js/lib.min.js': [
+                    'dist/js/lib.min.js': [
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/moment/min/moment.min.js',
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: 'bower_components/bootstrap/dist/fonts/',
                 src: '**',
-                dest: 'dist/app/fonts/',
+                dest: 'dist/fonts/',
                 flatten: true,
                 filter: 'isFile'
             },
@@ -71,41 +71,53 @@ module.exports = function (grunt) {
                 expand: true,
                 cwd: 'src/ico/',
                 src: '**',
-                dest: 'dist/app/ico'
+                dest: 'dist/ico'
             },
             html_main: {
                 expand: true,
                 cwd: 'src/',
                 src: '*.html',
-                dest: 'dist/app'
+                dest: 'dist'
             },
             html_modules: {
                 expand: true,
                 cwd: 'src/modules',
                 src: '*.html',
-                dest: 'dist/app/modules'
+                dest: 'dist/modules'
             },
             html_pages: {
                 expand: true,
                 cwd: 'src/pages',
                 src: '*.html',
-                dest: 'dist/app/pages'
+                dest: 'dist/pages'
             },
             html_views: {
                 expand: true,
                 cwd: 'src/views/',
                 src: '*.html',
-                dest: 'dist/app/views'
+                dest: 'dist/views'
+            },
+            service: {
+                expand: true,
+                cwd: 'src/php/',
+                src: '**/*',
+                dest: 'dist/service'
+            },
+            htaccess: {
+                expand: true,
+                cwd: 'src/php/',
+                src: '.htaccess',
+                dest: 'dist/service'
             }
         },
         // Build Application Configuration
         ngconstant: {
             options: {
                 name: 'pkfinance',
-                dest: 'dist/app/js/config.js',
+                dest: 'dist/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
-                    'DATA_FOLDER': 'http://staging.paulkimbrel.com/pkf-srv/service/',
+                    'DATA_FOLDER': 'http://staging.paulkimbrel.com/service/',
                     'DIST_FOLDER': '',
                     'START_DATE': '2014-01-11'
                 },
@@ -114,28 +126,28 @@ module.exports = function (grunt) {
             build: {}
         },
         // Copy Static Content to S3
-        s3: {
+        rsync: {
             options: {
-                key: process.env.AWS_ACCESS_KEY_ID,
-                secret: process.env.AWS_SECRET_ACCESS_KEY,
-                access: 'public-read'
+                args: ["--verbose"],
+                include: ['"service/.htaccess"'],
+                archive: true,
+                recursive: true,
             },
             staging: {
                 options: {
-                    bucket: 'staging.finance.paulkimbrel.com'
-                },
-                upload: [
-                    {
-                        src: 'dist/app/**/*.*',
-                        dest: '/',
-                        rel: 'dist/app'
-                    },
-                    {
-                        src: 'test/data/**/*.*',
-                        dest: '/',
-                        rel: 'test'
-                    }
-                ]
+                    src: "./dist/./",
+                    dest: "/var/www/html/.",
+                    host: "pkimbrel@staging.paulkimbrel.com",
+                    syncDestIgnoreExcl: true
+                }
+            },
+            "staging-data": {
+                options: {
+                    src: "./test/data",
+                    dest: "/var/www/test",
+                    host: "pkimbrel@staging.paulkimbrel.com",
+                    syncDestIgnoreExcl: true
+                }
             },
             production: {
                 options: {
@@ -143,21 +155,26 @@ module.exports = function (grunt) {
                 },
                 upload: [
                     {
-                        src: 'dist/app/**/*.*',
+                        src: 'dist/**/*.*',
                         dest: '/'
                     }
                 ]
-            },
-            location: {
+            }
+       },
+        // Copy Static Content to S3
+        scp: {
+            staging: {
                 options: {
-                    bucket: 'staging.finance.paulkimbrel.com'
+                    host: "staging.paulkimbrel.com",
+                    username: "pkimbrel",
+                    password: "Ecnadstel2"
                 },
-                upload: [
-                    {
-                        src: 'test/location.*',
-                        dest: '/'
-                    }
-                ]
+                files: [{
+                    cwd: "dist",
+                    src: "service/.htaccess",
+                    filter: 'isFile',
+                    dest: "/var/www/html/service"
+                }]
             }
         }
     });
@@ -166,12 +183,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-s3');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-ng-constant');
+    grunt.loadNpmTasks('grunt-rsync');
+    grunt.loadNpmTasks('grunt-scp');
 
     // Default task(s).
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
-    grunt.registerTask('stage', ['default', 's3:staging']);
+    grunt.registerTask('stage', ['default', 'rsync:staging', 'rsync:staging-data']);
 
 };
