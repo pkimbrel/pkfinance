@@ -3,6 +3,7 @@
 class BadRequest extends Exception { }
 class NotFound extends Exception { }
 class NotImplemented extends Exception { }
+class NotAuthenticated extends Exception { }
 class NotAuthorized extends Exception { }
 
 Service::main();
@@ -33,15 +34,18 @@ class Service {
         } catch (BadRequest $e) {
             echo "<strong>400</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 400', true, 400);
-        } catch (NotAuthorized $e) {
+        } catch (NotAuthenticated $e) {
             echo "<strong>401</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 401', true, 401);
+        } catch (NotAuthorized $e) {
+            echo "<strong>403</strong> - ".$e->getMessage();
+            header('X-PHP-Response-Code: 403', true, 403);
         } catch (NotFound $e) {
             echo "<strong>404</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 404', true, 404);
         } catch (NotImplemented $e) {
-            echo "<strong>501</strong> - ".$e->getMessage();
-            header('X-PHP-Response-Code: 501', true, 501);
+            echo "<strong>405</strong> - ".$e->getMessage();
+            header('X-PHP-Response-Code: 405', true, 405);
         } catch (Exception $e) {
             echo "<strong>500</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 500', true, 500);
@@ -51,7 +55,7 @@ class Service {
     private static function checkAuthorization($uriData) {
         if ("Authenticate" != $uriData['dataSet']) {
             $headers = getallheaders();
-            $token = @$headers['X-XSRF-TOKEN'];
+            $token = @$headers['x-xsrf-token'];
             if (($token == null) || ($token != "abc123")) {
                 throw new NotAuthorized("Unauthorized");
             }

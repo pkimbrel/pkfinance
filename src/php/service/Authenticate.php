@@ -13,7 +13,7 @@ class Authenticate {
             setcookie("XSRF-TOKEN", $token, mktime().time() + 31536000, "/");
             echo "OK";
         } else {
-            throw new NotAuthorized("I don't know you");
+            throw new NotAuthenticated("I don't know you");
         }
     }
     
