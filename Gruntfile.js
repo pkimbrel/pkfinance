@@ -50,7 +50,7 @@ module.exports = function (grunt) {
                     'bower_components/moment/min/moment.min.js',
                     'bower_components/typeahead.js/dist/typeahead.jquery.js',
                     'bower_components/angular/angular.min.js',
-                    'bower_components/angular-cookies/angular-cookies.min.js',
+                    'bower_components/angular-animate/angular-animate.min.js',
                     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
                     'bower_components/angular-xeditable/dist/js/xeditable.min.js'
                     ]
@@ -121,7 +121,7 @@ module.exports = function (grunt) {
                     'DIST_FOLDER': '',
                     'START_DATE': '2014-01-11'
                 },
-                deps: ['ngCookies', 'ui.router', 'xeditable']
+                deps: ['ui.router', 'xeditable', 'ngAnimate']
             },
             build: {}
         },
@@ -159,22 +159,6 @@ module.exports = function (grunt) {
                         dest: '/'
                     }
                 ]
-            }
-       },
-        // Copy Static Content to S3
-        scp: {
-            staging: {
-                options: {
-                    host: "staging.paulkimbrel.com",
-                    username: "pkimbrel",
-                    password: "Ecnadstel2"
-                },
-                files: [{
-                    cwd: "dist",
-                    src: "service/.htaccess",
-                    filter: 'isFile',
-                    dest: "/var/www/html/service"
-                }]
             }
         }
     });

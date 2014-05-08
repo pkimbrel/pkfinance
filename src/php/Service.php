@@ -55,7 +55,12 @@ class Service {
     private static function checkAuthorization($uriData) {
         if ("Authenticate" != $uriData['dataSet']) {
             $headers = getallheaders();
-            $token = @$headers['x-xsrf-token'];
+            
+            $token = @$headers['X-XSRF-TOKEN'];
+            if ($token == null) {
+                $token = @$headers['x-xsrf-token'];
+            }
+            
             if (($token == null) || ($token != "abc123")) {
                 throw new NotAuthorized("Unauthorized");
             }

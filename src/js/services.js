@@ -411,8 +411,8 @@ pkfinance.factory('validators', ['$q', '$http',
     }
 ]);
 
-pkfinance.factory('authService', ['$q', '$http', '$cookies', 'DATA_FOLDER',
-    function ($q, $http, $cookies, DATA_FOLDER) {
+pkfinance.factory('authService', ['$q', '$http', 'DATA_FOLDER',
+    function ($q, $http, DATA_FOLDER) {
         return {
             "isAuthenticated": function () {
                 var deferred = $q.defer();
