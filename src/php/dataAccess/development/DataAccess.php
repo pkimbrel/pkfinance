@@ -1,5 +1,6 @@
 <?php
 class DataAccess {
+    private $basePath = "../../test/data/";
     private $dataSet;
     private $payPeriod;
 
@@ -7,22 +8,30 @@ class DataAccess {
         $this->dataSet = $dataSet;
         $this->payPeriod = $payPeriod;
     }
-
-    public function read() {
-        $dataPath = "../../test/data/";
+    
+    private function buildFilePath() {
+        $dataPath = $this->basePath;
+        
         if ($this->payPeriod == null) {
             $dataPath .= $this->dataSet.".json";
         } else {
             $dataPath .= $this->dataSet."/".$this->payPeriod . ".json";
         }
-        $fileData = @file_get_contents($dataPath);
+        
+        return $dataPath;
+    }
+
+    public function read() {
+        $fileData = @file_get_contents($this->buildFilePath());
+        
 		if ($fileData === false) {
 			throw new NotFound("Unable to read budget data for pay period: ". $this->payPeriod);
 		}
         return $fileData;
     }
 
-    public function write() {
+    public function write($data) {
+        file_put_contents($this->buildFilePath(), $data);
     }
 
     public function delete() {

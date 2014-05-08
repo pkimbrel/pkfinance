@@ -10,7 +10,7 @@ class Authenticate {
         $token = @$_REQUEST["token"];
         if ("abc123" == $token) {
             header('Content-type: text/plain');
-            setcookie("XSRF-TOKEN", $token, mktime().time() + 31536000, "/");
+            setcookie("XSRF-TOKEN", $token, time() + 31536000, "/");
             echo "OK";
         } else {
             throw new NotAuthenticated("I don't know you");

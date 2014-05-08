@@ -66,9 +66,28 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
                 if (field == "amount") {
                     value = data * 100;
                 }
-                return dataAccessor.updateCheckbook(field, value, id, $q);
+                return dataAccessor.updateCheckbook(applicationScope.payPeriod, id, field, value);
             });
-            return promise;
+            
+            if (field == "cleared") {
+                promise.catch(function() {
+                    angular.forEach(applicationScope.transactions, function (transaction) {
+                        if (transaction.tranid == id) {
+                            transaction.cleared = !data;
+                        }
+                    });
+                });
+            } else {
+                return promise;
+            }
+        };
+        
+        $scope.updateAmount = function(id) {
+            angular.forEach(applicationScope.transactions, function (transaction) {
+                if (transaction.tranid == id) {
+                    transaction.amount = transaction.displayAmount * 100;
+                }
+            });
         };
 
         $scope.flattenCategories = applicationScope.flattenCategories;

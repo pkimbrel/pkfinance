@@ -24,10 +24,10 @@
                     <p class="transactionType" editable-select="transaction.type" e-ng-options="c as c for c in app.transactionTypes" onbeforesave="validateAndUpdate('type', $data, transaction.tranid)">{{transaction.type}}</p>
                 </td>
                 <td class="amount">
-                    <p editable-text="transaction.displayAmount" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)">{{transaction.displayAmount | currency}}</p>
+                    <p editable-text="transaction.displayAmount" onbeforesave="validateAndUpdate('amount', $data, transaction.tranid)" onaftersave="updateAmount(transaction.tranid)">{{transaction.displayAmount | currency}}</p>
                 </td>
                 <td class="transactionCleared">
-                    <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', $data, transaction.tranid)" />
+                    <input type="checkbox" ng-model="transaction.cleared" ng-change="validateAndUpdate('cleared', transaction.cleared, transaction.tranid)" />
                 </td>
                 <td class="trash" data-pk="{{transaction.tranid}}">
                     <a href ng-click="removeTransaction(transaction.tranid)">

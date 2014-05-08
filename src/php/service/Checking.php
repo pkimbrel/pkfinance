@@ -12,7 +12,28 @@ class Checking {
         echo $data;
     }
 
-    public function put() {
+    public function insert() {
+        throw new NotImplemented("Cannot insert checking items (yet)");
+    }
+    
+    public function post() {
+        $transactions = json_decode($this->dataAccess->read(), true);
+        
+        $tranid = @$_POST['id'];
+        $name = @$_POST['field'];
+        $value = @$_POST['data'];
+        		
+		if ($name == "cleared") {
+			$value = ($value == "true");
+		}
+		
+		foreach ($transactions["transactions"] as &$transaction) {
+			if ($transaction["tranid"] == $tranid) {
+				$transaction[$name] = $value;
+			}
+		}
+		
+		$this->dataAccess->write(json_encode($transactions));
     }
 
     public function delete() {

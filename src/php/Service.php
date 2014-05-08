@@ -6,6 +6,11 @@ class NotImplemented extends Exception { }
 class NotAuthenticated extends Exception { }
 class NotAuthorized extends Exception { }
 
+function exception_error_handler($errno, $errstr, $errfile, $errline ) {
+    throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
+}
+set_error_handler("exception_error_handler", E_ERROR|E_CORE_ERROR|E_RECOVERABLE_ERROR|E_WARNING);
+
 Service::main();
 
 class Service {
@@ -46,6 +51,9 @@ class Service {
         } catch (NotImplemented $e) {
             echo "<strong>405</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 405', true, 405);
+        } catch (ErrorException $e) {
+            echo "<strong>500</strong> - ".$e->getMessage();
+            header('X-PHP-Response-Code: 500', true, 500);
         } catch (Exception $e) {
             echo "<strong>500</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 500', true, 500);
@@ -68,7 +76,7 @@ class Service {
     }
 
     private static function loadEnvironment() {
-        @$environment = $_SERVER["PARAM1"];
+        $environment = @$_SERVER["PARAM1"];
         if ($environment == null) {
             $environment = "development";
         }
