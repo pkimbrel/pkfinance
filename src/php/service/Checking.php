@@ -12,8 +12,8 @@ class Checking {
         echo $data;
     }
 
-    public function insert() {
-        throw new NotImplemented("Cannot insert checking items (yet)");
+    public function put() {
+        throw new NotImplemented("Cannot put checking items (yet)");
     }
     
     public function post() {
@@ -37,7 +37,22 @@ class Checking {
     }
 
     public function delete() {
-        throw new NotImplemented("Cannot delete checking items (yet)");
+        $transactions = json_decode($this->dataAccess->read(), true);
+        
+        $tranid = @$_POST['id'];
+        $deleteIndex = -1;
+
+		foreach ($transactions["transactions"] as $index=>&$transaction) {
+			if ($transaction["tranid"] == $tranid) {
+				$deleteIndex = $index;
+			}
+		}
+		
+		if ($deleteIndex != -1) {
+		    array_splice($transactions["transactions"], $deleteIndex, 1);
+		}
+		
+		$this->dataAccess->write(json_encode($transactions));
     }
 }
 ?>

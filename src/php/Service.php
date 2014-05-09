@@ -25,10 +25,6 @@ class Service {
     );
     
     private static $environment = "";
-    private static $allowedDomains = array(
-        "development" => array("s3.amazonaws.com", "localhost", "127.0.0.1"),
-        "staging" => array("s3.amazonaws.com", "localhost")
-    );
 
     public static function main() {
         try {
