@@ -241,12 +241,10 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
 pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
     function ($q, $http, settings, DATA_FOLDER) {
         return {
-            "removeTransaction": function (id) {
+            "removeTransaction": function (payPeriod, id) {
                 var deferred = $q.defer();
 
-                $http.delete(DATA_FOLDER + 'checking/' + payPeriod, {
-                    value: id
-                }).success(function (response) {
+                $http.delete(DATA_FOLDER + 'checking/' + payPeriod + "/" + id).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
