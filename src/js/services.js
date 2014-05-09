@@ -244,7 +244,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "removeTransaction": function (id) {
                 var deferred = $q.defer();
 
-                $http.post('/remove', {
+                $http.delete(DATA_FOLDER + 'checking/' + payPeriod, {
                     value: id
                 }).success(function (response) {
                     deferred.resolve();
