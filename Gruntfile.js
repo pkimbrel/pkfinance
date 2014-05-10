@@ -175,6 +175,6 @@ module.exports = function (grunt) {
 
     // Default task(s).
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
-    grunt.registerTask('stage', ['default', 'rsync:staging', 'rsync:staging-data']);
+    grunt.registerTask('stage', ['default', 'rsync:staging']);
 
 };

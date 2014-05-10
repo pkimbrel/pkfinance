@@ -255,11 +255,11 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "updateCheckbook": function (payPeriod, id, field, data) {
                 var deferred = $q.defer();
 
-                $http.post(DATA_FOLDER + 'checking/' + payPeriod, $.param({
+                $http.put(DATA_FOLDER + 'checking/' + payPeriod, {
                     field: field,
                     data: data,
                     id: id
-                })).success(function (response) {
+                }).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');

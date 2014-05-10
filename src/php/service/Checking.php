@@ -12,16 +12,19 @@ class Checking {
         echo $data;
     }
 
-    public function put() {
+    public function post() {
         throw new NotImplemented("Cannot put checking items (yet)");
     }
     
-    public function post() {
+    public function put() {
         $transactions = json_decode($this->dataAccess->read(), true);
         
-        $tranid = @$_POST['id'];
-        $name = @$_POST['field'];
-        $value = @$_POST['data'];
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body, true);
+        
+        $tranid = $data["id"];
+        $name = $data["field"];
+        $value = $data["data"];
         		
 		if ($name == "cleared") {
 			$value = ($value == "true");
