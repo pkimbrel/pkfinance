@@ -3,7 +3,7 @@
     <div class="form-group">
         <label for="payPeriod" class="col-sm-3 control-label">Pay Period</label>
         <div class="col-sm-3">
-            <select name="payPeriod" class="form-control" ng-model="newTransaction.payPeriod" ng-options="p for p in app.availablePayPeriods">
+            <select name="payPeriod" class="form-control" ng-model="app.payPeriod" ng-options="p for p in app.availablePayPeriods" ng-change="app.updateApplicationScope()">
             </select>
         </div>
     </div>

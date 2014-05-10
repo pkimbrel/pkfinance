@@ -99,7 +99,6 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         $scope.app = applicationScope;
         $scope.newTransaction = {
-            "payPeriod": applicationScope.payPeriod,
             "description": null,
             "date": moment().format('YYYY-MM-DD'),
             "amount": null,
@@ -144,8 +143,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                 });
             }
 
-            dataAccessor.newTransaction($scope.newTransaction.payPeriod, finalTransaction.tranid, finalTransaction).then(function() {
-                applicationScope.payPeriod = $scope.newTransaction.payPeriod;
+            dataAccessor.newTransaction(applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function() {
                 finalTransaction.displayAmount = (finalTransaction.amount / 100).toFixed(2);
                 applicationScope.transactions.push(finalTransaction);
                 $state.transitionTo("register");
