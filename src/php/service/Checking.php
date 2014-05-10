@@ -36,10 +36,9 @@ class Checking {
 		$this->dataAccess->write(json_encode($transactions));
     }
 
-    public function delete() {
+    public function delete($tranid) {
         $transactions = json_decode($this->dataAccess->read(), true);
         
-        $tranid = @$_POST['id'];
         $deleteIndex = -1;
 
 		foreach ($transactions["transactions"] as $index=>&$transaction) {

@@ -53,9 +53,18 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
 
         $scope.order = ["cleared", "-date"];
 
-        $scope.removeTransaction = function (transactionId) {
+        $scope.removeTransaction = function (id) {
             if (confirm("Are you sure?")) {
-                dataAccessor.removeTransaction(applicationScope.payPeriod, transactionId);
+                dataAccessor.removeTransaction(applicationScope.payPeriod, id).then(function () {
+                    var deleteIndex = 0;
+                    angular.forEach(applicationScope.transactions, function (transaction, index) {
+                        if (transaction.tranid == id) {
+                            deleteIndex = index;
+                        }
+                    });
+
+                    applicationScope.transactions.splice(deleteIndex, 1);
+                });
             }
         };
 

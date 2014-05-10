@@ -94,22 +94,35 @@ class Service {
         $method = $reflector->getMethod($methodName);
         $class = $reflector->newInstanceArgs(array($uriData['payPeriod']));
 
-        $method->invoke($class);
+        if ($uriData["entry"] != null) {
+            $method->invoke($class, $uriData["entry"]);
+        } else {
+            $method->invoke($class);
+        }
     }
 
     private static function parseURI($uri) {
-        preg_match("/\\/service\\/([a-zA-Z]*)(\\/[a-zA-Z0-9\\-]*){0,1}/", $uri, $matches);
+        preg_match("/\\/service\\/([a-zA-Z]*)(\\/[a-zA-Z0-9\\-]*){0,1}(\\/[a-z0-9\\-]*){0,1}/", $uri, $matches);
 
         if (count($matches) == 2) {
             return array(
                 "dataSet" => ucfirst($matches[1]),
-                "payPeriod" => null
+                "payPeriod" => null,
+                "entry" => null
             );
         }
         if (count($matches) == 3) {
             return array(
                 "dataSet" => ucfirst($matches[1]),
-                "payPeriod" => substr($matches[2], 1)
+                "payPeriod" => substr($matches[2], 1),
+                "entry" => null
+            );
+        }
+        if (count($matches) == 4) {
+            return array(
+                "dataSet" => ucfirst($matches[1]),
+                "payPeriod" => substr($matches[2], 1),
+                "entry" => substr($matches[3], 1)
             );
         }
 
