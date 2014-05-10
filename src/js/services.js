@@ -33,6 +33,10 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             });
             return totalSpending;
         }
+        
+        function calculateDifference() {
+            return calculateTotalIncome() - calculateTotalSpending();
+        }
 
         function calculateDateRange() {
             var startDate = moment(START_DATE);
@@ -115,9 +119,9 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
                 dataAccessor.readBudget(applicationScope.payPeriod).then(function (data) {
                     applicationScope.budget = data;
-                    applicationScope.totalIncome = calculateTotalIncome();
-                    applicationScope.totalSpending = calculateTotalSpending();
-                    applicationScope.difference = applicationScope.totalIncome - applicationScope.totalSpending;
+                    applicationScope.totalIncome = calculateTotalIncome;
+                    applicationScope.totalSpending = calculateTotalSpending;
+                    applicationScope.difference = calculateDifference;
                 });
             });
         };
@@ -277,23 +281,18 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "updateBudget": function (field, data) {
+            "updateBudget": function (payPeriod, category, amount, id) {
                 var deferred = $q.defer();
 
-                $http.post('/update', {
-                    value: data
+                $http.put(DATA_FOLDER + 'budget/' + payPeriod + "/" + id, {
+                    category: category,
+                    amount: amount
                 }).success(function (response) {
-                    response = response || {};
-                    if (response.status === 'ok') {
-                        deferred.resolve();
-                    } else {
-                        deferred.resolve(response.msg);
-                    }
+                    deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
                 });
 
-                deferred.resolve();
                 return deferred.promise;
             },
             "readFixedEvents": function () {

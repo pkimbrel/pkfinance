@@ -15,8 +15,8 @@
      color: #b00;
  }
  .loading {
-     width: 35px;
-     height: 35px;
+     width: 32px;
+     height: 32px;
      background: url(img/loading.gif);
      float: right;
  }
@@ -102,6 +102,9 @@
      font-style: normal;
      color: black;
  }
+.transactionCleared {
+    text-align: center;
+}
  .uncleared {
      font-style: italic;
      color: #888;

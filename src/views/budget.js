@@ -18,15 +18,18 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 updateSpending();
             });
 
-        $scope.validateAndUpdate = function (field, data) {
+        $scope.validateAndUpdate = function (parentCategory, category, data) {
             var value = data;
 
-            var promise = validationBindings[field](value, $q).then(function () {
-                if (field == "amount") {
-                    value = data * 100;
-                }
-                return dataAccessor.updateBudget(field, value, $q);
-            });
+            var promise = validationBindings["amount"](value, $q).then(function () {
+                value = data * 100;
+                return dataAccessor.updateBudget(applicationScope.payPeriod, category, value, parentCategory).then(function() {
+                    applicationScope.budget[parentCategory][category] = value;
+                    updateIncome();
+                    updateSpending();
+                });
+            });$
+            
             return promise;
         };
 
@@ -108,5 +111,5 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 }
             });
         }
-            }
-                ]);
+    }
+]);
