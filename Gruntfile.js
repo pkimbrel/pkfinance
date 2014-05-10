@@ -143,6 +143,7 @@ module.exports = function (grunt) {
             },
             "staging-data": {
                 options: {
+                    chown: "pkimbrel:www-data",
                     src: "./test/data",
                     dest: "/var/www/test",
                     host: "pkimbrel@staging.paulkimbrel.com",
