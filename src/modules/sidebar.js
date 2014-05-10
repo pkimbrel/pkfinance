@@ -3,6 +3,6 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope',
         $scope.app = applicationScope;
         $scope.clear = function () {
             applicationScope.searchFilter = "";
-        }
+        };
     }
 ]);

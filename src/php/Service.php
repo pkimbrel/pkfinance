@@ -5,6 +5,7 @@ class NotFound extends Exception { }
 class NotImplemented extends Exception { }
 class NotAuthenticated extends Exception { }
 class NotAuthorized extends Exception { }
+class DuplicateEntity extends Exception { }
 
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
     throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -47,6 +48,9 @@ class Service {
         } catch (NotImplemented $e) {
             echo "<strong>405</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 405', true, 405);
+        } catch (DuplicateEntity $e) {
+            echo "<strong>409</strong> - ".$e->getMessage();
+            header('X-PHP-Response-Code: 409', true, 409);
         } catch (ErrorException $e) {
             echo "<strong>500</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 500', true, 500);

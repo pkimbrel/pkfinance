@@ -99,14 +99,13 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
         $scope.app = applicationScope;
         $scope.newTransaction = {
-            "tranId": guid(),
             "payPeriod": applicationScope.payPeriod,
-            "date": moment().format('YYYY-MM-DD'),
             "description": null,
-            "category": null,
+            "date": moment().format('YYYY-MM-DD'),
+            "amount": null,
             "type": "Debit",
             "cleared": false,
-            "amount": null
+            "category": null
         };
 
         $scope.splits = [{
@@ -123,14 +122,34 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             $scope.suggestions = null;
         };
 
+        /**
+         * THIS IS THE MONEY
+         */
         $scope.submit = function () {
             $scope.isUpdating = true;
-            var finalTransaction = angular.copy($scope.newTransaction);
+            var finalTransaction = {
+                "tranid": guid(),
+                "description": $scope.newTransaction.description,
+                "date": $scope.newTransaction.date,
+                "amount": $scope.newTransaction.amount * 100,
+                "type": $scope.newTransaction.type,
+                "cleared": $scope.newTransaction.cleared,
+                "category": $scope.newTransaction.category
+            };
+            
             if (finalTransaction.category == "Split") {
-                finalTransaction.categories = $scope.splits;
+                finalTransaction.categories = angular.copy($scope.splits);
+                angular.forEach(finalTransaction.categories, function (split) {
+                    split.amount *= 100;
+                });
             }
 
-            console.log(finalTransaction);
+            dataAccessor.newTransaction($scope.newTransaction.payPeriod, finalTransaction.tranid, finalTransaction).then(function() {
+                applicationScope.payPeriod = $scope.newTransaction.payPeriod;
+                finalTransaction.displayAmount = (finalTransaction.amount / 100).toFixed(2);
+                applicationScope.transactions.push(finalTransaction);
+                $state.transitionTo("register");
+            });
         };
 
         $scope.change = function () {

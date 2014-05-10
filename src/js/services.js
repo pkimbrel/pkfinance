@@ -252,14 +252,24 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "updateCheckbook": function (payPeriod, id, field, data) {
+            "updateTransaction": function (payPeriod, id, field, data) {
                 var deferred = $q.defer();
 
-                $http.put(DATA_FOLDER + 'checking/' + payPeriod, {
+                $http.put(DATA_FOLDER + 'checking/' + payPeriod + "/" + id, {
                     field: field,
-                    data: data,
-                    id: id
+                    data: data
                 }).success(function (response) {
+                    deferred.resolve();
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "newTransaction": function (payPeriod, id, data) {
+                var deferred = $q.defer();
+
+                $http.post(DATA_FOLDER + 'checking/' + payPeriod + "/" + id, data).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');

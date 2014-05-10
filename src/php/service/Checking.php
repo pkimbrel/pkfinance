@@ -12,17 +12,39 @@ class Checking {
         echo $data;
     }
 
-    public function post() {
-        throw new NotImplemented("Cannot put checking items (yet)");
+    public function post($tranid) {
+        $transactions = json_decode($this->dataAccess->read(), true);
+        
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body, true);
+
+        $exists = false;
+        		
+		foreach ($transactions["transactions"] as &$transaction) {
+			if ($transaction["tranid"] == $tranid) {
+                $exists = true;
+			}
+		}
+		
+		if ($exists) {
+            throw new DuplicateEntity("Entry already exists");
+        }
+		
+		if ($name == "cleared") {
+			$value = ($value == "true");
+		}
+		
+		array_push($transactions["transactions"], $data);
+		
+		$this->dataAccess->write(json_encode($transactions));
     }
     
-    public function put() {
+    public function put($tranid) {
         $transactions = json_decode($this->dataAccess->read(), true);
         
         $request_body = file_get_contents('php://input');
         $data = json_decode($request_body, true);
         
-        $tranid = $data["id"];
         $name = $data["field"];
         $value = $data["data"];
         		
@@ -50,7 +72,9 @@ class Checking {
 			}
 		}
 		
-		if ($deleteIndex != -1) {
+		if ($deleteIndex == -1) {
+            throw new NotFound("Transaction not found");
+        } else {
 		    array_splice($transactions["transactions"], $deleteIndex, 1);
 		}
 		
