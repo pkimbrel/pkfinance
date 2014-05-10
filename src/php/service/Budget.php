@@ -21,11 +21,7 @@ class Budget {
         $category = $data["category"];
         $amount = $data["amount"];
 		
-		foreach ($budget[$parentCategory] as $itemCategory=>&$blueberry) {
-			if ($itemCategory == $category) {
-				$budget[$parentCategory][$itemCategory] = $amount;
-			}
-		}
+        $budget[$parentCategory][$category] = $amount;
 		
 		$this->dataAccess->write(json_encode($budget));
     }
