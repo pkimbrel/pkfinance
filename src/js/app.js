@@ -74,6 +74,12 @@ pkfinance.config(['$stateProvider', '$urlRouterProvider', 'DIST_FOLDER',
                 controller: "DisplayNewTransaction",
                 authenticate: true
             })
+            .state("settings", {
+                url: "/settings",
+                templateUrl: DIST_FOLDER + "pages/displaySettings.html",
+                controller: "DisplaySettings",
+                authenticate: true
+            })
             .state("login", {
                 url: "/login",
                 templateUrl: DIST_FOLDER + "pages/displayLogin.html",
