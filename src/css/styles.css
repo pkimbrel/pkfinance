@@ -20,6 +20,23 @@
      background: url(img/loading.gif);
      float: right;
  }
+ .arrayEdit .row {
+     margin-bottom: 5px;
+ }
+ .arrayEdit .add {
+     color: green;
+ }
+ .arrayEdit .locate {
+     color: blue;
+ }
+ .arrayEdit .remove {
+     color: #800;
+ }
+ .arrayEdit .icon {
+     margin: 0;
+     padding: 7px 0;
+ }
+ 
  /*
  * Left Nav control
  */
@@ -133,20 +150,6 @@
  .error-message {
      color: #a94442;
      font-style: italic;
- }
- .splits .row {
-     margin-bottom: 5px;
- }
- .splits .row .add {
-     color: green;
- }
- .splits .row .remove {
-     color: #800;
- }
- .splits .row .add,
- .splits .row .remove {
-     margin: 0;
-     padding: 7px 0;
  }
  .splits .fixed-amount {
      padding: 2px 0 0 55px;

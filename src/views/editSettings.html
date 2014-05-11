@@ -1,0 +1,29 @@
+<form class="form-horizontal" name="settings" class="editSettings" role="form" ng-submit="submit()" ng-controller="Settings">
+    <!-- Blackout Locations -->
+    <div class="form-group arrayEdit">
+        <label for="settings" class="col-sm-3 control-label">
+            Blackout&nbsp;Locations
+            <span class="icon">
+                <a href class="help glyphicon glyphicon-question-sign" rel="popover" data-trigger="click" data-container=".editSettings" data-toggle="popover" data-placement="auto right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></a>
+                <span class="add glyphicon glyphicon-plus-sign" ng-click="add()"></span>
+            </span>
+        </label>
+        <div class="col-sm-5 ">
+            <div class="row" ng-repeat="location in newSettings.blackoutPositions">
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" ng-model="location.latitude" required >
+                </div>
+                <div class="col-xs-5">
+                    <input type="text" class="form-control" ng-model="location.longitude" required >
+                </div>
+                <!--span class="glyphicon glyphicon-plus-sign" ng-click="add()"></span-->
+                <div class="col-xs-1 icon locate">
+                    <span class="glyphicon glyphicon-globe" ng-click="locate($index)"></span>
+                </div>
+                <div class="col-xs-1 icon remove">
+                    <span class="glyphicon glyphicon-minus-sign" ng-click="remove($index)"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

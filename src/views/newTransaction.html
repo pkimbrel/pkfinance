@@ -62,7 +62,7 @@
     <!-- Split -->
     <div class="form-group" ng-if="newTransaction.category == 'Split'">
         <label for="split" class="col-sm-3 control-label">Split</label>
-        <div class="col-sm-5 splits">
+        <div class="col-sm-5 splits arrayEdit">
             <div class="row" ng-repeat="split in splits">
                 <div class="col-xs-6">
                     <select class="form-control category" ng-model="split.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories(true)" required>
@@ -77,10 +77,10 @@
                 <div class="col-xs-5 fixed-amount" ng-if="!$index">
                     {{split.amount|currency}}
                 </div>
-                <div class="col-xs-1 add" ng-if="!$index">
+                <div class="col-xs-1 icon add" ng-if="!$index">
                     <span class="glyphicon glyphicon-plus-sign" ng-click="add()"></span>
                 </div>
-                <div class="col-xs-1 remove" ng-if="$index">
+                <div class="col-xs-1 icon remove" ng-if="$index">
                     <span class="glyphicon glyphicon-minus-sign" ng-click="remove($index)"></span>
                 </div>
             </div>

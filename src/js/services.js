@@ -237,6 +237,9 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
                 }
 
                 return defaultValue;
+            },
+            "readAllSettings": function (key, defaultValue) {
+                return settings;
             }
         };
     }
