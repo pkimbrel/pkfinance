@@ -1,29 +1,61 @@
-<form class="form-horizontal" name="settings" class="editSettings" role="form" ng-submit="submit()" ng-controller="Settings">
+<form class="editSettings" name="settings" role="form" ng-submit="submit()" ng-controller="Settings">
     <!-- Blackout Locations -->
-    <div class="form-group arrayEdit">
-        <label for="settings" class="col-sm-3 control-label">
-            Blackout&nbsp;Locations
-            <span class="icon">
-                <a href class="help glyphicon glyphicon-question-sign" rel="popover" data-trigger="click" data-container=".editSettings" data-toggle="popover" data-placement="auto right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."></a>
-                <span class="add glyphicon glyphicon-plus-sign" ng-click="add()"></span>
-            </span>
+    <div class="checkbox">
+        <label>
+            <input type="checkbox" ng-model="newSettings.geoLocationEnabled" required >
+            GeoLocation Enabled
         </label>
-        <div class="col-sm-5 ">
-            <div class="row" ng-repeat="location in newSettings.blackoutPositions">
-                <div class="col-xs-5">
-                    <input type="text" class="form-control" ng-model="location.latitude" required >
-                </div>
-                <div class="col-xs-5">
-                    <input type="text" class="form-control" ng-model="location.longitude" required >
-                </div>
-                <!--span class="glyphicon glyphicon-plus-sign" ng-click="add()"></span-->
-                <div class="col-xs-1 icon locate">
-                    <span class="glyphicon glyphicon-globe" ng-click="locate($index)"></span>
-                </div>
-                <div class="col-xs-1 icon remove">
-                    <span class="glyphicon glyphicon-minus-sign" ng-click="remove($index)"></span>
-                </div>
+        <span class="help glyphicon glyphicon-question-sign" 
+            rel="popover"                     
+            data-trigger="click" 
+            data-container=".editSettings" 
+            data-toggle="popover" 
+            data-placement="bottom" 
+            data-content="Determines if Geo-Location will be used to track new transaction locations."></span>
+    </div>
+    <div class="form-group arrayEdit">
+        <label for="blackoutLocations">
+            Blackout Locations
+            <span class="help glyphicon glyphicon-question-sign" 
+                rel="popover"                     
+                data-trigger="click" 
+                data-container=".editSettings" 
+                data-toggle="popover" 
+                data-placement="bottom" 
+                data-content="Blackout Locations are places you want to avoid doing Geo-Location when adding new transactions.  A great example is your home.  You probably don't want to associate every transaction you enter at home to that location.\n\nPress the Plus (+) sign to add a new location.  Use the Globe icon to update an entry with your current position.  Use the Minus (-) sign to remove an entry."></span>
+            <span class="icon add glyphicon glyphicon-plus-sign" ng-click="addBlackout()"></span>
+        </label>
+        <div class="row" ng-repeat="location in newSettings.blackoutPositions">
+            <div class="col-xs-5">
+                <input type="text" class="form-control" ng-model="location.latitude" required smart-float>
+            </div>
+            <div class="col-xs-5">
+                <input type="text" class="form-control" ng-model="location.longitude" required smart-float>
+            </div>
+            <!--span class="glyphicon glyphicon-plus-sign" ng-click="add()"></span-->
+            <div class="col-xs-1 icon">
+                <span class="locate glyphicon glyphicon-globe" ng-click="locateBlackout($index)"></span>
+                <span class="remove glyphicon glyphicon-minus-sign" ng-click="removeBlackout($index)"></span>
             </div>
         </div>
+    </div>
+    <div class="form-group">
+        <label for="suggestRadius">
+            Suggestion Radius
+            <span class="help glyphicon glyphicon-question-sign" 
+                rel="popover"                     
+                data-trigger="click" 
+                data-container=".editSettings" 
+                data-toggle="popover" 
+                data-placement="bottom" 
+                data-content="The radius (in meters) to search from your current position for recently used locations."></span>
+        </label>
+        <input type="number" name="suggestRadius" class="form-control suggestRadius" ng-model="newSettings.suggestionRadius" required integer>
+    </div>
+    
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="isSame() || isUpdating">SAVE</button>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <div ng-show="isUpdating" class="loading"></div>
     </div>
 </form>

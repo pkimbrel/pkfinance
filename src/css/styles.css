@@ -18,7 +18,6 @@
      width: 32px;
      height: 32px;
      background: url(img/loading.gif);
-     float: right;
  }
  .arrayEdit .row {
      margin-bottom: 5px;
@@ -33,8 +32,10 @@
      color: #800;
  }
  .arrayEdit .icon {
+     white-space: nowrap;
      margin: 0;
      padding: 7px 0;
+     cursor: pointer;
  }
  
  /*
@@ -144,6 +145,9 @@
  /**
  * New Transaction
  */
+.newTransaction .loading{
+    float: right;
+}
  input.ng-dirty.ng-invalid {
      border-color: #a94442;
  }
@@ -249,3 +253,11 @@
      -moz-transform: translate3d(50%, 0, 0);
      transform: translate3d(50%, 0, 0);
  }
+
+/**
+ * Settings
+ */
+.suggestRadius {width: 40%}
+.editSettings .loading{
+    margin-top: 5px;
+}

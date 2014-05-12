@@ -1,14 +1,15 @@
 {
     "blackoutPositions": [{
-        "latitude": 40.300349,
-        "longitude": -90.055895
+        "latitude": "40.300349",
+        "longitude": "-90.055895"
     }, {
-        "latitude": 40.297512,
-        "longitude": -90.041907
+        "latitude": "40.297512",
+        "longitude": "-90.041907"
     }],
     "currentPosition": {
-        "latitude": 40.294273,
-        "longitude": -90.066027
+        "latitude": "40.294273",
+        "longitude": "-90.066027"
     },
-    "suggestionRadius": 100
+    "suggestionRadius": 100,
+    "geoLocationEnabled": true
 }
