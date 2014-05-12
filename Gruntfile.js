@@ -74,6 +74,12 @@ module.exports = function (grunt) {
                 src: '**',
                 dest: 'dist/ico'
             },
+            img: {
+                expand: true,
+                cwd: 'src/css/img',
+                src: '**',
+                dest: 'dist/css/img'
+            },
             html_main: {
                 expand: true,
                 cwd: 'src/',
