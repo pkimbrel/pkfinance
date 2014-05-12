@@ -12,12 +12,11 @@ class Settings {
         echo $data;
     }
 
-    public function put() {
-        throw new NotImplemented("Cannot update settings");
-    }
+    public function post() {
+        $request_body = file_get_contents('php://input');
+        $data = $request_body;
 
-    public function delete() {
-        throw new NotImplemented("Cannot delete settings");
+		$this->dataAccess->write($data);
     }
 }
 ?>

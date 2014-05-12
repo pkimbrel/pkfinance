@@ -146,6 +146,14 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             dataAccessor.newTransaction(applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function() {
                 finalTransaction.displayAmount = (finalTransaction.amount / 100).toFixed(2);
                 applicationScope.transactions.push(finalTransaction);
+                var typeaheadData = {
+                    "description":finalTransaction.description,
+                    "data": {
+                        "category": finalTransaction.category,
+                        "type" : finalTransaction.type
+                    }
+                };
+                dataAccessor.updateTypeahead(typeaheadData);
                 $state.transitionTo("register");
             });
         };

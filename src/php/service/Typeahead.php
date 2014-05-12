@@ -12,8 +12,16 @@ class Typeahead {
         echo $data;
     }
 
-    public function put() {
-        throw new NotImplemented("Cannot update typeahead items");
+    public function post() {
+        $typeahead = json_decode($this->dataAccess->read(), true);
+        
+        $request_body = file_get_contents('php://input');
+        $typeaheadEntry = json_decode($request_body, true);
+
+        $description = $typeaheadEntry.description;
+		$typeahead[$description] = $typeaheadEntry.data;
+		
+		$this->dataAccess->write(json_encode($typeahead));
     }
 
     public function delete() {

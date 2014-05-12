@@ -11,6 +11,12 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
         
         $scope.submit = function () {
             $scope.isUpdating = true;
+            settings.updateSettings($scope.newSettings).then(function() {
+                $state.transitionTo($rootScope.previousState);
+            }).catch(function() {
+                alert("Update failed");
+                $scope.isUpdating = false;
+            });
         };
         
         $scope.addBlackout = function () {

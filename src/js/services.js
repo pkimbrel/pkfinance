@@ -238,6 +238,18 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
 
                 return defaultValue;
             },
+            "updateSettings": function (newSettings) {
+                var deferred = $q.defer();
+
+                $http.post(DATA_FOLDER + 'settings', newSettings).success(function (response) {
+                    settings = angular.copy(newSettings);
+                    deferred.resolve();
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
             "readAllSettings": function (key, defaultValue) {
                 return settings;
             }
@@ -347,6 +359,17 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 $http.get(DATA_FOLDER + 'typeahead').success(function (data) {
                     deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "updateTypeAhead": function (typeaheadData) {
+                var deferred = $q.defer();
+
+                $http.post(DATA_FOLDER + 'typeahead', typeaheadData).success(function (response) {
+                    deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
                 });
