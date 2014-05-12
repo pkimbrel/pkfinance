@@ -1,5 +1,8 @@
 pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q', 'validators', 'dataAccessor', 'applicationScope', 'settings', 'geoServices',
     function ($rootScope, $scope, $state, $q, validators, dataAccessor, applicationScope, settings, geoServices) {
+        var currentPosition = {};
+        var typeaheadData = {};
+
         function guid() {
             return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
                 var r = Math.random() * 16 | 0,
@@ -25,16 +28,22 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         }
 
         function loadTypeahead() {
-            dataAccessor.readTypeAhead().then(function (typeaheadData) {
+            dataAccessor.readTypeAhead().then(function (newTypeaheadData) {
+                typeaheadData = newTypeaheadData;
+
                 function searchEntry(description, entry, suggestions, suggestionRadius) {
+                    var suggestedDescriptions = [];
                     for (var index in entry.positions) {
-                        var distance = geoServices.calculateDistance($scope.currentPosition, entry.positions[index]);
-                        if (distance < suggestionRadius) {
+                        var distance = geoServices.calculateDistance(currentPosition, entry.positions[index]);
+                        if ((distance < suggestionRadius) && (suggestedDescriptions.indexOf(description) == -1)) {
+                            suggestedDescriptions.push(description);
                             suggestions.push({
                                 "description": description,
                                 "category": entry.category,
                                 "type": entry.type,
-                                "distance": distance
+                                "distance": distance,
+                                "latitude": entry.positions[index].latitude,
+                                "longitude": entry.positions[index].longitude
                             });
                         }
                     }
@@ -57,7 +66,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
 
                 function buildSuggestions() {
                     var suggestions = [];
-                    if (!geoServices.isBlackedOut($scope.currentPosition)) {
+                    if (!geoServices.isBlackedOut(currentPosition)) {
                         suggestions = searchTypeaheadData();
 
                         suggestions.sort(function (a, b) {
@@ -67,11 +76,13 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                     return suggestions;
                 }
 
-                dataAccessor.getPosition().then(function (currentPosition) {
-                    $scope.currentPosition = currentPosition;
-                    $scope.suggestions = buildSuggestions();
-                });
-
+                if (settings.readSetting("geoLocationEnabled", false)) {
+                    dataAccessor.getPosition().then(function (newCurrentPosition) {
+                        currentPosition = newCurrentPosition;
+                        $scope.suggestions = buildSuggestions();
+                    });
+                }
+                                              
                 $('.description').typeahead({
                     hint: false,
                     highlight: true,
@@ -91,6 +102,8 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                     if (typeaheadData[key].type !== undefined) {
                         $scope.newTransaction.type = typeaheadData[key].type;
                     }
+
+                    $scope.newTransaction.description = key;
 
                     $scope.$apply();
                 });
@@ -118,6 +131,10 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             $scope.newTransaction.description = suggestion.description;
             $scope.newTransaction.category = suggestion.category;
             $scope.newTransaction.type = suggestion.type;
+            currentPosition = {
+                "latitude": suggestion.latitude,
+                "longitude": suggestion.longitude
+            };
             $scope.suggestions = null;
         };
 
@@ -135,7 +152,40 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                 "cleared": $scope.newTransaction.cleared,
                 "category": $scope.newTransaction.category
             };
-            
+            var typeaheadEntry = {
+                "description": finalTransaction.description,
+                "data": typeaheadData[finalTransaction.description]
+            };
+
+            if (typeaheadEntry.data === undefined) {
+                typeaheadEntry.data = {};
+            }
+
+            if (typeaheadEntry.data.positions === undefined) {
+                typeaheadEntry.data.positions = [];
+            }
+
+            typeaheadEntry.data.category = finalTransaction.category;
+            typeaheadEntry.data.type = finalTransaction.type;
+
+            if (settings.readSetting("geoLocationEnabled", false)) {
+                var foundit = false;
+                angular.forEach(typeaheadEntry.data.positions, function (entry) {
+                    if (angular.equals(entry, currentPosition)) {
+                        foundit = true;
+                    }
+                });
+
+                if (!foundit) {
+                    typeaheadEntry.data.positions.push(currentPosition);
+                }
+
+                var maxSuggestions = settings.readSetting("maximumSuggestions", 3);
+                if (typeaheadEntry.data.positions.length > maxSuggestions) {
+                    typeaheadEntry.data.positions.splice(0, 1);
+                }
+            }
+
             if (finalTransaction.category == "Split") {
                 finalTransaction.categories = angular.copy($scope.splits);
                 angular.forEach(finalTransaction.categories, function (split) {
@@ -143,17 +193,10 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                 });
             }
 
-            dataAccessor.newTransaction(applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function() {
+            dataAccessor.newTransaction(applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function () {
                 finalTransaction.displayAmount = (finalTransaction.amount / 100).toFixed(2);
                 applicationScope.transactions.push(finalTransaction);
-                var typeaheadData = {
-                    "description":finalTransaction.description,
-                    "data": {
-                        "category": finalTransaction.category,
-                        "type" : finalTransaction.type
-                    }
-                };
-                dataAccessor.updateTypeahead(typeaheadData);
+                dataAccessor.updateTypeahead(typeaheadEntry);
                 $state.transitionTo("register");
             });
         };

@@ -30,9 +30,7 @@ class Checking {
             throw new DuplicateEntity("Entry already exists");
         }
 		
-		if ($name == "cleared") {
-			$value = ($value == "true");
-		}
+		$data["cleared"] = ($data["cleared"] == "true");
 		
 		array_push($transactions["transactions"], $data);
 		

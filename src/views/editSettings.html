@@ -2,7 +2,7 @@
     <!-- Blackout Locations -->
     <div class="checkbox">
         <label>
-            <input type="checkbox" ng-model="newSettings.geoLocationEnabled" required >
+            <input type="checkbox" ng-model="newSettings.geoLocationEnabled" >
             GeoLocation Enabled
         </label>
         <span class="help glyphicon glyphicon-question-sign" 
@@ -39,6 +39,7 @@
             </div>
         </div>
     </div>
+    
     <div class="form-group">
         <label for="suggestRadius">
             Suggestion Radius
@@ -51,6 +52,20 @@
                 data-content="The radius (in meters) to search from your current position for recently used locations."></span>
         </label>
         <input type="number" name="suggestRadius" class="form-control suggestRadius" ng-model="newSettings.suggestionRadius" required integer>
+    </div>
+    
+    <div class="form-group">
+        <label for="maxSuggestions">
+            Maximum Suggestions
+            <span class="help glyphicon glyphicon-question-sign" 
+                rel="popover"                     
+                data-trigger="click" 
+                data-container=".editSettings" 
+                data-toggle="popover" 
+                data-placement="bottom" 
+                data-content="The number of idential suggestions per description.  Ex: If set to 3, then only up to 3 locations called 'Awesome Grocer' will be geotagged before suggestions drop off."></span>
+        </label>
+        <input type="number" name="maximumSuggestions" class="form-control suggestRadius" ng-model="newSettings.maximumSuggestions" required integer>
     </div>
     
     <div class="form-group">

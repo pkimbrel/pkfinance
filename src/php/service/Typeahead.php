@@ -18,8 +18,8 @@ class Typeahead {
         $request_body = file_get_contents('php://input');
         $typeaheadEntry = json_decode($request_body, true);
 
-        $description = $typeaheadEntry.description;
-		$typeahead[$description] = $typeaheadEntry.data;
+        $description = $typeaheadEntry['description'];
+		$typeahead[$description] = $typeaheadEntry['data'];
 		
 		$this->dataAccess->write(json_encode($typeahead));
     }

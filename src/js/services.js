@@ -365,7 +365,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "updateTypeAhead": function (typeaheadData) {
+            "updateTypeahead": function (typeaheadData) {
                 var deferred = $q.defer();
 
                 $http.post(DATA_FOLDER + 'typeahead', typeaheadData).success(function (response) {
@@ -381,7 +381,11 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
                 var currentPosition = settings.readSetting("currentPosition", null);
 
                 if (currentPosition !== null) {
-                    deferred.resolve(currentPosition);
+                    var split = currentPosition.split(",");
+                    deferred.resolve({
+                                "latitude": split[0],
+                                "longitude": split[1]
+                            });
                 } else {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function (position) {
