@@ -8,7 +8,7 @@
         <div class="col-xs-5 bankBalance amount ">{{app.totalSpending()/100|currency}}</div>
     </div>
     <div class="row " ng-class="{bad:app.difference < 0} ">
-        <div class="col-xs-7 description ">Unbudgeted:</div>
+        <div class="col-xs-7 description ">Unbudgeted money:</div>
         <div class="col-xs-5 endingBalance amount ">{{app.difference()/100|currency}}</div>
     </div>
 </div>
