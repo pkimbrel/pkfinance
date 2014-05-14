@@ -21,15 +21,15 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
         $scope.validateAndUpdate = function (parentCategory, category, data) {
             var value = data;
 
-            var promise = validationBindings["amount"](value, $q).then(function () {
+            var promise = validationBindings.amount(value, $q).then(function () {
                 value = data * 100;
-                return dataAccessor.updateBudget(applicationScope.payPeriod, category, value, parentCategory).then(function() {
+                return dataAccessor.updateBudget(applicationScope.payPeriod, category, value, parentCategory).then(function () {
                     applicationScope.budget[parentCategory][category] = value;
                     updateIncome();
                     updateSpending();
                 });
-            });$
-            
+            });
+
             return promise;
         };
 

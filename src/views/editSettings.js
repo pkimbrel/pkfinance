@@ -20,6 +20,10 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
         };
         
         $scope.addBlackout = function () {
+            if ($scope.newSettings.blackoutPositions === undefined) {
+                $scope.newSettings.blackoutPositions = [];
+            }
+            
             $scope.newSettings.blackoutPositions.push({
                 "latitude": "0",
                 "longitude": "0"
@@ -36,7 +40,39 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
             dataAccessor.getPosition().then(function (currentPosition) {
                 $scope.newSettings.blackoutPositions[index] = currentPosition;
             });
-
+        };
+        
+        $scope.addSummaryCategory = function () {
+            if ($scope.newSettings.summaryCategories === undefined) {
+                $scope.newSettings.summaryCategories = [];
+            }
+            if ($scope.newSettings.summaryCategories.indexOf("") != -1) {
+                alert("Please select a category before adding a new one.");
+                return;
+            }
+            $scope.newSettings.summaryCategories.push("");
+        };
+        
+        $scope.removeSummaryCategory = function (index) {
+            if (confirm("Are you sure?")) {
+                $scope.newSettings.summaryCategories.splice(index, 1);
+            }
+        };
+        
+        $scope.moveUpSummaryCategory = function(index) {
+            if (index > 0) {
+                $scope.newSettings.summaryCategories.swapItems(index, index-1);
+            }
+        };
+        
+        $scope.moveDownSummaryCategory = function(index) {
+            if (index < ($scope.newSettings.summaryCategories.length - 1)) {
+                $scope.newSettings.summaryCategories.swapItems(index, index+1);
+            }
+        };
+        
+        $scope.changeSummaryCategories = function() {
+            console.log("HERE");
         };
         
         $scope.cancel = function () {

@@ -1,0 +1,17 @@
+<div ng-controller="Summary" class="summary">
+    <h2>Cash Remaining <a href="#/settings" title="Change displayed categories"><span class="glyphicon glyphicon-cog"></span></a></h2>
+    <div ng-if="summary == 0">
+        The summary has not been configured. You can add categories to view here in the <a href="#/settings">settings</a>
+    </div>
+    <div class="row" ng-repeat="item in summary track by $index">
+        <div class=" col-md-12">
+            <h4 ng-click="filterItems(item.category)">{{item.category}}</h4>
+            <strong ng-class="{bad: item.remaining < 0}">{{item.remaining | currency}}</strong>  <span class="remainingOf"> remaining out of {{item.budgetedAmount | currency}}</span>
+            <div class="progress">
+                <div class="progress-bar progress-bar-{{item.displayClass}}" role="progressbar" aria-valuenow="{{item.percentage}}" aria-valuemin="0" aria-valuemax="100" style="width: {{item.percentage}}%;">
+                    {{item.percentage}}%
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

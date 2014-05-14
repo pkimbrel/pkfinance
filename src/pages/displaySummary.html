@@ -1,7 +1,7 @@
 <ng-include src="DIST_FOLDER + 'modules/header.html'"></ng-include>
 <!-- Begin Body -->
 <div class="container">
-    <h1>Summary</h1>
+    <h1>Budget Summary</h1>
     <div class="row">
         <div class="col-md-3">
             <div class="nav nav-stacked sidebar" ng-controller="Sidebar">
@@ -19,6 +19,7 @@
             </div>
         </div>
         <div class="col-md-9">
+            <ng-include src="DIST_FOLDER + 'views/summary.html'"></ng-include>
         </div>
     </div>
 </div>

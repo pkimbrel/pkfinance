@@ -10,8 +10,7 @@
  .endingBalance {
      color: green;
  }
- .bad .bankBalance,
- .bad .endingBalance {
+ .bad {
      color: #b00;
  }
  .loading {
@@ -37,7 +36,19 @@
      padding: 7px 0;
      cursor: pointer;
  }
- 
+ .arrayEdit .disabled {
+     color: #ccc;
+     cursor: default;
+ }
+ h2 .glyphicon {
+     font-size: .6em;
+     color: black;
+     vertical-align: top;
+     margin-top: 5px;
+ }
+ .remainingOf {
+     color: #777;
+ }
  /*
  * Left Nav control
  */
@@ -120,9 +131,9 @@
      font-style: normal;
      color: black;
  }
-.transactionCleared {
-    text-align: center;
-}
+ .transactionCleared {
+     text-align: center;
+ }
  .uncleared {
      font-style: italic;
      color: #888;
@@ -145,9 +156,9 @@
  /**
  * New Transaction
  */
-.newTransaction .loading{
-    float: right;
-}
+ .newTransaction .loading {
+     float: right;
+ }
  input.ng-dirty.ng-invalid {
      border-color: #a94442;
  }
@@ -249,15 +260,16 @@
  }
  [ui-view].ng-leave-active {
      opacity: 0;
-     -webkit-transform: translate3d(50%, 0, 0);
-     -moz-transform: translate3d(50%, 0, 0);
-     transform: translate3d(50%, 0, 0);
+     -webkit-transform: rotate3d(-1, 1, 0, 40deg);
+     -moz-transform: translate3d(20%, 0, 0);
+     transform: translate3d(20%, 0, 0);
  }
-
-/**
+ /**
  * Settings
  */
-.suggestRadius {width: 40%}
-.editSettings .loading{
-    margin-top: 5px;
-}
+ .suggestRadius {
+     width: 40%
+ }
+ .editSettings .loading {
+     margin-top: 5px;
+ }

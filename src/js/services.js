@@ -33,7 +33,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             });
             return totalSpending;
         }
-        
+
         function calculateDifference() {
             return calculateTotalIncome() - calculateTotalSpending();
         }
@@ -144,6 +144,22 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                         "group": group.text
                     });
                 });
+            });
+            return list;
+        };
+
+        applicationScope.flattenSpendingCategories = function () {
+            var list = [];
+
+            angular.forEach(applicationScope.categories, function (group) {
+                if (group.text != "Income") {
+                    angular.forEach(group.children, function (category) {
+                        list.push({
+                            "category": category.text,
+                            "group": group.text
+                        });
+                    });
+                }
             });
             return list;
         };
@@ -383,9 +399,9 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
                 if (currentPosition !== null) {
                     var split = currentPosition.split(",");
                     deferred.resolve({
-                                "latitude": split[0],
-                                "longitude": split[1]
-                            });
+                        "latitude": split[0],
+                        "longitude": split[1]
+                    });
                 } else {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(function (position) {
@@ -472,4 +488,11 @@ if (typeof Number.prototype.toDeg == 'undefined') {
     Number.prototype.toDeg = function () {
         return this * 180 / Math.PI;
     };
+}
+
+if (typeof Array.prototype.swapItems == 'undefined') {
+    Array.prototype.swapItems = function (a, b) {
+        this[a] = this.splice(b, 1, this[a])[0];
+        return this;
+    }
 }
