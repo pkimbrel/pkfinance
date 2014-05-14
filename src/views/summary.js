@@ -20,6 +20,10 @@ pkfinance.controller('Summary', ['$scope', '$q', '$state', 'validators', 'settin
 
                 angular.forEach(summaryCategories, function (category) {
                     var budgetedAmount = budget.spending[category];
+                    if (budgetedAmount === undefined) {
+                        budgetedAmount = 0;
+                    }
+
                     var remaining = budgetedAmount;
 
                     angular.forEach(applicationScope.transactions, function (transaction) {
