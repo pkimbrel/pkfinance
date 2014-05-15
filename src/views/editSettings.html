@@ -1,5 +1,49 @@
 <form class="editSettings" name="settings" role="form" ng-submit="submit()" ng-controller="Settings">
+    <h3>Summary Page</h3>
+    <div class="form-group arrayEdit">
+        <label for="summaryCategories">
+            Summary Categories
+            <span class="help glyphicon glyphicon-question-sign" 
+                rel="popover"                     
+                data-trigger="click" 
+                data-container=".editSettings" 
+                data-toggle="popover" 
+                data-placement="bottom" 
+                data-content="Summary categories are the categories (and order) that you would like to see on the summary screen."></span>
+            <span class="icon add glyphicon glyphicon-plus-sign" ng-click="addSummaryCategory()"></span>
+        </label>
+        <div class="row" ng-repeat="category in newSettings.summaryCategories track by $index">
+            <div class="col-xs-9">
+                <select class="form-control category" ng-model="newSettings.summaryCategories[$index]" ng-options="c.category as c.category group by c.group for c in app.flattenSpendingCategories()" required>
+                </select>
+            </div>
+            <div class="col-xs-1 icon">
+                <span ng-class="{disabled:($index == newSettings.summaryCategories.length-1)}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownSummaryCategory($index)"></span>
+                <span ng-class="{disabled:($index == 0)}" class="move glyphicon glyphicon-arrow-up" disabled ng-click="moveUpSummaryCategory($index)"></span>
+                <span class="remove glyphicon glyphicon-minus-sign" ng-click="removeSummaryCategory($index)"></span>
+            </div>
+        </div>
+    </div>
     
+    <h3>Budget and Planning</h3>
+    <!-- Start Date -->
+    <div class="form-group">
+        <label for="suggestRadius">
+            Start Date
+            <span class="help glyphicon glyphicon-question-sign" 
+                rel="popover"                     
+                data-trigger="click" 
+                data-container=".editSettings" 
+                data-toggle="popover" 
+                data-placement="bottom" 
+                data-content="The start date is the first paycheck of any year up until the current year.  This will be the starting point for the budget and planning.  NOTE: This MUST be the first paycheck of any given year - and it does NOT have to represent your first budget period."></span>
+        </label>
+        <input type="text" name="startDate" class="form-control startDate" ng-model="newSettings.startDate" validate-date>
+        <span ng-show="settings.startDate.$error.validateDate" class="error-message">Proper date format: YYYY-MM-DD</span>
+    </div>
+    
+
+    <h3>Geolocation</h3>
     <!-- Geolocation Enabled -->
     <div class="checkbox">
         <label>
@@ -42,6 +86,7 @@
         </div>
     </div>
     
+    <!-- Suggestion Radius -->
     <div class="form-group">
         <label for="suggestRadius">
             Suggestion Radius
@@ -56,6 +101,7 @@
         <input type="number" name="suggestRadius" class="form-control suggestRadius" ng-model="newSettings.suggestionRadius" required integer>
     </div>
     
+    <!-- Maximum Suggestions -->
     <div class="form-group">
         <label for="maxSuggestions">
             Maximum Suggestions
@@ -68,31 +114,6 @@
                 data-content="The number of idential suggestions per description.  Ex: If set to 3, then only up to 3 locations called 'Awesome Grocer' will be geotagged before suggestions drop off."></span>
         </label>
         <input type="number" name="maximumSuggestions" class="form-control suggestRadius" ng-model="newSettings.maximumSuggestions" required integer>
-    </div>
-    
-    <div class="form-group arrayEdit">
-        <label for="summaryCategories">
-            Summary Categories
-            <span class="help glyphicon glyphicon-question-sign" 
-                rel="popover"                     
-                data-trigger="click" 
-                data-container=".editSettings" 
-                data-toggle="popover" 
-                data-placement="bottom" 
-                data-content="Summary categories are the categories (and order) that you would like to see on the summary screen."></span>
-            <span class="icon add glyphicon glyphicon-plus-sign" ng-click="addSummaryCategory()"></span>
-        </label>
-        <div class="row" ng-repeat="category in newSettings.summaryCategories track by $index">
-            <div class="col-xs-9">
-                <select class="form-control category" ng-model="newSettings.summaryCategories[$index]" ng-options="c.category as c.category group by c.group for c in app.flattenSpendingCategories()" required>
-                </select>
-            </div>
-            <div class="col-xs-1 icon">
-                <span ng-class="{disabled:($index == newSettings.summaryCategories.length-1)}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownSummaryCategory($index)"></span>
-                <span ng-class="{disabled:($index == 0)}" class="move glyphicon glyphicon-arrow-up" disabled ng-click="moveUpSummaryCategory($index)"></span>
-                <span class="remove glyphicon glyphicon-minus-sign" ng-click="removeSummaryCategory($index)"></span>
-            </div>
-        </div>
     </div>
 
     <div class="form-group">

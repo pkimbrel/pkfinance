@@ -126,8 +126,7 @@ module.exports = function (grunt) {
                 wrap: 'var pkfinance = {%= __ngModule %}',
                 constants: {
                     'DATA_FOLDER': 'http://staging.paulkimbrel.com/service/',
-                    'DIST_FOLDER': '',
-                    'START_DATE': '2014-01-11'
+                    'DIST_FOLDER': ''
                 },
                 deps: ['ui.router', 'xeditable', 'ngAnimate']
             },
@@ -182,7 +181,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-scp');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:build']);
-    grunt.registerTask('stage', ['default', 'rsync:staging']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:staging']);
+    grunt.registerTask('stage', ['default', 'ngconstant:staging', 'rsync:staging']);
 
 };

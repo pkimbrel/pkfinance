@@ -13,7 +13,7 @@
         <label for="date" class="col-sm-3 control-label">Date</label>
         <div class="col-sm-3">
             <input type="text" name="date" class="form-control" ng-model="newTransaction.date" validate-date>
-            <span ng-show="transaction.date.$error.validateDate" class="error-message">Invalid date</span>
+            <span ng-show="transaction.date.$error.validateDate" class="error-message">Proper date format: YYYY-MM-DD</span>
         </div>
     </div>
 

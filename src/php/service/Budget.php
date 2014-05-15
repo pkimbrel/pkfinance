@@ -8,8 +8,16 @@ class Budget {
 
     public function get() {
         $data = $this->dataAccess->read();
+        
         header('Content-type: application/json');
         echo $data;
+    }
+    
+    public function post() {
+        $request_body = file_get_contents('php://input');
+        $data = json_decode($request_body, true);
+        
+        $this->dataAccess->write(json_encode($data));
     }
 
     public function put($parentCategory) {

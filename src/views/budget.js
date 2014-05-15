@@ -37,6 +37,18 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             applicationScope.searchFilter = "category:" + filterData;
             $state.transitionTo("register");
         };
+        
+        $scope.copyPreviousBudget = function() {
+            var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
+            var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
+            dataAccessor.readBudget(previousPayPeriod).then(function (data) {
+                dataAccessor.writeBudget(applicationScope.payPeriod, data).then(function () {
+                    applicationScope.updateApplicationScope();
+                });
+            }).catch(function() {
+                alert("Unable to read previous budget");
+            });
+        };
 
         function updateIncome() {
             $scope.income = [];

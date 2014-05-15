@@ -7,7 +7,13 @@ class Checking {
     }
 
     public function get() {
-        $data = $this->dataAccess->read();
+        try {
+            $data = $this->dataAccess->read();
+        } catch (NotFound $ex) {
+            $data = "{\"startingBalance\":0,\"transactions\":[]}";
+            $this->dataAccess->write($data);
+        }
+        
         header('Content-type: application/json');
         echo $data;
     }
@@ -50,11 +56,16 @@ class Checking {
 			$value = ($value == "true");
 		}
 		
-		foreach ($transactions["transactions"] as &$transaction) {
-			if ($transaction["tranid"] == $tranid) {
-				$transaction[$name] = $value;
-			}
-		}
+		if ($name == "startingBalance") {
+            $transactions["startingBalance"] = $value;
+        } else {
+            foreach ($transactions["transactions"] as &$transaction) {
+                if ($transaction["tranid"] == $tranid) {
+                    $transaction[$name] = $value;
+                }
+            }
+        }
+        print_r($transactions);
 		
 		$this->dataAccess->write(json_encode($transactions));
     }

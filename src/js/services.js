@@ -3,8 +3,8 @@
  */
 /* global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings', 'START_DATE',
-    function ($q, $rootScope, $http, dataAccessor, settings, START_DATE) {
+pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings',
+    function ($q, $rootScope, $http, dataAccessor, settings) {
         var applicationScope = {};
 
         function calculateEndingBalance(isBank) {
@@ -39,7 +39,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
         }
 
         function calculateDateRange() {
-            var startDate = moment(START_DATE);
+            var startDate = moment(settings.readSetting("startDate"));
             var startYear = startDate.year();
 
             var parsedPeriod = /([0-9]{4})-([0-9]{2})/.exec(applicationScope.payPeriod);
@@ -353,6 +353,17 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 $http.get(DATA_FOLDER + 'budget/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
+            "writeBudget": function (payPeriod, data) {
+                var deferred = $q.defer();
+
+                $http.post(DATA_FOLDER + 'budget/' + payPeriod, data).success(function () {
+                    deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
                 });

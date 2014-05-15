@@ -10,7 +10,7 @@
  .endingBalance {
      color: green;
  }
- .bad {
+ .bad, .bad div {
      color: #b00;
  }
  .loading {
@@ -18,6 +18,9 @@
      height: 32px;
      background: url(img/loading.gif);
  }
+.icon {
+    cursor:pointer;
+}
  .arrayEdit .row {
      margin-bottom: 5px;
  }
@@ -270,6 +273,12 @@
  .suggestRadius {
      width: 40%
  }
+.startDate {
+     width: 52%
+ }
  .editSettings .loading {
      margin-top: 5px;
  }
+.editSettings h3 {
+    border-bottom: 1px solid #ccc;
+}

@@ -244,7 +244,7 @@ pkfinance.directive('validateDate', function (validators) {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
-                if (moment(viewValue).isValid()) {
+                if (/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/.test(viewValue) && moment(viewValue).isValid()) {
                     ctrl.$setValidity('validateDate', true);
                     return viewValue;
                 } else {

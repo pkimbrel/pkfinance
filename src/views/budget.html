@@ -1,5 +1,8 @@
 <div class="budget" ng-controller="Budget">
-    <h2 ng-hide="app.budget">No Budget Found</h2>
+    <div ng-hide="app.budget">
+        <h2>No budget, yet...</h2>
+        <p>Do you want to <a href ng-click="copyPreviousBudget()">copy the budget</a> from last pay-period?</p>
+    </div>
     <h2 ng-show="app.budget">Income</h2>
     <table class="table table-hover table-bordered">
         <tbody>

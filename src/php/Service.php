@@ -106,7 +106,7 @@ class Service {
     }
 
     private static function parseURI($uri) {
-        preg_match("/\\/service\\/([a-zA-Z]*)(\\/[a-zA-Z0-9\\-]*){0,1}(\\/[a-z0-9\\-]*){0,1}/", $uri, $matches);
+        preg_match("/\\/service\\/([a-zA-Z]*)(\\/[0-9]{4}-[0-9]{2}){0,1}(\\/[a-z0-9\\-]*){0,1}/", $uri, $matches);
 
         if (count($matches) == 2) {
             return array(
