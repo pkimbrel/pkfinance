@@ -18,6 +18,13 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 updateSpending();
             });
 
+        $scope.resetBudget = function() {
+            var ok = confirm("Did you seriously just click that?\nI specifically said, \"DON'T CLICK THIS.\"\n\nI worry about you sometimes.\n\nHere's the deal:\nThis button will reset THIS budget to last month's values.\n\nHandy if you want to start over.\nTerrible if you've spent hours working on this budget.\n\nDo you REALLY want to do this?!\n\nChoose wisely.");
+            if (ok) {
+                $scope.copyPreviousBudget();
+            }
+        };
+        
         $scope.validateAndUpdate = function (parentCategory, category, data) {
             var value = data;
 

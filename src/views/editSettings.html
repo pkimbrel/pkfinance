@@ -20,7 +20,7 @@
             <div class="col-xs-1 icon">
                 <span ng-class="{disabled:($index == newSettings.summaryCategories.length-1)}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownSummaryCategory($index)"></span>
                 <span ng-class="{disabled:($index == 0)}" class="move glyphicon glyphicon-arrow-up" disabled ng-click="moveUpSummaryCategory($index)"></span>
-                <span class="remove glyphicon glyphicon-minus-sign" ng-click="removeSummaryCategory($index)"></span>
+                <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeSummaryCategory($index)"></span>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
             </div>
             <div class="col-xs-1 icon">
                 <span class="locate glyphicon glyphicon-globe" ng-click="locateBlackout($index)"></span>
-                <span class="remove glyphicon glyphicon-minus-sign" ng-click="removeBlackout($index)"></span>
+                <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeBlackout($index)"></span>
             </div>
         </div>
     </div>

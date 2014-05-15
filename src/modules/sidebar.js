@@ -6,7 +6,17 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
         };
         
         $scope.updateStartingBalance = function () {
-            var newBalance = prompt("Please enter a new amount", (applicationScope.startingBalance / 100).toFixed(2));
+            var newBalance = null;
+            newBalance = prompt("Please enter a new amount", (applicationScope.startingBalance / 100).toFixed(2));
+            if (newBalance === null) {
+                return;
+            }
+            
+            if (!/^\d+(?:\.\d{0,2}){0,1}$/.test(newBalance)) {
+                alert("Given amount was invalid.");
+                return;
+            }
+            
             dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "startingBalance", newBalance * 100).then(function() {
                 applicationScope.updateApplicationScope();
             });
