@@ -1,5 +1,6 @@
 <form class="editSettings" name="settings" role="form" ng-submit="submit()" ng-controller="Settings">
-    <!-- Blackout Locations -->
+    
+    <!-- Geolocation Enabled -->
     <div class="checkbox">
         <label>
             <input type="checkbox" ng-model="newSettings.geoLocationEnabled" >
@@ -14,6 +15,7 @@
             data-content="Determines if Geo-Location will be used to track new transaction locations."></span>
     </div>
 
+    <!-- Blackout Locations -->
     <div class="form-group arrayEdit">
         <label for="blackoutLocations">
             Blackout Locations

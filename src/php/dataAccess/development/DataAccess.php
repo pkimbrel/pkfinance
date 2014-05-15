@@ -1,6 +1,7 @@
 <?php
 class DataAccess {
-    private $basePath = "../../test/data/";
+//    private $basePath = "../../test/data/";
+    private $basePath = "../../../pkfinance-livedata/data/";
     private $dataSet;
     private $payPeriod;
 
@@ -25,7 +26,7 @@ class DataAccess {
         $fileData = @file_get_contents($this->buildFilePath());
         
 		if ($fileData === false) {
-			throw new NotFound("Unable to read budget data for pay period: ". $this->payPeriod);
+			throw new NotFound("Unable to read data for given dataset.");
 		}
         return $fileData;
     }

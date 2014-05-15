@@ -10,7 +10,7 @@ class DuplicateEntity extends Exception { }
 function exception_error_handler($errno, $errstr, $errfile, $errline ) {
     throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 }
-set_error_handler("exception_error_handler", E_ERROR|E_CORE_ERROR|E_RECOVERABLE_ERROR|E_WARNING);
+//set_error_handler("exception_error_handler", E_ERROR|E_CORE_ERROR|E_RECOVERABLE_ERROR|E_WARNING);
 
 Service::main();
 
