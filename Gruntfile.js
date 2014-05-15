@@ -124,13 +124,14 @@ module.exports = function (grunt) {
                 name: 'pkfinance',
                 dest: 'dist/js/config.js',
                 wrap: 'var pkfinance = {%= __ngModule %}',
+                deps: ['ui.router', 'xeditable', 'ngAnimate']
+            },
+            staging: {
                 constants: {
                     'DATA_FOLDER': 'http://staging.paulkimbrel.com/service/',
                     'DIST_FOLDER': ''
-                },
-                deps: ['ui.router', 'xeditable', 'ngAnimate']
-            },
-            build: {}
+                }
+            }
         },
         // Copy Static Content to S3
         rsync: {

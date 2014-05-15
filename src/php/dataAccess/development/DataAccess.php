@@ -1,7 +1,7 @@
 <?php
 class DataAccess {
-//    private $basePath = "../../test/data/";
-    private $basePath = "../../../pkfinance-livedata/data/";
+    private $basePath = "../../test/data/";
+//    private $basePath = "../../../pkfinance-livedata/data/";
     private $dataSet;
     private $payPeriod;
 
