@@ -112,10 +112,10 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                             "used": (used / 100).toFixed(2)
                         });
                     });
-
+                    
                     $scope.spending.push({
                         "name": category.text,
-                        "percentage": total / applicationScope.totalIncome,
+                        "percentage": total / applicationScope.totalIncome(),
                         "icon": category.icon,
                         "children": children,
                         "amount": (total / 100).toFixed(2)
