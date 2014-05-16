@@ -131,6 +131,12 @@ module.exports = function (grunt) {
                     'DATA_FOLDER': 'http://staging.paulkimbrel.com/service/',
                     'DIST_FOLDER': ''
                 }
+            },
+            production: {
+                constants: {
+                    'DATA_FOLDER': 'http://107.170.113.76/service/',
+                    'DIST_FOLDER': ''
+                }
             }
         },
         // Copy Static Content to S3
@@ -158,16 +164,13 @@ module.exports = function (grunt) {
                     syncDestIgnoreExcl: true
                 }
             },
-            production: {
-                options: {
-                    bucket: 'finances.paulkimbrel.com'
-                },
-                upload: [
-                    {
-                        src: 'dist/**/*.*',
-                        dest: '/'
-                    }
-                ]
+            staging: {
+                production: {
+                    src: "./dist/./",
+                    dest: "/var/www/html/.",
+                    host: "pkimbrel@107.170.113.76",
+                    syncDestIgnoreExcl: true
+                }
             }
         }
     });
@@ -184,5 +187,6 @@ module.exports = function (grunt) {
     // Default task(s).
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:staging']);
     grunt.registerTask('stage', ['default', 'ngconstant:staging', 'rsync:staging']);
+    grunt.registerTask('stage', ['default', 'ngconstant:production', 'rsync:production']);
 
 };
