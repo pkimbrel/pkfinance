@@ -3,7 +3,7 @@ class FixedEvents {
     private $dataAccess;
 
     function __construct() {
-        $this->dataAccess = new DataAccess("fixedEvents", null);
+        $this->dataAccess = DataAccess::getInstance("fixedEvents", null);
     }
 
     public function get() {

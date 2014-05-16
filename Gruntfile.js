@@ -134,7 +134,7 @@ module.exports = function (grunt) {
             },
             production: {
                 constants: {
-                    'DATA_FOLDER': 'http://107.170.113.76/service/',
+                    'DATA_FOLDER': '/service/',
                     'DIST_FOLDER': ''
                 }
             }
@@ -164,8 +164,8 @@ module.exports = function (grunt) {
                     syncDestIgnoreExcl: true
                 }
             },
-            staging: {
-                production: {
+            production: {
+                options: {
                     src: "./dist/./",
                     dest: "/var/www/html/.",
                     host: "pkimbrel@107.170.113.76",
@@ -187,6 +187,6 @@ module.exports = function (grunt) {
     // Default task(s).
     grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:staging']);
     grunt.registerTask('stage', ['default', 'ngconstant:staging', 'rsync:staging']);
-    grunt.registerTask('stage', ['default', 'ngconstant:production', 'rsync:production']);
+    grunt.registerTask('production', ['default', 'ngconstant:production', 'rsync:production']);
 
 };

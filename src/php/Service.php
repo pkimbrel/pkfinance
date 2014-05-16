@@ -25,11 +25,9 @@ class Service {
         "Typeahead"
     );
     
-    private static $environment = "";
-
     public static function main() {
         try {
-            Service::loadEnvironment();
+            Service::loadClasses();
             $uriData = Service::parseURI($_SERVER["REQUEST_URI"]);
             Service::checkAuthorization($uriData);
             Service::invokeMethod($uriData, strtolower($_SERVER['REQUEST_METHOD']));
@@ -75,15 +73,8 @@ class Service {
         }
     }
 
-    private static function loadEnvironment() {
-        $environment = @$_SERVER["PARAM1"];
-        if ($environment == null) {
-            $environment = "development";
-        }
-        
-        SERVICE::$environment = $environment;
-
-        require("dataAccess/$environment/DataAccess.php");
+    private static function loadClasses() {
+        require("dataAccess/DataAccess.php");
 
         foreach (Service::$allowedClasses as $className) {
             require("service/$className.php");
@@ -93,7 +84,7 @@ class Service {
     private static function invokeMethod($uriData, $methodName) {
         $className = $uriData['dataSet'];
         Service::sanityCheck($className);
-
+        
         $reflector = new ReflectionClass($className);
         $method = $reflector->getMethod($methodName);
         $class = $reflector->newInstanceArgs(array($uriData['payPeriod']));

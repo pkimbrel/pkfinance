@@ -3,7 +3,7 @@ class Categories {
     private $dataAccess;
 
     function __construct() {
-        $this->dataAccess = new DataAccess("categories", null);
+        $this->dataAccess = DataAccess::getInstance("categories", null);
     }
 
     public function get() {

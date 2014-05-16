@@ -3,7 +3,7 @@ class Settings {
     private $dataAccess;
 
     function __construct() {
-        $this->dataAccess = new DataAccess("settings", null);
+        $this->dataAccess = DataAccess::getInstance("settings", null);
     }
 
     public function get() {

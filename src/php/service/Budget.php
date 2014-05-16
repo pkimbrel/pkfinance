@@ -3,7 +3,7 @@ class Budget {
     private $dataAccess;
 
     function __construct($payPeriod) {
-        $this->dataAccess = new DataAccess("budget", $payPeriod);
+        $this->dataAccess = DataAccess::getInstance("budget", $payPeriod);
     }
 
     public function get() {

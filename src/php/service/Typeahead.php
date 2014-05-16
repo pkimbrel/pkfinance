@@ -3,7 +3,7 @@ class Typeahead {
     private $dataAccess;
 
     function __construct() {
-        $this->dataAccess = new DataAccess("typeahead", null);
+        $this->dataAccess = DataAccess::getInstance("typeahead", null);
     }
 
     public function get() {

@@ -3,7 +3,7 @@ class Checking {
     private $dataAccess;
 
     function __construct($payPeriod) {
-        $this->dataAccess = new DataAccess("checking", $payPeriod);
+        $this->dataAccess = DataAccess::getInstance("checking", $payPeriod);
     }
 
     public function get() {
@@ -65,7 +65,6 @@ class Checking {
                 }
             }
         }
-        print_r($transactions);
 		
 		$this->dataAccess->write(json_encode($transactions));
     }

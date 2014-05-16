@@ -1,9 +1,6 @@
 <?php
 class Authenticate {
-    private $dataAccess;
-
     function __construct() {
-        $this->dataAccess = new DataAccess("settings", null);
     }
 
     public function post() {
