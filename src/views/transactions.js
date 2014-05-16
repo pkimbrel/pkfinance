@@ -51,7 +51,7 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
 
         });
 
-        $scope.order = ["cleared", "-date"];
+        $scope.order = ["cleared", "-date", "description"];
 
         $scope.removeTransaction = function (id) {
             if (confirm("Are you sure?")) {
