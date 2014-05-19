@@ -59,12 +59,25 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             );
         }
 
-        if (localStorage.getItem("payPeriod") === null) {
-            applicationScope.payPeriod = "2013-08";
-        } else {
-            applicationScope.payPeriod = localStorage.getItem("payPeriod");
+        function initiatePayPeriod() {
+            if (sessionStorage.getItem("payPeriod") === null) {
+                var startDateSetting = settings.readSetting("startDate", null);
+                if (startDateSetting === null) {
+                    applicationScope.payPeriod = "2013-08";
+                } else {
+                    var startDate = moment(startDateSetting);
+                    var currentDate = moment();
+                    var periodsSinceStart = Number(((currentDate.diff(startDate, 'days')) / 28).toFixed(0));
+                    var yearsSinceStart = Number((periodsSinceStart / 13).toFixed(0));
+                    var payPeriodInYear = periodsSinceStart - (yearsSinceStart * 13);
+                    var year = startDate.year() + yearsSinceStart;
+                    applicationScope.payPeriod = year + "-" + ((payPeriodInYear<10)?"0":"") + payPeriodInYear;
+                }
+            } else {
+                applicationScope.payPeriod = sessionStorage.getItem("payPeriod");
+            }
         }
-
+        
         applicationScope.availablePayPeriods = [
             "2013-08",
             "2013-09",
@@ -97,8 +110,11 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             applicationScope.startingBalance = 0;
             applicationScope.bankBalance = 0;
 
-
-            localStorage.payPeriod = applicationScope.payPeriod;
+            if (applicationScope.payPeriod === undefined) {
+                initiatePayPeriod();
+            }
+            
+            sessionStorage.payPeriod = applicationScope.payPeriod;
 
             calculateDateRange();
 
