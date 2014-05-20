@@ -10,7 +10,8 @@
  .endingBalance {
      color: green;
  }
- .bad, .bad div {
+ .bad,
+ .bad div {
      color: #b00;
  }
  .loading {
@@ -18,9 +19,9 @@
      height: 32px;
      background: url(img/loading.gif);
  }
-.icon {
-    cursor:pointer;
-}
+ .icon {
+     cursor: pointer;
+ }
  .arrayEdit .row {
      margin-bottom: 5px;
  }
@@ -29,6 +30,9 @@
  }
  .arrayEdit .locate {
      color: blue;
+ }
+ .arrayEdit .map {
+     color: #CC5E55;
  }
  .arrayEdit .remove {
      color: #800;
@@ -273,12 +277,22 @@
  .suggestRadius {
      width: 40%
  }
-.startDate {
+ .startDate {
      width: 52%
  }
  .editSettings .loading {
      margin-top: 5px;
  }
-.editSettings h3 {
-    border-bottom: 1px solid #ccc;
-}
+ .editSettings h3 {
+     border-bottom: 1px solid #ccc;
+ }
+ .blackoutLocations .latitude {
+     padding-right: 3px;
+ }
+ .blackoutLocations .longitude {
+     padding-left: 3px;
+ }
+ #map-canvas {
+     width: 100%;
+     height: 300px;
+ }
