@@ -61,21 +61,25 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
         function initiatePayPeriod() {
             if (sessionStorage.getItem("payPeriod") === null) {
-                var startDateSetting = settings.readSetting("startDate", null);
-                if (startDateSetting === null) {
-                    applicationScope.payPeriod = "2013-08";
-                } else {
-                    var startDate = moment(startDateSetting);
-                    var currentDate = moment();
-                    var periodsSinceStart = Number(((currentDate.diff(startDate, 'days')) / 28).toFixed(0));
-                    var yearsSinceStart = Number((periodsSinceStart / 13).toFixed(0));
-                    var payPeriodInYear = periodsSinceStart - (yearsSinceStart * 13);
-                    var year = startDate.year() + yearsSinceStart;
-                    applicationScope.payPeriod = year + "-" + ((payPeriodInYear<10)?"0":"") + payPeriodInYear;
-                }
+                applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod();
             } else {
                 applicationScope.payPeriod = sessionStorage.getItem("payPeriod");
             }
+        }
+        
+        applicationScope.calculateCurrentPayPeriod = function() {
+            var payPeriod = "2013-08";
+            var startDateSetting = settings.readSetting("startDate", null);
+            if (startDateSetting !== null) {
+                var startDate = moment(startDateSetting);
+                var currentDate = moment();
+                var periodsSinceStart = Number(((currentDate.diff(startDate, 'days')) / 28).toFixed(0));
+                var yearsSinceStart = Number((periodsSinceStart / 13).toFixed(0));
+                var payPeriodInYear = periodsSinceStart - (yearsSinceStart * 13);
+                var year = startDate.year() + yearsSinceStart;
+                payPeriod = year + "-" + ((payPeriodInYear<10)?"0":"") + payPeriodInYear;
+            }
+            return payPeriod;
         }
         
         applicationScope.availablePayPeriods = [

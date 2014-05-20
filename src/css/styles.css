@@ -109,6 +109,12 @@
  .pay-period .display-period {
      margin: 5px;
  }
+ .pay-period .btn-group {
+     float:right;
+ }
+ .btn-group .button {
+     cursor: pointer;
+ }
  /*
  * Balance Module
  */

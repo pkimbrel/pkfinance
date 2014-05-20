@@ -4,5 +4,16 @@
     </select>
     <div class="display-period">({{app.startDate|date:'M/d'}} - {{app.endDate|date:'M/d'}})
         <em ng-show="app.isCurrent">(current)</em>
+        <div class="btn-group btn-group-xs">
+            <button type="button" class="btn btn-default" ng-click="goToPreviousPayPeriod()">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="goToCurrentPayPeriod()">
+                <span class="glyphicon glyphicon-star"></span>
+            </button>
+            <button type="button" class="btn btn-default" ng-click="goToNextPayPeriod()">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+            </button>
+        </div>
     </div>
 </div>

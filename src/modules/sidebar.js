@@ -40,5 +40,26 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
                 alert("Unable to read previous budget");
             });
         };
+        
+        $scope.goToPreviousPayPeriod = function() {
+            var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
+            if (payPeriodIndex > 0) {
+                applicationScope.payPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
+                applicationScope.updateApplicationScope();
+            }
+        };
+        
+        $scope.goToCurrentPayPeriod = function() {
+            applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod();
+            applicationScope.updateApplicationScope();
+        };
+        
+        $scope.goToNextPayPeriod = function() {
+            var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
+            if (payPeriodIndex < (applicationScope.availablePayPeriods.length + 1)) {
+                applicationScope.payPeriod = applicationScope.availablePayPeriods[payPeriodIndex + 1];
+                applicationScope.updateApplicationScope();
+            }
+        };
     }
 ]);
