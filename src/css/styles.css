@@ -56,6 +56,16 @@
  .remainingOf {
      color: #777;
  }
+ .alert li {
+     margin-bottom: 10px;
+ }
+ .alert ul {
+     margin-bottom: 20px;
+ }
+ .well .well {
+     margin: 15px 0 0 0;
+     background-image: linear-gradient(to bottom, #c8d8e8 0%, #e5e5ff 100%);
+ }
  /*
  * Left Nav control
  */
@@ -110,7 +120,7 @@
      margin: 5px;
  }
  .pay-period .btn-group {
-     float:right;
+     float: right;
  }
  .btn-group .button {
      cursor: pointer;
@@ -301,4 +311,10 @@
  #map-canvas {
      width: 100%;
      height: 300px;
+ }
+ .iconSelect {
+     padding-right: 0;
+ }
+ .iconPreview {
+     padding: 5px 0 0 10px;
  }
