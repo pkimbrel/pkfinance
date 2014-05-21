@@ -1,0 +1,21 @@
+<form class="editCategories" name="categories" role="form" ng-submit="submit()" ng-controller="Categories">
+    <div class="form-group arrayEdit">
+        <div class="row">
+            <div class="col-sm-4">{{newCategories}}
+                <div class="row" ng-repeat="category in newCategories track by $index">
+                    <div class="col-xs-10">
+                        {{category.text}}
+                    </div>
+                    <div class="col-xs-2 icon">
+                        <span ng-class="{disabled:($index == newCategories.length-1)}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownParentCategory($index)"></span>
+                        <span ng-class="{disabled:($index == 0)}" class="move glyphicon glyphicon-arrow-up" disabled ng-click="moveUpParentCategory($index)"></span>
+                        <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeParentCategory($index)"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-8">
+            </div>
+        </div>
+    </div>
+
+</form>
