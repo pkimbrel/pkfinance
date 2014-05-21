@@ -16,6 +16,7 @@ pkfinance.controller('Head', ['$scope', '$state',
 
 pkfinance.controller('Header', ['$rootScope', '$scope', '$state',
     function ($rootScope, $scope, $state) {
+        $scope.state = $state.current.name;
         $scope.logout = function () {
             localStorage.removeItem("token");
             document.cookie = "XSRF-TOKEN=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";

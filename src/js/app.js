@@ -10,13 +10,14 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
         $http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
         $rootScope.isAuthenticated = false;
-        
+
         $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {
             if (toState.authenticate) {
                 if (!$rootScope.isAuthenticated) {
                     authService.isAuthenticated().then(function () {
                         $rootScope.isAuthenticated = true;
-                    }).catch (function (reason) {
+                    }).
+                    catch (function (reason) {
                         $state.transitionTo("login");
                     });
                 }
@@ -78,6 +79,18 @@ pkfinance.config(['$stateProvider', '$urlRouterProvider', 'DIST_FOLDER',
                 url: "/settings",
                 templateUrl: DIST_FOLDER + "pages/displaySettings.html",
                 controller: "DisplaySettings",
+                authenticate: true
+            })
+            .state("categories", {
+                url: "/categories",
+                templateUrl: DIST_FOLDER + "pages/displayCategories.html",
+                controller: "DisplayCategories",
+                authenticate: true
+            })
+            .state("typeahead", {
+                url: "/typeahead",
+                templateUrl: DIST_FOLDER + "pages/displayTypeahead.html",
+                controller: "DisplayTypeahead",
                 authenticate: true
             })
             .state("login", {

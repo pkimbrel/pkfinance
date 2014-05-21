@@ -11,35 +11,47 @@
         </div>
         <nav class="collapse navbar-collapse" role="navigation">
             <ul class="nav navbar-nav">
-                <li>
+                <li ng-class="{active:state=='summary'}">
                     <a href="#/">
                         <span class="glyphicon glyphicon-stats"></span>
                         Summary
                     </a>
                 </li>
-                <li>
+                <li ng-class="{active:state=='register'}">
                     <a href="#/register">
                         <span class="glyphicon glyphicon-usd"></span>
                         Register
                     </a>
                 </li>
-                <li>
+                <li ng-class="{active:state=='budget'}">
                     <a href="#/budget">
                         <span class="glyphicon glyphicon-list-alt"></span>
                         Budget
                     </a>
                 </li>
-                <li>
+                <li ng-class="{active:state=='planner'}">
                     <a href="#/planner">
                         <span class="glyphicon glyphicon-calendar"></span>
                         Planner
                     </a>
                 </li>
-                <li>
-                    <a href="#/settings">
+                <li class="dropdown">
+                    <a href class="dropdown-toggle" data-toggle="dropdown">
                         <span class="glyphicon glyphicon-cog"></span>
                         Settings
+                        <b class="caret"></b>
                     </a>
+                    <ul class="dropdown-menu">
+                        <li ng-class="{active:state=='settings'}">
+                            <a href="#/settings">General Settings</a>
+                        </li>
+                        <li ng-class="{active:state=='categories'}">
+                            <a href="#/categories">Categories</a>
+                        </li>
+                        <li ng-class="{active:state=='typeahead'}">
+                            <a href="#/typeahead">Typeahead</a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
