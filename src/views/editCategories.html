@@ -8,16 +8,26 @@
             Transactions that have become unbound will still show the deleted category. However, if you edit the transaction, the old category will not be selectable (because, ya know... you deleted it and all)
         </li>
         <li>
-            You <em>can</em> "re-add" a category and transactions will auto-magically get rebound. You're welcome.
+            You
+            <em>can</em>"re-add" a category and transactions will auto-magically get rebound. You're welcome.
         </li>
         <li>
-            Deleting a parent category will delete <em><strong><u>everything</u></strong></em> under it!! Don't say I didn't warn you.
+            Deleting a parent category will delete
+            <em>
+                <strong>
+                    <u>everything</u>
+                </strong>
+            </em>under it!! Don't say I didn't warn you.
         </li>
         <li>
-            You <u>cannot</u> remove or move the "Income" category. That's just a bad idea anyhow. You need income or this whole thing is kind of pointless.
+            You
+            <u>cannot</u>remove or move the "Income" category. That's just a bad idea anyhow. You need income or this whole thing is kind of pointless.
         </li>
     </ul>
-    <h4>TL;DR <sup>(<a href="http://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn't_read" target="_blank">what?!</a>)</sup></h4>
+    <h4>TL;DR
+        <sup>(
+            <a href="http://en.wikipedia.org/wiki/Wikipedia:Too_long;_didn't_read" target="_blank">what?!</a>)</sup>
+    </h4>
 
     <ul>
         <li>
@@ -62,7 +72,7 @@
                     <div class="well">
                         <div class="row" ng-repeat="child in category.children track by $index">
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" ng-model="child.text">
+                                <input type="text" class="form-control" ng-model="child">
                             </div>
                             <div class="col-xs-2 icon">
                                 <span ng-class="{disabled:$index == category.children.length-1}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownCategory(category.text, $index)"></span>
@@ -70,14 +80,16 @@
                                 <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeCategory(category.text, $index)"></span>
                             </div>
                         </div>
-                        New: <span class="add glyphicon glyphicon-plus-sign" ng-click="addCategory(category.text)"></span>
+                        New:
+                        <span class="add glyphicon glyphicon-plus-sign" ng-click="addCategory(category.text)"></span>
                     </div>
                 </div>
             </div>
             <div class="col-sm-6">
             </div>
         </div>
-        New Parent Category: <span class="add glyphicon glyphicon-plus-sign" ng-click="addParentCategory()"></span> 
+        New Parent Category:
+        <span class="add glyphicon glyphicon-plus-sign" ng-click="addParentCategory()"></span>
     </div>
 
 </form>

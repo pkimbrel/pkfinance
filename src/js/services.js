@@ -66,8 +66,8 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 applicationScope.payPeriod = sessionStorage.getItem("payPeriod");
             }
         }
-        
-        applicationScope.calculateCurrentPayPeriod = function() {
+
+        applicationScope.calculateCurrentPayPeriod = function () {
             var payPeriod = "2013-08";
             var startDateSetting = settings.readSetting("startDate", null);
             if (startDateSetting !== null) {
@@ -77,11 +77,11 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 var yearsSinceStart = Number((periodsSinceStart / 13).toFixed(0));
                 var payPeriodInYear = periodsSinceStart - (yearsSinceStart * 13);
                 var year = startDate.year() + yearsSinceStart;
-                payPeriod = year + "-" + ((payPeriodInYear<10)?"0":"") + payPeriodInYear;
+                payPeriod = year + "-" + ((payPeriodInYear < 10) ? "0" : "") + payPeriodInYear;
             }
             return payPeriod;
         }
-        
+
         applicationScope.availablePayPeriods = [
             "2013-08",
             "2013-09",
@@ -117,7 +117,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             if (applicationScope.payPeriod === undefined) {
                 initiatePayPeriod();
             }
-            
+
             sessionStorage.payPeriod = applicationScope.payPeriod;
 
             calculateDateRange();
@@ -160,7 +160,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             angular.forEach(applicationScope.categories, function (group) {
                 angular.forEach(group.children, function (category) {
                     list.push({
-                        "category": category.text,
+                        "category": category,
                         "group": group.text
                     });
                 });
@@ -175,7 +175,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 if (group.text != "Income") {
                     angular.forEach(group.children, function (category) {
                         list.push({
-                            "category": category.text,
+                            "category": category,
                             "group": group.text
                         });
                     });

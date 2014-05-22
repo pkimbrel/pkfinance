@@ -3,288 +3,132 @@
         {
             "text": "Income",
             "children": [
-                {
-                    "value": "1st Paycheck",
-                    "text": "1st Paycheck"
-                },
-                {
-                    "value": "2nd Paycheck",
-                    "text": "2nd Paycheck"
-                },
-                {
-                    "value": "Rental Income",
-                    "text": "Rental Income"
-                },
-                {
-                    "value": "Reimbursement",
-                    "text": "Reimbursement"
-                },
-                {
-                    "value": "Budget Surplus",
-                    "text": "Budget Surplus"
-                },
-                {
-                    "value": "Bonus",
-                    "text": "Bonus"
-                }
+                "1st Paycheck",
+                "2nd Paycheck",
+                "Rental Income",
+                "Reimbursement",
+                "Budget Surplus",
+                "Bonus"
             ]
         },
         {
             "text": "Charity",
             "icon": "gift",
             "children": [
-                {
-                    "value": "Charity",
-                    "text": "Charity"
-                }
-
+                "Charity"
             ]
         },
         {
             "text": "Savings",
             "icon": "star",
             "children": [
-                {
-                    "value": "Emergency Fund",
-                    "text": "Emergency Fund"
-                },
-                {
-                    "value": "Education Fund",
-                    "text": "Education Fund"
-                }
-
+                "Emergency Fund",
+                "Education Fund"
             ]
         },
         {
             "text": "Housing",
             "icon": "home",
             "children": [
-                {
-                    "value": "Mortgage",
-                    "text": "Mortgage"
-                },
-                {
-                    "value": "2nd Mortgage",
-                    "text": "2nd Mortgage"
-                },
-                {
-                    "value": "Home Maintanence",
-                    "text": "Home Maintanence"
-                }
-
+                "Mortgage",
+                "2nd Mortgage",
+                "Home Maintanence"
             ]
         },
         {
             "text": "Bills and Utilities",
             "icon": "phone-alt",
             "children": [
-                {
-                    "value": "Electrical Service",
-                    "text": "Electrical Service"
-                },
-                {
-                    "value": "Phone Service",
-                    "text": "Phone Service"
-                },
-                {
-                    "value": "Natural Gas",
-                    "text": "Natural Gas"
-                },
-                {
-                    "value": "TV Service",
-                    "text": "TV Service"
-                },
-                {
-                    "value": "Water Service",
-                    "text": "Water Service"
-                }
-
+                "Electrical Service",
+                "Phone Service",
+                "Natural Gas",
+                "TV Service",
+                "Water Service"
             ]
         },
         {
             "text": "Education",
             "icon": "bell",
             "children": [
-                {
-                    "value": "Books and Supplies",
-                    "text": "Books and Supplies"
-                },
-                {
-                    "value": "Field Trip",
-                    "text": "Field Trip"
-                }
-
+                "Books and Supplies",
+                "Field Trip"
             ]
         },
         {
             "text": "Financial",
             "icon": "usd",
             "children": [
-                {
-                    "value": "Life Insurance",
-                    "text": "Life Insurance"
-                },
-                {
-                    "value": "Phone Insurance",
-                    "text": "Phone Insurance"
-                }
-
+                "Life Insurance",
+                "Phone Insurance"
             ]
         },
         {
             "text": "Food",
             "icon": "cutlery",
             "children": [
-                {
-                    "value": "Groceries",
-                    "text": "Groceries"
-                },
-                {
-                    "value": "Eating Out",
-                    "text": "Eating Out"
-                }
+                "Groceries",
+                "Eating Out"
             ]
         },
         {
             "text": "Auto",
             "icon": "road",
             "children": [
-                {
-                    "value": "Auto Insurance",
-                    "text": "Auto Insurance"
-                },
-                {
-                    "value": "Gas & Fuel",
-                    "text": "Gas & Fuel"
-                },
-                {
-                    "value": "Tag Registration",
-                    "text": "Tag Registration"
-                },
-                {
-                    "value": "Auto Maintanence",
-                    "text": "Auto Maintanence"
-                }
-
+                "Auto Insurance",
+                "Gas & Fuel",
+                "Tag Registration",
+                "Auto Maintanence"
             ]
         },
         {
             "text": "Clothing",
             "icon": "user",
             "children": [
-                {
-                    "value": "Adult Clothes",
-                    "text": "Adult Clothes"
-                },
-                {
-                    "value": "Kid Clothes",
-                    "text": "Kid Clothes"
-                }
-
+                "Adult Clothes",
+                "Kid Clothes"
             ]
         },
         {
             "text": "Medical",
             "icon": "heart-empty",
             "children": [
-                {
-                    "value": "Doctor Bills",
-                    "text": "Doctor Bills"
-                },
-                {
-                    "value": "Suppliments",
-                    "text": "Suppliments"
-                }
-
+                "Doctor Bills",
+                "Suppliments"
             ]
         },
         {
             "text": "Personal",
             "icon": "shopping-cart",
             "children": [
-                {
-                    "value": "Birthday",
-                    "text": "Birthday"
-                },
-                {
-                    "value": "Christmas",
-                    "text": "Christmas"
-                },
-                {
-                    "value": "Easter",
-                    "text": "Easter"
-                },
-                {
-                    "value": "Mother's Day",
-                    "text": "Mother's Day"
-                },
-                {
-                    "value": "Father's Day",
-                    "text": "Father's Day"
-                },
-                {
-                    "value": "Anniversary",
-                    "text": "Anniversary"
-                },
-                {
-                    "value": "Babysitters",
-                    "text": "Babysitters"
-                },
-                {
-                    "value": "Kid's Earnings",
-                    "text": "Kid's Earnings"
-                },
-                {
-                    "value": "Dog Grooming",
-                    "text": "Dog Grooming"
-                },
-                {
-                    "value": "Vet",
-                    "text": "Vet"
-                },
-                {
-                    "value": "Subscriptions",
-                    "text": "Subscriptions"
-                }
-
+                "Birthday",
+                "Christmas",
+                "Easter",
+                "Mother's Day",
+                "Father's Day",
+                "Anniversary",
+                "Babysitters",
+                "Kid's Earnings",
+                "Dog Grooming",
+                "Vet",
+                "Subscriptions"
             ]
         },
         {
             "text": "Entertainment",
             "icon": "film",
             "children": [
-                {
-                    "value": "Netflix",
-                    "text": "Netflix"
-                },
-                {
-                    "value": "Her Fun Money",
-                    "text": "Her Fun Money"
-                },
-                {
-                    "value": "His Fun Money",
-                    "text": "His Fun Money"
-                }
-
+                "Netflix",
+                "Her Fun Money",
+                "His Fun Money"
             ]
         },
         {
             "text": "Credit Cards",
             "icon": "thumbs-down",
             "children": [
-                {
-                    "value": "Credit Card #1",
-                    "text": "Credit Card #1"
-                },
-                {
-                    "value": "Credit Card #2",
-                    "text": "Credit Card #2"
-                },
-                {
-                    "value": "Credit Card #3",
-                    "text": "Credit Card #3"
-                }
-
+                "Credit Card #1",
+                "Credit Card #2",
+                "Credit Card #3"
             ]
         }
     ]

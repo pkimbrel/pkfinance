@@ -18,13 +18,13 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 updateSpending();
             });
 
-        $scope.resetBudget = function() {
+        $scope.resetBudget = function () {
             var ok = confirm("Did you seriously just click that?\nI specifically said, \"DON'T CLICK THIS.\"\n\nI worry about you sometimes.\n\nHere's the deal:\nThis button will reset THIS budget to last month's values.\n\nHandy if you want to start over.\nTerrible if you've spent hours working on this budget.\n\nDo you REALLY want to do this?!\n\nChoose wisely.");
             if (ok) {
                 $scope.copyPreviousBudget();
             }
         };
-        
+
         $scope.validateAndUpdate = function (parentCategory, category, data) {
             var value = data;
 
@@ -44,15 +44,16 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             applicationScope.searchFilter = "category:" + filterData;
             $state.transitionTo("register");
         };
-        
-        $scope.copyPreviousBudget = function() {
+
+        $scope.copyPreviousBudget = function () {
             var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
             var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
             dataAccessor.readBudget(previousPayPeriod).then(function (data) {
                 dataAccessor.writeBudget(applicationScope.payPeriod, data).then(function () {
                     applicationScope.updateApplicationScope();
                 });
-            }).catch(function() {
+            }).
+            catch (function () {
                 alert("Unable to read previous budget");
             });
         };
@@ -67,12 +68,12 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 if (category.text == "Income") {
                     angular.forEach(category.children, function (budgetItem) {
                         var amount = 0;
-                        if (applicationScope.budget.income[budgetItem.text] !== undefined) {
-                            amount = applicationScope.budget.income[budgetItem.text];
+                        if (applicationScope.budget.income[budgetItem] !== undefined) {
+                            amount = applicationScope.budget.income[budgetItem];
                         }
 
                         $scope.income.push({
-                            "name": budgetItem.text,
+                            "name": budgetItem,
                             "amount": (amount / 100).toFixed(2)
                         });
                     });
@@ -94,32 +95,32 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
 
                     angular.forEach(category.children, function (child) {
                         var amount = 0;
-                        if (applicationScope.budget.spending[child.text] !== undefined) {
-                            amount = Number(applicationScope.budget.spending[child.text]);
+                        if (applicationScope.budget.spending[child] !== undefined) {
+                            amount = Number(applicationScope.budget.spending[child]);
                         }
 
                         var used = amount;
                         angular.forEach(applicationScope.transactions, function (transaction) {
                             if (transaction.category == "Split") {
                                 angular.forEach(transaction.categories, function (splitItem) {
-                                    if (splitItem.category == child.text) {
+                                    if (splitItem.category == child) {
                                         used -= splitItem.amount * ((transaction.type == "Credit") ? -1 : 1);
                                     }
                                 });
                             } else {
-                                if (transaction.category == child.text) {
+                                if (transaction.category == child) {
                                     used -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
                                 }
                             }
                         });
                         total += amount;
                         children.push({
-                            "name": child.text,
+                            "name": child,
                             "amount": (amount / 100).toFixed(2),
                             "used": (used / 100).toFixed(2)
                         });
                     });
-                    
+
                     $scope.spending.push({
                         "name": category.text,
                         "percentage": total / applicationScope.totalIncome(),
