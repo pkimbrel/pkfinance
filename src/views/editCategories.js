@@ -11,6 +11,8 @@ pkfinance.controller('Categories', ['$rootScope', '$scope', '$state', '$q', 'val
             if (confirm("You may find this annoying, but I want to be ABSOLUTELY certain that you want do this.\n\nChoose wisely.")) {
                 $scope.isUpdating = true;
                 dataAccessor.updateCategories($scope.newCategories).then(function () {
+                    applicationScope.categories = angular.copy($scope.newCategories);
+                    applicationScope.updateApplicationScope();
                     $state.transitionTo($rootScope.previousState);
                 }).catch(function () {
                     alert("Update failed");
