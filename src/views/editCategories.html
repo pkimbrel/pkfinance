@@ -2,14 +2,27 @@
     <h4>A few words of warning...</h4>
     <ul>
         <li>
-            Removing a category will cause transactions to become unbound from that category. Not a HUGE deal, but it will make it hard to find transactions by the category you deleted.
+            Proceed with CAUTION!!!
+        </li>
+        <li>
+            Removing a category will cause transactions and budget items to become unbound from that category. Not a HUGE deal, but it will make it hard to find transactions by the category you deleted.
+        </li>
+        <li>
+            Renaming a category has the same effect as deleting category - the old name is essentially "deleted" and new name is creats a new category.
         </li>
         <li>
             Transactions that have become unbound will still show the deleted category. However, if you edit the transaction, the old category will not be selectable (because, ya know... you deleted it and all)
         </li>
         <li>
+            Budget items of deleted or renamed categories will become unbound and will screw up any budget that uses it.<br>
+            <strong>
+                This, by far, is the BIGGEST impact of messing with categories.
+            </strong>
+        </li>
+        <li>
             You
-            <em>can</em>"re-add" a category and transactions will auto-magically get rebound. You're welcome.
+            <em>can</em>
+            "re-add" a category.  When you do, transactions and budget items will auto-magically get rebound as long as you didn't fart around with them. You're welcome.
         </li>
         <li>
             Deleting a parent category will delete
@@ -17,11 +30,16 @@
                 <strong>
                     <u>everything</u>
                 </strong>
-            </em>under it!! Don't say I didn't warn you.
+            </em>
+            under it!! Don't say I didn't warn you.
         </li>
         <li>
             You
-            <u>cannot</u>remove or move the "Income" category. That's just a bad idea anyhow. You need income or this whole thing is kind of pointless.
+            <u>cannot</u>
+            remove or move the "Income" category. That's just a bad idea anyhow. You need income or this whole thing is kind of pointless.
+        </li>
+        <li>
+            Proceed with CAUTION!!!
         </li>
     </ul>
     <h4>TL;DR
@@ -39,9 +57,18 @@
         <li>
             No, you can't delete 'Income'. That was on purpose.
         </li>
+        <li>
+            Proceed with CAUTION!!!
+        </li>
     </ul>
 </div>
 <form class="editCategories" name="categories" role="form" ng-submit="submit()" ng-controller="Categories">
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="isSame() || isUpdating">SAVE</button>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <div ng-show="isUpdating" class="loading"></div>
+    </div>
+
     <div class="form-group arrayEdit">
         <div class="row">
             <div class="col-sm-6">
@@ -51,7 +78,7 @@
                             <div ng-if="category.text == 'Income'">
                                 <strong>Income</strong>
                             </div>
-                            <input ng-if="category.text != 'Income'" type="text" name="parentName" class="form-control" ng-model="category.text">
+                            <input ng-if="category.text != 'Income'" type="text" name="parentName" class="form-control" ng-model="newCategories[$index].text">
                         </div>
                         <div class="col-xs-3 icon">
                             <span ng-if="$index != 0" ng-class="{disabled:($index == 0) || ($index == newCategories.length-1)}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownParentCategory($index)"></span>
@@ -72,7 +99,7 @@
                     <div class="well">
                         <div class="row" ng-repeat="child in category.children track by $index">
                             <div class="col-xs-10">
-                                <input type="text" class="form-control" ng-model="child">
+                                <input type="text" class="form-control" ng-model="category.children[$index]">
                             </div>
                             <div class="col-xs-2 icon">
                                 <span ng-class="{disabled:$index == category.children.length-1}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownCategory(category.text, $index)"></span>
@@ -80,16 +107,29 @@
                                 <span class="remove glyphicon glyphicon-remove-circle" ng-click="removeCategory(category.text, $index)"></span>
                             </div>
                         </div>
-                        New:
-                        <span class="add glyphicon glyphicon-plus-sign" ng-click="addCategory(category.text)"></span>
+                        <div>
+                            New:
+                            <span class="add glyphicon glyphicon-plus-sign" ng-click="addCategory(category.text)"></span>
+                        </div>
                     </div>
+                    <div class="caution">Proceed with CAUTION!!!</div>
                 </div>
             </div>
             <div class="col-sm-6">
             </div>
         </div>
-        New Parent Category:
-        <span class="add glyphicon glyphicon-plus-sign" ng-click="addParentCategory()"></span>
+        <div>
+            New Parent Category:
+            <span class="add glyphicon glyphicon-plus-sign" ng-click="addParentCategory()"></span>
+        </div>
+        <div class="caution">Did I mention you should proceed with CAUTION?</div>
+    </div>
+    
+
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="isSame() || isUpdating">SAVE</button>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <div ng-show="isUpdating" class="loading"></div>
     </div>
 
 </form>

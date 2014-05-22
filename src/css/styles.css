@@ -66,6 +66,7 @@
      margin: 15px 0 0 0;
      background-image: linear-gradient(to bottom, #c8d8e8 0%, #e5e5ff 100%);
  }
+.caution {padding-top: 15px;}
  /*
  * Left Nav control
  */

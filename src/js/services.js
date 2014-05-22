@@ -20,16 +20,22 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
         function calculateTotalIncome() {
             var totalIncome = 0;
+            var flattenedCategories = applicationScope.reallyFlattenCategories();
             angular.forEach(applicationScope.budget.income, function (value, key) {
-                totalIncome += Number(value);
+                if (flattenedCategories.indexOf(key) != -1) {
+                    totalIncome += Number(value);
+                }
             });
             return totalIncome;
         }
 
         function calculateTotalSpending() {
             var totalSpending = 0;
+            var flattenedCategories = applicationScope.reallyFlattenCategories();
             angular.forEach(applicationScope.budget.spending, function (value, key) {
-                totalSpending += Number(value);
+                if (flattenedCategories.indexOf(key) != -1) {
+                    totalSpending += Number(value);
+                }
             });
             return totalSpending;
         }
@@ -80,7 +86,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 payPeriod = year + "-" + ((payPeriodInYear < 10) ? "0" : "") + payPeriodInYear;
             }
             return payPeriod;
-        }
+        };
 
         applicationScope.availablePayPeriods = [
             "2013-08",
@@ -168,6 +174,18 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             return list;
         };
 
+        applicationScope.reallyFlattenCategories = function (skipSplit) {
+            var list = [];
+
+
+            angular.forEach(applicationScope.categories, function (group) {
+                angular.forEach(group.children, function (category) {
+                    list.push(category);
+                });
+            });
+            return list;
+        };
+
         applicationScope.flattenSpendingCategories = function () {
             var list = [];
 
@@ -188,7 +206,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             if (isAuthenticated) {
                 settings.loadSettings().then(function () {
                     dataAccessor.readCategories().then(function (data) {
-                        applicationScope.categories = data.categories;
+                        applicationScope.categories = data;
                         applicationScope.updateApplicationScope();
                     });
                 });
@@ -401,6 +419,17 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
+            "updateCategories": function (newCategories) {
+                var deferred = $q.defer();
+
+                $http.post(DATA_FOLDER + 'categories', newCategories).success(function (response) {
+                    deferred.resolve();
+                }).error(function (ex) {
+                    deferred.reject('Server error!');
+                });
+
+                return deferred.promise;
+            },
             "readTypeAhead": function () {
                 var deferred = $q.defer();
 
@@ -525,5 +554,5 @@ if (typeof Array.prototype.swapItems == 'undefined') {
     Array.prototype.swapItems = function (a, b) {
         this[a] = this.splice(b, 1, this[a])[0];
         return this;
-    }
+    };
 }

@@ -12,6 +12,13 @@ class Categories {
         echo $data;
     }
 
+    public function post() {
+        $request_body = file_get_contents('php://input');
+        $data = $request_body;
+
+		$this->dataAccess->write($data);
+    }
+
     public function put() {
         throw new NotImplemented("Cannot update categories items");
     }

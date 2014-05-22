@@ -18,6 +18,8 @@ module.exports = function (grunt) {
                     'src/modules/sidebar.js',
                     'src/views/newTransaction.js',
                     'src/views/editSettings.js',
+                    'src/views/editCategories.js',
+                    'src/views/editTypeahead.js',
                     'src/views/summary.js',
                     'src/views/transactions.js',
                     'src/views/budget.js',
