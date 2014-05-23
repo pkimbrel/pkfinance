@@ -37,9 +37,11 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
         };
 
         $scope.locateBlackout = function (index) {
-            dataAccessor.getPosition().then(function (currentPosition) {
-                $scope.newSettings.blackoutPositions[index] = currentPosition;
-            });
+            if (confirm("Do you wish to overwrite the current value?")) {
+                dataAccessor.getPosition().then(function (currentPosition) {
+                    $scope.newSettings.blackoutPositions[index] = currentPosition;
+                });
+            }
         };
 
         $scope.mapBlackout = function (index) {
@@ -47,13 +49,13 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
             var position = new google.maps.LatLng(blackoutPosition.latitude, blackoutPosition.longitude);
 
             if ($scope.map === undefined) {
-                $("#blackout-map").html("<div id='map-canvas'>");
+                $("#blackout-map").html("<div class='map-canvas'>");
                 var mapOptions = {
                     center: new google.maps.LatLng(39.810556, -98.556111),
                     zoom: 4
                 };
 
-                $scope.map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+                $scope.map = new google.maps.Map($("#blackout-map .map-canvas")[0], mapOptions);
             }
 
             $scope.map.setCenter(position);
@@ -127,4 +129,4 @@ pkfinance.controller('Settings', ['$rootScope', '$scope', '$state', '$q', 'valid
         };
 
         $('.help').popover();
-}]);
+            }]);

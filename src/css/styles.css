@@ -66,7 +66,9 @@
      margin: 15px 0 0 0;
      background-image: linear-gradient(to bottom, #c8d8e8 0%, #e5e5ff 100%);
  }
-.caution {padding-top: 15px;}
+ .caution {
+     padding-top: 15px;
+ }
  /*
  * Left Nav control
  */
@@ -309,7 +311,7 @@
  .blackoutLocations .longitude {
      padding-left: 3px;
  }
- #map-canvas {
+ .map-canvas {
      width: 100%;
      height: 300px;
  }
@@ -318,4 +320,22 @@
  }
  .iconPreview {
      padding: 5px 0 0 10px;
+ }
+ /**
+ * Typeahead
+ */
+ #typeahead-map {
+     width: 100%;
+ }
+ .editTypeahead .well .row {
+     margin-bottom: 10px;
+ }
+ .editTypeahead .well .row.last {
+     margin-bottom: 0px;
+ }
+ .editTypeahead .latitude {
+     padding-right: 3px;
+ }
+ .editTypeahead .longitude {
+     padding-left: 3px;
  }

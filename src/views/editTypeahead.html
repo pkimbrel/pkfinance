@@ -1,5 +1,62 @@
 <form class="editTypeahead" name="typeahead" role="form" ng-submit="submit()" ng-controller="Typeahead">
-    <div class="row" ng-repeat="(key, entry) in newTypeahead track by $index">
-        {{key}}
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="isSame() || isUpdating">SAVE</button>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <div ng-show="isUpdating" class="loading"></div>
     </div>
+
+    <div class="row arrayEdit">
+        <div class="col-sm-5">
+            <div class="well" ng-repeat="(key, entry) in newTypeahead track by $index">
+                <div class="row">
+                    <div class="col-xs-10">
+                        <input type="text" name="description" class="form-control" ng-model="key">
+                    </div>
+                    <div class="col-xs-2 icon">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <select class="form-control category" ng-model="entry.category" ng-options="c.category as c.category group by c.group for c in app.flattenCategories()" required>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <select class="form-control" ng-model="entry.type" ng-options="t for t in app.transactionTypes">
+                        </select>
+                    </div>
+                </div>
+                <div class="row position" ng-repeat="position in entry.positions track by $index">
+                    <div class="col-xs-5 latitude">
+                        <input type="text" class="form-control" ng-focus="focusOnPosition(key, $index)" ng-model="entry.positions[$index].latitude">
+                    </div>
+                    <div class="col-xs-5 longitude">
+                        <input type="text" class="form-control" ng-focus="focusOnPosition(key, $index)" ng-model="entry.positions[$index].longitude">
+                    </div>
+                    <div class="col-xs-2 icon">
+                        <span ng-class="{disabled:$index == entry.positions.length-1}" class="move glyphicon glyphicon-arrow-down" ng-click="moveDownPosition(key, $index)"></span>
+                        <span ng-class="{disabled:$index == 0}" class="move glyphicon glyphicon-arrow-up" disabled ng-click="moveUpPosition(key, $index)"></span>
+                        <span class="remove glyphicon glyphicon-remove-circle" ng-click="removePosition(key, $index)"></span>
+                    </div>
+                </div>
+                <div>
+                    New:
+                    <span class="add glyphicon glyphicon-plus-sign" ng-click="addPosition(key)"></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-7">
+            <div id="typeahead-map">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button class="btn btn-primary" ng-disabled="isSame() || isUpdating">SAVE</button>
+        <a class="btn btn-default" ng-click="cancel()">Cancel</a>
+        <div ng-show="isUpdating" class="loading"></div>
+    </div>
+
 </form>
