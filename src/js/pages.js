@@ -47,3 +47,8 @@ pkfinance.controller('DisplayTypeahead', ['$scope', 'DIST_FOLDER',
     function ($scope, DIST_FOLDER) {
         $scope.DIST_FOLDER = DIST_FOLDER;
 }]);
+
+pkfinance.controller('DisplayFixedEvents', ['$scope', 'DIST_FOLDER',
+    function ($scope, DIST_FOLDER) {
+        $scope.DIST_FOLDER = DIST_FOLDER;
+}]);

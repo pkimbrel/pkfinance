@@ -17,7 +17,7 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
                     authService.isAuthenticated().then(function () {
                         $rootScope.isAuthenticated = true;
                     }).
-                    catch (function (reason) {
+                    catch(function (reason) {
                         $state.transitionTo("login");
                     });
                 }
@@ -91,6 +91,12 @@ pkfinance.config(['$stateProvider', '$urlRouterProvider', 'DIST_FOLDER',
                 url: "/typeahead",
                 templateUrl: DIST_FOLDER + "pages/displayTypeahead.html",
                 controller: "DisplayTypeahead",
+                authenticate: true
+            })
+            .state("fixedevents", {
+                url: "/fixedevents",
+                templateUrl: DIST_FOLDER + "pages/displayFixedEvents.html",
+                controller: "DisplayFixedEvents",
                 authenticate: true
             })
             .state("login", {

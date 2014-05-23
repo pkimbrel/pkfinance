@@ -20,6 +20,7 @@ module.exports = function (grunt) {
                     'src/views/editSettings.js',
                     'src/views/editCategories.js',
                     'src/views/editTypeahead.js',
+                    'src/views/editFixedEvents.js',
                     'src/views/summary.js',
                     'src/views/transactions.js',
                     'src/views/budget.js',
