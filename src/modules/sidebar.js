@@ -50,7 +50,7 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
         };
         
         $scope.goToCurrentPayPeriod = function() {
-            applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod();
+            applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod(moment());
             applicationScope.updateApplicationScope();
         };
         

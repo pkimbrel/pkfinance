@@ -1,7 +1,7 @@
 /**
  * Services
  */
-/* global pkfinance, angular, localStorage, moment */
+/*global pkfinance, angular, localStorage, moment */
 
 pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings',
     function ($q, $rootScope, $http, dataAccessor, settings) {
@@ -11,7 +11,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             var balance = applicationScope.startingBalance;
             angular.forEach(applicationScope.transactions, function (transaction) {
                 if (!isBank || transaction.cleared) {
-                    var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
+                    var amount = transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
                     balance += amount;
                 }
             });
@@ -67,20 +67,19 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
         function initiatePayPeriod() {
             if (sessionStorage.getItem("payPeriod") === null) {
-                applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod();
+                applicationScope.payPeriod = applicationScope.calculateCurrentPayPeriod(moment());
             } else {
                 applicationScope.payPeriod = sessionStorage.getItem("payPeriod");
             }
         }
 
-        applicationScope.calculateCurrentPayPeriod = function () {
+        applicationScope.calculateCurrentPayPeriod = function (currentDate) {
             var payPeriod = "2013-08";
             var startDateSetting = settings.readSetting("startDate", null);
             if (startDateSetting !== null) {
                 var startDate = moment(startDateSetting);
-                var currentDate = moment();
-                var periodsSinceStart = Number(((currentDate.diff(startDate, 'days')) / 28).toFixed(0));
-                var yearsSinceStart = Number((periodsSinceStart / 13).toFixed(0));
+                var periodsSinceStart = Math.floor(((currentDate.diff(startDate, 'days')) / 28)) + 1;
+                var yearsSinceStart = Math.floor((periodsSinceStart-1) / 13);
                 var payPeriodInYear = periodsSinceStart - (yearsSinceStart * 13);
                 var year = startDate.year() + yearsSinceStart;
                 payPeriod = year + "-" + ((payPeriodInYear < 10) ? "0" : "") + payPeriodInYear;
@@ -107,7 +106,20 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             "2014-10",
             "2014-11",
             "2014-12",
-            "2014-13"
+            "2014-13",
+            "2015-01",
+            "2015-02",
+            "2015-03",
+            "2015-04",
+            "2015-05",
+            "2015-06",
+            "2015-07",
+            "2015-08",
+            "2015-09",
+            "2015-10",
+            "2015-11",
+            "2015-12",
+            "2015-13"
         ];
 
         applicationScope.updateApplicationScope = function () {

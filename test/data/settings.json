@@ -1,1 +1,23 @@
-{"currentPosition":"40.294478,-90.057668","blackoutPositions":[{"latitude":"40.300349","longitude":"-90.055895"},{"latitude":"40.297512","longitude":"-90.041907"}],"suggestionRadius":100,"geoLocationEnabled":true,"maximumSuggestions":2,"summaryCategories":["Eating Out","Gas & Fuel","Doctor Bills","Groceries"],"startDate":"2013-01-11"}
+{
+    "currentPosition": "40.294478,-90.057668",
+    "blackoutPositions": [
+        {
+            "latitude": "40.300349",
+            "longitude": "-90.055895"
+        },
+        {
+            "latitude": "40.297512",
+            "longitude": "-90.041907"
+        }
+    ],
+    "suggestionRadius": 100,
+    "geoLocationEnabled": true,
+    "maximumSuggestions": 2,
+    "summaryCategories": [
+        "Eating Out",
+        "Gas & Fuel",
+        "Doctor Bills",
+        "Groceries"
+    ],
+    "startDate": "2013-01-11"
+}

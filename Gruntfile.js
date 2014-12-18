@@ -131,7 +131,7 @@ module.exports = function (grunt) {
             },
             staging: {
                 constants: {
-                    'DATA_FOLDER': 'http://staging.paulkimbrel.com/service/',
+                    'DATA_FOLDER': 'http://162.243.83.90/service/',
                     'DIST_FOLDER': ''
                 }
             },
@@ -154,7 +154,7 @@ module.exports = function (grunt) {
                 options: {
                     src: "./dist/./",
                     dest: "/var/www/html/.",
-                    host: "pkimbrel@staging.paulkimbrel.com",
+                    host: "pkimbrel@162.243.83.90",
                     syncDestIgnoreExcl: true
                 }
             },
@@ -163,7 +163,7 @@ module.exports = function (grunt) {
                     chown: "pkimbrel:www-data",
                     src: "./test/data",
                     dest: "/var/www/test",
-                    host: "pkimbrel@staging.paulkimbrel.com",
+                    host: "pkimbrel@162.243.83.90",
                     syncDestIgnoreExcl: true
                 }
             },

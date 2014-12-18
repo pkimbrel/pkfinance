@@ -1,1 +1,9 @@
-{"income":{"1st Paycheck":150000,"2nd Paycheck":150000},"spending":{"Charity":15000}}
+{
+  "income": {
+    "1st Paycheck": 150000,
+    "2nd Paycheck": 150000
+  },
+  "spending": {
+    "Charity": 15000
+  }
+}
