@@ -27,13 +27,19 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
             var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
             dataAccessor.readCheckbook(previousPayPeriod).then(function (data) {
                 var balance = data.startingBalance;
+                var unreconciledAmount = 0;
                 angular.forEach(data.transactions, function (transaction) {
                     var amount = transaction.amount * ((transaction.type == "Debit") ? -1 : 1);
                     balance += amount;
+                    if (!transaction.cleared) {
+                        unreconciledAmount -= amount;
+                    }
                 });
                 if (balance > 0) {
-                    dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "startingBalance", balance).then(function() {
-                        applicationScope.updateApplicationScope();
+                    dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "unreconciledAmount", unreconciledAmount).then(function() {
+                        dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "startingBalance", balance).then(function() {
+                            applicationScope.updateApplicationScope();
+                        });
                     });
                 }
             }).catch(function() {

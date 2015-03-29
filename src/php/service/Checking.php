@@ -58,6 +58,8 @@ class Checking {
 		
 		if ($name == "startingBalance") {
             $transactions["startingBalance"] = $value;
+        } else if ($name == "unreconciledAmount") {
+            $transactions["unreconciledAmount"] = $value;
         } else {
             foreach ($transactions["transactions"] as &$transaction) {
                 if ($transaction["tranid"] == $tranid) {

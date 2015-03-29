@@ -28,7 +28,7 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
             if (toState.authenticate) {
                 setTimeout(function () {
                     $('.sidebar').affix();
-                }, 200);
+                }, 0);
             }
 
             if (fromState.name === "") {

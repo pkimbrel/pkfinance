@@ -9,6 +9,9 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
         function calculateEndingBalance(isBank) {
             var balance = applicationScope.startingBalance;
+            if (isBank) {
+                balance += applicationScope.unreconciledAmount;
+            }
             angular.forEach(applicationScope.transactions, function (transaction) {
                 if (!isBank || transaction.cleared) {
                     var amount = transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
@@ -131,6 +134,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             applicationScope.difference = 0;
             applicationScope.startingBalance = 0;
             applicationScope.bankBalance = 0;
+            applicationScope.unreconciledAmount = 0;
 
             if (applicationScope.payPeriod === undefined) {
                 initiatePayPeriod();
@@ -153,6 +157,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 });
 
                 applicationScope.startingBalance = data.startingBalance;
+                applicationScope.unreconciledAmount = (data.unreconciledAmount !== undefined)?data.unreconciledAmount:0;
                 applicationScope.endingBalance = calculateEndingBalance;
 
                 dataAccessor.readBudget(applicationScope.payPeriod).then(function (data) {
