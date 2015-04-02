@@ -217,15 +217,15 @@
  .budget p {
      margin: 0;
  }
- .used.good {
+ .left.good {
      color: #080;
      background: #dfd;
  }
- .used.zero {
+ .left.zero {
      color: #880;
      background: #ffd;
  }
- .used.bad {
+ .left.bad {
      color: #800;
      background: #fdd;
  }

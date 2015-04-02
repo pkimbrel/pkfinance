@@ -45,6 +45,15 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             $state.transitionTo("register");
         };
 
+        $scope.equalizeBudget = function (budgetItem) {
+            console.log();
+            $scope.validateAndUpdate('spending', budgetItem.name, (Number(budgetItem.amount) - budgetItem.left).toFixed(2));
+        }
+
+        $scope.balanceBudget = function (budgetItem) {
+            $scope.validateAndUpdate('spending', budgetItem.name, (Number(budgetItem.amount) + applicationScope.difference()/100).toFixed(2));
+        }
+
         $scope.copyPreviousBudget = function () {
             var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
             var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
@@ -99,17 +108,17 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                             amount = Number(applicationScope.budget.spending[child]);
                         }
 
-                        var used = amount;
+                        var left = amount;
                         angular.forEach(applicationScope.transactions, function (transaction) {
                             if (transaction.category == "Split") {
                                 angular.forEach(transaction.categories, function (splitItem) {
                                     if (splitItem.category == child) {
-                                        used -= splitItem.amount * ((transaction.type == "Credit") ? -1 : 1);
+                                        left -= splitItem.amount * ((transaction.type == "Credit") ? -1 : 1);
                                     }
                                 });
                             } else {
                                 if (transaction.category == child) {
-                                    used -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
+                                    left -= transaction.amount * ((transaction.type == "Credit") ? -1 : 1);
                                 }
                             }
                         });
@@ -117,7 +126,7 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                         children.push({
                             "name": child,
                             "amount": (amount / 100).toFixed(2),
-                            "used": (used / 100).toFixed(2)
+                            "left": (left / 100).toFixed(2)
                         });
                     });
 
