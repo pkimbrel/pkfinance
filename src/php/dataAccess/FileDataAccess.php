@@ -9,9 +9,9 @@ class FileDataAccess extends DataAccess {
 
     private $basePath = "";
 
-    function __construct($environment, $dataSet, $payPeriod) {
+    function __construct($environment, $account, $dataSet, $payPeriod) {
         $this->basePath = FileDataAccess::$BASE_PATHS[$environment];
-        parent::__construct($dataSet, $payPeriod);
+        parent::__construct($account, $dataSet, $payPeriod);
     }
     
     private function buildFilePath() {
@@ -20,7 +20,7 @@ class FileDataAccess extends DataAccess {
         if ($this->payPeriod == null) {
             $dataPath .= $this->dataSet.".json";
         } else {
-            $dataPath .= $this->dataSet."/".$this->payPeriod . ".json";
+            $dataPath .= (($this->account)?$this->account."/":"").$this->dataSet."/".$this->payPeriod . ".json";
         }
         
         return $dataPath;

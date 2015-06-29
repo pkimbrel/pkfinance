@@ -2,8 +2,8 @@
 class FixedEvents {
     private $dataAccess;
 
-    function __construct() {
-        $this->dataAccess = DataAccess::getInstance("fixedEvents", null);
+    function __construct($account) {
+        $this->dataAccess = DataAccess::getInstance(null, "fixedEvents", null);
     }
 
     public function get() {

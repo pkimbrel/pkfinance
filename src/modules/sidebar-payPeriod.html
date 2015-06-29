@@ -1,4 +1,7 @@
 <div class="form-group pay-period">
+    <label class="control-label">Account:</label>
+    <select class="form-control" ng-model="app.account" ng-options="p for p in app.availableAccounts" ng-change="app.updateApplicationScope()">
+    </select>
     <label class="control-label">Pay Period:</label>
     <select class="form-control" ng-model="app.payPeriod" ng-options="p for p in app.availablePayPeriods" ng-change="app.updateApplicationScope()">
     </select>

@@ -2,8 +2,8 @@
 class Checking {
     private $dataAccess;
 
-    function __construct($payPeriod) {
-        $this->dataAccess = DataAccess::getInstance("checking", $payPeriod);
+    function __construct($account, $payPeriod) {
+        $this->dataAccess = DataAccess::getInstance($account, "checking", $payPeriod);
     }
 
     public function get() {

@@ -30,7 +30,7 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
 
             var promise = validationBindings.amount(value, $q).then(function () {
                 value = data * 100;
-                return dataAccessor.updateBudget(applicationScope.payPeriod, category, value, parentCategory).then(function () {
+                return dataAccessor.updateBudget(applicationScope.account, applicationScope.payPeriod, category, value, parentCategory).then(function () {
                     applicationScope.budget[parentCategory][category] = value;
                     updateIncome();
                     updateSpending();
@@ -57,8 +57,8 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
         $scope.copyPreviousBudget = function () {
             var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
             var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
-            dataAccessor.readBudget(previousPayPeriod).then(function (data) {
-                dataAccessor.writeBudget(applicationScope.payPeriod, data).then(function () {
+            dataAccessor.readBudget(applicationScope.account, previousPayPeriod).then(function (data) {
+                dataAccessor.writeBudget(applicationScope.account, applicationScope.payPeriod, data).then(function () {
                     applicationScope.updateApplicationScope();
                 });
             }).

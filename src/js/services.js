@@ -89,6 +89,13 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             }
             return payPeriod;
         };
+        
+        applicationScope.availableAccounts = [
+            "FirstBank",
+            "SecondBank"
+        ]
+        
+        applicationScope.account = "FirstBank";
 
         applicationScope.availablePayPeriods = [
             "2013-08",
@@ -144,11 +151,11 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
 
             calculateDateRange();
 
-            dataAccessor.readFixedEvents(applicationScope.payPeriod).then(function (data) {
+            dataAccessor.readFixedEvents(applicationScope.account, applicationScope.payPeriod).then(function (data) {
                 applicationScope.planner = data;
             });
 
-            dataAccessor.readCheckbook(applicationScope.payPeriod).then(function (data) {
+            dataAccessor.readCheckbook(applicationScope.account, applicationScope.payPeriod).then(function (data) {
                 applicationScope.transactions = data.transactions;
 
                 angular.forEach(applicationScope.transactions, function (transaction) {
@@ -160,7 +167,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 applicationScope.unreconciledAmount = (data.unreconciledAmount !== undefined)?data.unreconciledAmount:0;
                 applicationScope.endingBalance = calculateEndingBalance;
 
-                dataAccessor.readBudget(applicationScope.payPeriod).then(function (data) {
+                dataAccessor.readBudget(applicationScope.account, applicationScope.payPeriod).then(function (data) {
                     applicationScope.budget = data;
                     applicationScope.totalIncome = calculateTotalIncome;
                     applicationScope.totalSpending = calculateTotalSpending;
@@ -331,10 +338,10 @@ pkfinance.factory('settings', ['$q', '$http', 'DATA_FOLDER',
 pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
     function ($q, $http, settings, DATA_FOLDER) {
         return {
-            "removeTransaction": function (payPeriod, id) {
+            "removeTransaction": function (account, payPeriod, id) {
                 var deferred = $q.defer();
 
-                $http.delete(DATA_FOLDER + 'checking/' + payPeriod + "/" + id).success(function (response) {
+                $http.delete(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -342,10 +349,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "updateTransaction": function (payPeriod, id, field, data) {
+            "updateTransaction": function (account, payPeriod, id, field, data) {
                 var deferred = $q.defer();
 
-                $http.put(DATA_FOLDER + 'checking/' + payPeriod + "/" + id, {
+                $http.put(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id, {
                     field: field,
                     data: data
                 }).success(function (response) {
@@ -356,10 +363,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "newTransaction": function (payPeriod, id, data) {
+            "newTransaction": function (account, payPeriod, id, data) {
                 var deferred = $q.defer();
 
-                $http.post(DATA_FOLDER + 'checking/' + payPeriod + "/" + id, data).success(function (response) {
+                $http.post(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id, data).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -367,10 +374,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "updateBudget": function (payPeriod, category, amount, id) {
+            "updateBudget": function (account, payPeriod, category, amount, id) {
                 var deferred = $q.defer();
 
-                $http.put(DATA_FOLDER + 'budget/' + payPeriod + "/" + id, {
+                $http.put(DATA_FOLDER + account + '/budget/' + payPeriod + "/" + id, {
                     category: category,
                     amount: amount
                 }).success(function (response) {
@@ -381,7 +388,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "readFixedEvents": function () {
+            "readFixedEvents": function (account) {
                 var deferred = $q.defer();
 
                 $http.get(DATA_FOLDER + 'fixedEvents').success(function (data) {
@@ -392,10 +399,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "readCheckbook": function (payPeriod) {
+            "readCheckbook": function (account, payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'checking/' + payPeriod).success(function (data) {
+                $http.get(DATA_FOLDER + account + '/checking/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -403,10 +410,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "readBudget": function (payPeriod) {
+            "readBudget": function (account, payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + 'budget/' + payPeriod).success(function (data) {
+                $http.get(DATA_FOLDER + account + '/budget/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -414,10 +421,10 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
 
                 return deferred.promise;
             },
-            "writeBudget": function (payPeriod, data) {
+            "writeBudget": function (account, payPeriod, data) {
                 var deferred = $q.defer();
 
-                $http.post(DATA_FOLDER + 'budget/' + payPeriod, data).success(function () {
+                $http.post(DATA_FOLDER + account + '/budget/' + payPeriod, data).success(function () {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');

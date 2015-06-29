@@ -29,6 +29,7 @@ class Service {
         try {
             Service::loadClasses();
             $uriData = Service::parseURI($_SERVER["REQUEST_URI"]);
+            
             Service::checkAuthorization($uriData);
             Service::invokeMethod($uriData, strtolower($_SERVER['REQUEST_METHOD']));
         } catch (BadRequest $e) {
@@ -87,7 +88,7 @@ class Service {
         
         $reflector = new ReflectionClass($className);
         $method = $reflector->getMethod($methodName);
-        $class = $reflector->newInstanceArgs(array($uriData['payPeriod']));
+        $class = $reflector->newInstanceArgs(array($uriData['account'], $uriData['payPeriod']));
 
         if ($uriData["entry"] != null) {
             $method->invoke($class, $uriData["entry"]);
@@ -97,27 +98,29 @@ class Service {
     }
 
     private static function parseURI($uri) {
-        preg_match("/\\/service\\/([a-zA-Z]*)(\\/[0-9]{4}-[0-9]{2}){0,1}(\\/[a-z0-9\\-]*){0,1}/", $uri, $matches);
+        preg_match("/\\/service(\\/[a-zA-Z]*)(\\/[a-zA-Z]*){0,1}(\\/[0-9]{4}-[0-9]{2}){0,1}(\\/[a-z0-9\\-]*){0,1}/", $uri, $matches);
 
         if (count($matches) == 2) {
             return array(
-                "dataSet" => ucfirst($matches[1]),
+                "dataSet" => ucfirst(substr($matches[1], 1)),
                 "payPeriod" => null,
-                "entry" => null
-            );
-        }
-        if (count($matches) == 3) {
-            return array(
-                "dataSet" => ucfirst($matches[1]),
-                "payPeriod" => substr($matches[2], 1),
                 "entry" => null
             );
         }
         if (count($matches) == 4) {
             return array(
-                "dataSet" => ucfirst($matches[1]),
-                "payPeriod" => substr($matches[2], 1),
-                "entry" => substr($matches[3], 1)
+                "account" => ucfirst(substr($matches[1], 1)),
+                "dataSet" => ucfirst(substr($matches[2], 1)),
+                "payPeriod" => substr($matches[3], 1),
+                "entry" => null
+            );
+        }
+        if (count($matches) == 5) {
+            return array(
+                "account" => ucfirst(substr($matches[1], 1)),
+                "dataSet" => ucfirst(substr($matches[2], 1)),
+                "payPeriod" => substr($matches[3], 1),
+                "entry" => substr($matches[4], 1)
             );
         }
 

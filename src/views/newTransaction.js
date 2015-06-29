@@ -193,7 +193,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
                 });
             }
 
-            dataAccessor.newTransaction(applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function () {
+            dataAccessor.newTransaction(applicationScope.account, applicationScope.payPeriod, finalTransaction.tranid, finalTransaction).then(function () {
                 finalTransaction.displayAmount = (finalTransaction.amount / 100).toFixed(2);
                 applicationScope.transactions.push(finalTransaction);
                 dataAccessor.updateTypeahead(typeaheadEntry);
