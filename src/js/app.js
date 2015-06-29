@@ -2,7 +2,7 @@
  * Created by pkimbrel on 3/26/14.
  */
 
-/* global $, angular, setTimeout */
+/*global $, angular, setTimeout, pkfinance */
 
 
 pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions',
@@ -16,8 +16,7 @@ pkfinance.run(['$http', '$rootScope', '$state', 'authService', 'editableOptions'
                 if (!$rootScope.isAuthenticated) {
                     authService.isAuthenticated().then(function () {
                         $rootScope.isAuthenticated = true;
-                    }).
-                    catch(function (reason) {
+                    }).catch(function (reason) {
                         $state.transitionTo("login");
                     });
                 }

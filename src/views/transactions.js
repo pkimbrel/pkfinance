@@ -77,7 +77,7 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
                 if (field == "amount") {
                     value = data * 100;
                 }
-                return dataAccessor.updateTransaction(applicationScope.payPeriod, id, field, value);
+                return dataAccessor.updateTransaction(applicationScope.account, applicationScope.payPeriod, id, field, value);
             });
             
             if (field == "cleared") {

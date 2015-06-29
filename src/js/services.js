@@ -3,8 +3,8 @@
  */
 /*global pkfinance, angular, localStorage, moment */
 
-pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings',
-    function ($q, $rootScope, $http, dataAccessor, settings) {
+pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccessor', 'settings', 'ACCOUNTS_AVAILABLE',
+    function ($q, $rootScope, $http, dataAccessor, settings, ACCOUNTS_AVAILABLE) {
         var applicationScope = {};
 
         function calculateEndingBalance(isBank) {
@@ -75,6 +75,20 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 applicationScope.payPeriod = sessionStorage.getItem("payPeriod");
             }
         }
+        
+        function initiateAccounts() {
+            applicationScope.availableAccounts = ACCOUNTS_AVAILABLE;
+            
+            if (sessionStorage.getItem("account") === null) {
+                applicationScope.account = applicationScope.availableAccounts[0];
+            } else {
+                applicationScope.account = sessionStorage.getItem("account");
+            }
+            
+            if (applicationScope.availableAccounts.indexOf(applicationScope.account) < 0) {
+                applicationScope.account = applicationScope.availableAccounts[0];
+            }
+        }
 
         applicationScope.calculateCurrentPayPeriod = function (currentDate) {
             var payPeriod = "2013-08";
@@ -90,13 +104,8 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             return payPeriod;
         };
         
-        applicationScope.availableAccounts = [
-            "FirstBank",
-            "SecondBank"
-        ]
+        initiateAccounts();
         
-        applicationScope.account = "FirstBank";
-
         applicationScope.availablePayPeriods = [
             "2013-08",
             "2013-09",
@@ -147,6 +156,7 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
                 initiatePayPeriod();
             }
 
+            sessionStorage.account = applicationScope.account;
             sessionStorage.payPeriod = applicationScope.payPeriod;
 
             calculateDateRange();
@@ -341,7 +351,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "removeTransaction": function (account, payPeriod, id) {
                 var deferred = $q.defer();
 
-                $http.delete(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id).success(function (response) {
+                $http.delete(DATA_FOLDER + account.replace(" ", "-") + '/checking/' + payPeriod + "/" + id).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -352,7 +362,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "updateTransaction": function (account, payPeriod, id, field, data) {
                 var deferred = $q.defer();
 
-                $http.put(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id, {
+                $http.put(DATA_FOLDER + account.replace(" ", "-") + '/checking/' + payPeriod + "/" + id, {
                     field: field,
                     data: data
                 }).success(function (response) {
@@ -366,7 +376,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "newTransaction": function (account, payPeriod, id, data) {
                 var deferred = $q.defer();
 
-                $http.post(DATA_FOLDER + account + '/checking/' + payPeriod + "/" + id, data).success(function (response) {
+                $http.post(DATA_FOLDER + account.replace(" ", "-") + '/checking/' + payPeriod + "/" + id, data).success(function (response) {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -377,7 +387,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "updateBudget": function (account, payPeriod, category, amount, id) {
                 var deferred = $q.defer();
 
-                $http.put(DATA_FOLDER + account + '/budget/' + payPeriod + "/" + id, {
+                $http.put(DATA_FOLDER + account.replace(" ", "-") + '/budget/' + payPeriod + "/" + id, {
                     category: category,
                     amount: amount
                 }).success(function (response) {
@@ -402,7 +412,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readCheckbook": function (account, payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + account + '/checking/' + payPeriod).success(function (data) {
+                $http.get(DATA_FOLDER + account.replace(" ", "-") + '/checking/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -413,7 +423,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "readBudget": function (account, payPeriod) {
                 var deferred = $q.defer();
 
-                $http.get(DATA_FOLDER + account + '/budget/' + payPeriod).success(function (data) {
+                $http.get(DATA_FOLDER + account.replace(" ", "-") + '/budget/' + payPeriod).success(function (data) {
                     deferred.resolve(data);
                 }).error(function (ex) {
                     deferred.reject('Server error!');
@@ -424,7 +434,7 @@ pkfinance.factory('dataAccessor', ['$q', '$http', 'settings', 'DATA_FOLDER',
             "writeBudget": function (account, payPeriod, data) {
                 var deferred = $q.defer();
 
-                $http.post(DATA_FOLDER + account + '/budget/' + payPeriod, data).success(function () {
+                $http.post(DATA_FOLDER + account.replace(" ", "-") + '/budget/' + payPeriod, data).success(function () {
                     deferred.resolve();
                 }).error(function (ex) {
                     deferred.reject('Server error!');

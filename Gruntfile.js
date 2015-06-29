@@ -131,12 +131,14 @@ module.exports = function (grunt) {
             },
             staging: {
                 constants: {
+                    'ACCOUNTS_AVAILABLE': ['First Bank'],
                     'DATA_FOLDER': 'http://162.243.83.90/service/',
                     'DIST_FOLDER': ''
                 }
             },
             production: {
                 constants: {
+                    'ACCOUNTS_AVAILABLE': ['PNC', 'State Farm'],
                     'DATA_FOLDER': '/service/',
                     'DIST_FOLDER': ''
                 }
@@ -171,7 +173,7 @@ module.exports = function (grunt) {
                 options: {
                     src: "./dist/./",
                     dest: "/var/www/html/.",
-                    host: "pkimbrel@107.170.113.76",
+                    host: "pkimbrel@104.131.34.91",
                     syncDestIgnoreExcl: true
                 }
             }

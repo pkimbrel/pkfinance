@@ -17,7 +17,7 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
                 return;
             }
             
-            dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "startingBalance", newBalance * 100).then(function() {
+            dataAccessor.updateTransaction(applicationScope.account, applicationScope.payPeriod, "root", "startingBalance", newBalance * 100).then(function() {
                 applicationScope.updateApplicationScope();
             });
         };
@@ -25,7 +25,8 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
         $scope.refreshStartingBalance = function() {
             var payPeriodIndex = applicationScope.availablePayPeriods.indexOf(applicationScope.payPeriod);
             var previousPayPeriod = applicationScope.availablePayPeriods[payPeriodIndex - 1];
-            dataAccessor.readCheckbook(previousPayPeriod).then(function (data) {
+            
+            dataAccessor.readCheckbook(applicationScope.account, previousPayPeriod).then(function (data) {
                 var balance = data.startingBalance;
                 var unreconciledAmount = 0;
                 angular.forEach(data.transactions, function (transaction) {
@@ -35,9 +36,10 @@ pkfinance.controller('Sidebar', ['$scope', 'applicationScope', 'dataAccessor',
                         unreconciledAmount -= amount;
                     }
                 });
+
                 if (balance > 0) {
-                    dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "unreconciledAmount", unreconciledAmount).then(function() {
-                        dataAccessor.updateTransaction(applicationScope.payPeriod, "root", "startingBalance", balance).then(function() {
+                    dataAccessor.updateTransaction(applicationScope.account, applicationScope.payPeriod, "root", "unreconciledAmount", unreconciledAmount).then(function() {
+                        dataAccessor.updateTransaction(applicationScope.account, applicationScope.payPeriod, "root", "startingBalance", balance).then(function() {
                             applicationScope.updateApplicationScope();
                         });
                     });
