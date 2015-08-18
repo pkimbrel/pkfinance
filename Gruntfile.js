@@ -138,7 +138,7 @@ module.exports = function (grunt) {
             },
             production: {
                 constants: {
-                    'ACCOUNTS_AVAILABLE': ['PNC', 'State Farm'],
+                    'ACCOUNTS_AVAILABLE': ['State Farm', 'PNC'],
                     'DATA_FOLDER': '/service/',
                     'DIST_FOLDER': ''
                 }
