@@ -12,11 +12,19 @@
                     <p class="amount" editable-text="budgetItem.amount" onbeforesave="validateAndUpdate('income', budgetItem.name, $data)">{{budgetItem.amount | currency}}</p>
                 </td>
             </tr>
+            <tr>
+                <td>Buffer Zone</td>
+                <td class="amount" ng-class="{good: trueRemaining > 0, bad: trueRemaining < 0, zero: trueRemaining == 0}">{{trueRemaining | currency}}</td>
+            </tr>
         </tbody>
     </table>
     <h2 ng-show="app.budget">Spending</h2>
     <table class="table table-hover table-bordered">
         <tbody>
+            <tr>
+                <th colspan="3">Budget Remaining</th>
+                <th class="amount" ng-class="{good: remaining > 0, bad: remaining < 0, zero: remaining == 0}">{{remaining | currency}}</th>
+            </tr>
             <tr ng-repeat-start="budgetCategory in spending">
                 <th colspan="2">
                     <span class="glyphicon glyphicon-{{budgetCategory.icon}}"></span>

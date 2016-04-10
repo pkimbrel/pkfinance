@@ -544,7 +544,7 @@ pkfinance.factory('validators', ['$q', '$http',
             },
             "validateCurrency": function (data) {
                 var deferred = $q.defer();
-                var regex = /^\d+(?:\.\d{0,2}){0,1}$/;
+                var regex = /^\-{0,1}\d+(?:\.\d{0,2}){0,1}$/;
                 if (regex.test(data)) {
                     deferred.resolve();
                 } else {

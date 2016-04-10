@@ -33,29 +33,29 @@ class Service {
             Service::checkAuthorization($uriData);
             Service::invokeMethod($uriData, strtolower($_SERVER['REQUEST_METHOD']));
         } catch (BadRequest $e) {
-            echo "<strong>400</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 400', true, 400);
+            echo "<strong>400</strong> - ".$e->getMessage();
         } catch (NotAuthenticated $e) {
-            echo "<strong>401</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 401', true, 401);
+            echo "<strong>401</strong> - ".$e->getMessage();
         } catch (NotAuthorized $e) {
-            echo "<strong>403</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 403', true, 403);
+            echo "<strong>403</strong> - ".$e->getMessage();
         } catch (NotFound $e) {
-            echo "<strong>404</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 404', true, 404);
+            echo "<strong>404</strong> - ".$e->getMessage();
         } catch (NotImplemented $e) {
-            echo "<strong>405</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 405', true, 405);
+            echo "<strong>405</strong> - ".$e->getMessage();
         } catch (DuplicateEntity $e) {
-            echo "<strong>409</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 409', true, 409);
+            echo "<strong>409</strong> - ".$e->getMessage();
         } catch (ErrorException $e) {
-            echo "<strong>500</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 500', true, 500);
+            echo "<strong>500</strong> - ".$e->getMessage();
         } catch (Exception $e) {
-            echo "<strong>500</strong> - ".$e->getMessage();
             header('X-PHP-Response-Code: 500', true, 500);
+            echo "<strong>500</strong> - ".$e->getMessage();
         }
     }
 
@@ -69,7 +69,8 @@ class Service {
             }
             
             if (($token == null) || ($token != "abc123")) {
-                throw new NotAuthorized("Unauthorized");
+                print_r($headers);
+                throw new NotAuthorized("Unauthorized: ".$headers);
             }
         }
     }

@@ -96,6 +96,8 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
             if (applicationScope.categories === undefined || applicationScope.budget === undefined) {
                 return;
             }
+            
+            var remaining = 0;
 
             angular.forEach(applicationScope.categories, function (category) {
                 if (category.text != "Income") {
@@ -123,13 +125,14 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                             }
                         });
                         total += amount;
+                        remaining += left;
                         children.push({
                             "name": child,
                             "amount": (amount / 100).toFixed(2),
                             "left": (left / 100).toFixed(2)
                         });
                     });
-
+                    
                     $scope.spending.push({
                         "name": category.text,
                         "percentage": total / applicationScope.totalIncome(),
@@ -138,6 +141,9 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                         "amount": (total / 100).toFixed(2)
                     });
                 }
+                
+                $scope.remaining = (remaining/100).toFixed(2);
+                $scope.trueRemaining = ((applicationScope.endingBalance(false) - remaining - 50000)/100).toFixed(2);
             });
         }
     }
