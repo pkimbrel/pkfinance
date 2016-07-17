@@ -1,1 +1,103 @@
-{"Paycheck":{"category":"1st Paycheck","type":"Credit"},"Bank Loan":{"category":"2nd Mortgage","type":"Debit"},"Amazon":{"category":"Suppliments","type":"Debit"},"Pharmacy":{"category":"Doctor Bills","type":"Debit","positions":[{"latitude":40.294466,"longitude":-90.057697},{"latitude":"40.299848","longitude":"-90.063931"}]},"Doctor Awesome":{"category":"Doctor Bills","type":"Debit","positions":[{"latitude":40.305253,"longitude":-90.055172}]},"Envelopes":{"category":"Split","type":"Debit"},"Awesome Restaurant":{"category":"Eating Out","type":"Debit","positions":[{"latitude":40.29708,"longitude":-90.05303}]},"Awesome Store":{"category":"Books and Supplies","type":"Debit","positions":[{"latitude":40.295697,"longitude":-90.042961}]},"Fart 'n Float":{"category":"Gas & Fuel","type":"Debit","positions":[{"latitude":40.294339,"longitude":-90.065433},{"latitude":40.294417,"longitude":-90.056861}]},"Evil Corp":{"category":"Credit Card #1","type":"Debit"},"Mindbenders Corp":{"category":"TV Service","type":"Debit"},"Awesome Grocer":{"category":"Groceries","type":"Debit","positions":[{"latitude":"40.423008","longitude":"-89.783879"},{"latitude":"40.29571","longitude":"-90.044702"}]},"Gas Company":{"category":"Natural Gas","type":"Debit"},"Stuff and stuff":{"positions":[{"latitude":"40.294478","longitude":"-90.057668"}],"category":"Life Insurance","type":"Debit"},"Charity Stuff":{"positions":[{"latitude":"40.294478","longitude":"-90.057668"}],"category":"Charity","type":"Debit"}}
+{
+    "Paycheck": {
+        "category": "1st Paycheck",
+        "type": "Credit"
+    },
+    "Bank Loan": {
+        "category": "2nd Mortgage",
+        "type": "Debit"
+    },
+    "Amazon": {
+        "category": "Suppliments",
+        "type": "Debit"
+    },
+    "Pharmacy": {
+        "category": "Doctor Bills",
+        "type": "Debit",
+        "positions": [{
+            "latitude": 40.294466,
+            "longitude": -90.057697
+        }, {
+            "latitude": "40.299848",
+            "longitude": "-90.063931"
+        }]
+    },
+    "Doctor Awesome": {
+        "category": "Doctor Bills",
+        "type": "Debit",
+        "positions": [{
+            "latitude": 40.305253,
+            "longitude": -90.055172
+        }]
+    },
+    "Envelopes": {
+        "category": "Split",
+        "type": "Debit"
+    },
+    "Awesome Restaurant": {
+        "category": "Eating Out",
+        "type": "Debit",
+        "positions": [{
+            "latitude": 40.29708,
+            "longitude": -90.05303
+        }]
+    },
+    "Awesome Store": {
+        "category": "Books and Supplies",
+        "type": "Debit",
+        "positions": [{
+            "latitude": 40.295697,
+            "longitude": -90.042961
+        }]
+    },
+    "Fart 'n Float": {
+        "category": "Gas & Fuel",
+        "type": "Debit",
+        "positions": [{
+            "latitude": 40.294339,
+            "longitude": -90.065433
+        }, {
+            "latitude": 40.294417,
+            "longitude": -90.056861
+        }]
+    },
+    "Evil Corp": {
+        "category": "Credit Card #1",
+        "type": "Debit"
+    },
+    "Mindbenders Corp": {
+        "category": "TV Service",
+        "type": "Debit"
+    },
+    "Awesome Grocer": {
+        "category": "Groceries",
+        "type": "Debit",
+        "positions": [{
+            "latitude": "40.423008",
+            "longitude": "-89.783879"
+        }, {
+            "latitude": "40.29571",
+            "longitude": "-90.044702"
+        }]
+    },
+    "Gas Company": {
+        "category": "Natural Gas",
+        "type": "Debit"
+    },
+    "Stuff and stuff": {
+        "positions": [{
+            "latitude": "40.294478",
+            "longitude": "-90.057668"
+        }],
+        "category": "Life Insurance",
+        "type": "Debit"
+    },
+    "Charity Stuff": {
+        "positions": [{
+            "latitude": "40.294478",
+            "longitude": "-90.057668"
+        }],
+        "category": "Charity",
+        "type": "Debit"
+    }
+}
