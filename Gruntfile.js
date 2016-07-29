@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+    var server = grunt.option('server') || 'finance.paulkimbrel.com';
 
     // Project configuration.
     grunt.initConfig({
@@ -119,6 +120,12 @@ module.exports = function (grunt) {
                 cwd: 'src/php/',
                 src: '.htaccess',
                 dest: 'dist/service'
+            },
+            prod: {
+                expand: true,
+                cwd: '..',
+                src: 'password.dat',
+                dest: 'dist/service'
             }
         },
         // Build Application Configuration
@@ -173,13 +180,13 @@ module.exports = function (grunt) {
                 options: {
                     src: "./dist/./",
                     dest: "/var/www/html/.",
-                    host: "pkimbrel@104.131.34.91",
+                    host: "pkimbrel@" + server,
                     syncDestIgnoreExcl: true
                 }
             }
         }
     });
-
+    
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -190,8 +197,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-scp');
 
     // Default task(s).
-    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copy', 'ngconstant:staging']);
+    grunt.registerTask('copyBase', ['copy:fonts', 'copy:ico', 'copy:img', 'copy:html_main', 'copy:html_modules', 'copy:html_pages', 'copy:html_views', 'copy:service', 'copy:htaccess']);
+    grunt.registerTask('copyProd', ['copy:prod']);
+    grunt.registerTask('default', ['clean', 'concat', 'uglify', 'cssmin', 'copyBase', 'ngconstant:staging']);
     grunt.registerTask('stage', ['default', 'ngconstant:staging', 'rsync:staging']);
-    grunt.registerTask('production', ['default', 'ngconstant:production', 'rsync:production']);
+    grunt.registerTask('production', ['default', 'copyProd', 'ngconstant:production', 'rsync:production']);
 
 };

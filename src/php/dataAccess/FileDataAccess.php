@@ -4,7 +4,7 @@ class FileDataAccess extends DataAccess {
         //"development" => "../../../pkfinance-livedata/data/",
         "development" => "../../test/data/",
         "staging" => "../../test/data/",
-        "production" => "../../prod/data/"
+        "production" => "/mnt/volume-nyc1-01/pkfinance/prod/pkimbrel/"
     );
 
     private $basePath = "";

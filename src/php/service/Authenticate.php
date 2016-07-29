@@ -4,8 +4,9 @@ class Authenticate {
     }
 
     public function post() {
+        $password = file_get_contents("./password.dat");
         $token = @$_REQUEST["token"];
-        if ("abc123" == $token) {
+        if ($password == $token) {
             header('Content-type: text/plain');
             setcookie("XSRF-TOKEN", $token, time() + 31536000, "/");
             echo "OK";

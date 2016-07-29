@@ -14,7 +14,7 @@ function exception_error_handler($errno, $errstr, $errfile, $errline ) {
 
 Service::main();
 
-class Service {
+class Service {    
     private static $allowedClasses = array(
         "Authenticate",
         "Budget",
@@ -60,17 +60,16 @@ class Service {
     }
 
     private static function checkAuthorization($uriData) {
+        $password = file_get_contents("./password.dat");
         if ("Authenticate" != $uriData['dataSet']) {
             $headers = getallheaders();
-            
             $token = @$headers['X-XSRF-TOKEN'];
             if ($token == null) {
                 $token = @$headers['x-xsrf-token'];
             }
             
-            if (($token == null) || ($token != "abc123")) {
-                print_r($headers);
-                throw new NotAuthorized("Unauthorized: ".$headers);
+            if (($token == null) || ($token != $password)) {
+                throw new NotAuthorized("Unauthorized");
             }
         }
     }
