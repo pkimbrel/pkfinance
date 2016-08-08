@@ -1,5 +1,5 @@
-pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccessor', 'applicationScope',
-    function ($scope, $q, validators, dataAccessor, applicationScope) {
+pkfinance.controller('Transactions', ['$scope', '$q', '$filter', 'validators', 'dataAccessor', 'applicationScope',
+    function ($scope, $q, $filter, validators, dataAccessor, applicationScope) {
         var validationBindings = {
             "date": validators.validateDate,
             "amount": validators.validateCurrency,
@@ -49,6 +49,22 @@ pkfinance.controller('Transactions', ['$scope', '$q', 'validators', 'dataAccesso
             }
             $scope.transactionFilter = searchFilter;
 
+        });
+
+        $scope.$watch("transactionFilter", function (newValue) {
+            if ((newValue !== undefined) && (newValue !== "")) {
+                var filteredArray = $filter('filter')($scope.app.transactions, newValue);
+                var balance = 0;
+                angular.forEach(filteredArray, function (transaction) {
+                    var amount = transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
+                    balance += amount;
+                });
+                $scope.app.filterCount = filteredArray.length;
+                $scope.app.filterAmount = balance;
+            } else {
+                $scope.app.filterCount = 0;
+                $scope.app.filterAmount = 0;
+            }
         });
 
         $scope.order = ["cleared", "-date", "description"];

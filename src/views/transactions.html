@@ -11,7 +11,7 @@
                 <th width="1%"><span class="hidden-xs">Cleared</span></th>
                 <th width="1%"></th>
             </tr>
-            <tr ng-repeat="transaction in app.transactions | filter:transactionFilter | orderBy:order" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
+            <tr ng-repeat="transaction in (filteredTransactions = (app.transactions | filter:transactionFilter | orderBy:order))" class="{{transaction.type}}" ng-class="{uncleared:!transaction.cleared}">
                 <td class="date">
                     <p editable-text="transaction.date" onbeforesave="validateAndUpdate('date', $data, transaction.tranid)">{{transaction.date}}</p>
                 </td>
