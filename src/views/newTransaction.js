@@ -205,7 +205,7 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
             $scope.updateSplits();
         };
 
-        $scope.$watch("newTransaction.amount", function () {
+        $scope.$watch("newTransaction.amount", function (newValue) {
             $scope.updateSplits();
         });
 
@@ -239,10 +239,10 @@ pkfinance.controller('TransactionForm', ['$rootScope', '$scope', '$state', '$q',
         };
 }]);
 
-pkfinance.directive('validateDate', function (validators) {
+pkfinance.directive('validateDate', ['validators', function (validators) {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
+        link: ['$scope', '$element', '$attrs', 'mouseCapture', function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
                 if (/[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}/.test(viewValue) && moment(viewValue).isValid()) {
                     ctrl.$setValidity('validateDate', true);
@@ -252,14 +252,14 @@ pkfinance.directive('validateDate', function (validators) {
                     return undefined;
                 }
             });
-        }
+        }]
     };
-});
+}]);
 
-pkfinance.directive('validateDescription', function (validators) {
+pkfinance.directive('validateDescription', ['validators', function (validators) {
     return {
         require: 'ngModel',
-        link: function (scope, elm, attrs, ctrl) {
+        link: ['$scope', '$element', '$attrs', 'mouseCapture', function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
                 if (viewValue !== "") {
                     ctrl.$setValidity('validateDescription', true);
@@ -269,15 +269,22 @@ pkfinance.directive('validateDescription', function (validators) {
                     return undefined;
                 }
             });
-        }
+        }]
     };
-});
+}]);
 
-pkfinance.directive('validateAmount', function (validators) {
+pkfinance.directive('validateAmount', ['validators', function (validators) {
     return {
         require: 'ngModel',
         link: function (scope, elm, attrs, ctrl) {
             ctrl.$parsers.unshift(function (viewValue) {
+                if (viewValue && viewValue.indexOf("$") != -1) {
+                    viewValue = viewValue.replace(/\$/, "");
+                }
+                if (viewValue && viewValue.indexOf(",") != -1) {
+                    viewValue = viewValue.replace(/,/, "");
+                }
+
                 if (/^\d+(?:\.\d{0,2}){0,1}$/.test(viewValue) && (Number(viewValue))) {
                     ctrl.$setValidity('validateAmount', true);
                     return viewValue;
@@ -288,4 +295,4 @@ pkfinance.directive('validateAmount', function (validators) {
             });
         }
     };
-});
+}]);

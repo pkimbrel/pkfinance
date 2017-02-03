@@ -143,7 +143,7 @@ pkfinance.controller('Budget', ['$scope', '$state', '$q', 'validators', 'dataAcc
                 }
                 
                 $scope.remaining = (remaining/100).toFixed(2);
-                $scope.trueRemaining = ((applicationScope.endingBalance(false) - remaining - 50000)/100).toFixed(2);
+                $scope.trueRemaining = ((applicationScope.endingBalance(false) - remaining - 25000)/100).toFixed(2);
             });
         }
     }

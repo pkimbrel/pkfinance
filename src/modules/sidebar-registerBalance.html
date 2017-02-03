@@ -14,6 +14,14 @@
 </div>
 <div class=" form-group balance " ng-if="app.filterCount">
     <div class="row ">
+        <div class="col-xs-7 description ">Pending Rows:</div>
+        <div class="col-xs-5 bankBalance amount ">{{app.pendingFilterCount}}</div>
+    </div>
+    <div class="row ">
+        <div class="col-xs-7 description ">Pending Amount:</div>
+        <div class="col-xs-5 bankBalance amount ">{{app.pendingFilterAmount/100|currency}}</div>
+    </div>
+    <div class="row ">
         <div class="col-xs-7 description ">Filtered Rows:</div>
         <div class="col-xs-5 bankBalance amount ">{{app.filterCount}}</div>
     </div>

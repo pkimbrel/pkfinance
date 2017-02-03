@@ -51,20 +51,32 @@ pkfinance.controller('Transactions', ['$scope', '$q', '$filter', 'validators', '
 
         });
 
-        $scope.$watch("transactionFilter", function (newValue) {
+        function updateFilteredAmount() {
+            var newValue = $scope.transactionFilter;
             if ((newValue !== undefined) && (newValue !== "")) {
                 var filteredArray = $filter('filter')($scope.app.transactions, newValue);
                 var balance = 0;
+                var pendingBalance = 0;
+                var pendingCount = 0;
                 angular.forEach(filteredArray, function (transaction) {
-                    var amount = transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
-                    balance += amount;
+                    if (!transaction.cleared) {
+                        pendingBalance += transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
+                        pendingCount ++;
+                    }
+                    balance += transaction.amount * ((transaction.type === "Debit") ? -1 : 1);
                 });
                 $scope.app.filterCount = filteredArray.length;
                 $scope.app.filterAmount = balance;
+                $scope.app.pendingFilterCount = pendingCount;
+                $scope.app.pendingFilterAmount = pendingBalance;
             } else {
                 $scope.app.filterCount = 0;
                 $scope.app.filterAmount = 0;
             }
+        }
+
+        $scope.$watch("transactionFilter", function (newValue) {
+            updateFilteredAmount();
         });
 
         $scope.order = ["cleared", "-date", "description"];

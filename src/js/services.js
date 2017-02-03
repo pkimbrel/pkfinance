@@ -151,7 +151,20 @@ pkfinance.factory('applicationScope', ['$q', '$rootScope', '$http', 'dataAccesso
             "2016-10",
             "2016-11",
             "2016-12",
-            "2016-13"
+            "2016-13",
+            "2017-01",
+            "2017-02",
+            "2017-03",
+            "2017-04",
+            "2017-05",
+            "2017-06",
+            "2017-07",
+            "2017-08",
+            "2017-09",
+            "2017-10",
+            "2017-11",
+            "2017-12",
+            "2017-13"
         ];
 
         applicationScope.updateApplicationScope = function () {
